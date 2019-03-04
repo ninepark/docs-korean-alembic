@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../index.rst:3
 msgid "Welcome to Alembic's documentation!"
-msgstr ""
+msgstr "알렘빅 문서"
 
 #: ../index.rst:5
 msgid ""
@@ -27,10 +27,13 @@ msgid ""
 "migration tool for usage with the `SQLAlchemy "
 "<https://www.sqlalchemy.org>`_ Database Toolkit for Python."
 msgstr ""
+"`알렘빅<https://alembic.sqlalchemy.org>`_\은 "
+"`SQLAlchemy <https://www.sqlalchemy.org>`_ "
+"데이터베이스 도구와 같이 사용할 수 있는 데이터베이스 마이그레이션 도구이다. "
 
 #: ../index.rst:24
 msgid "Indices and tables"
-msgstr ""
+msgstr "색인과 표"
 
 #: ../index.rst:26
 msgid ":ref:`genindex`"
