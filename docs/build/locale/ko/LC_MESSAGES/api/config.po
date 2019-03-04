@@ -1,0 +1,332 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010-2019, Mike Bayer
+# This file is distributed under the same license as the Alembic package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Alembic 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-04 13:30+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../api/config.rst:5
+msgid "Configuration"
+msgstr ""
+
+#: ../api/config.rst:7
+msgid ""
+"this section discusses the **internal API of Alembic** as regards "
+"internal configuration constructs. This section is only useful for "
+"developers who wish to extend the capabilities of Alembic.  For "
+"documentation on configuration of an Alembic environment, please see "
+":doc:`/tutorial`."
+msgstr ""
+
+#: ../api/config.rst:13
+msgid ""
+"The :class:`.Config` object represents the configuration passed to the "
+"Alembic environment.  From an API usage perspective, it is needed for the"
+" following use cases:"
+msgstr ""
+
+#: ../api/config.rst:17
+msgid ""
+"to create a :class:`.ScriptDirectory`, which allows you to work with the "
+"actual script files in a migration environment"
+msgstr ""
+
+#: ../api/config.rst:19
+msgid ""
+"to create an :class:`.EnvironmentContext`, which allows you to actually "
+"run the ``env.py`` module within the migration environment"
+msgstr ""
+
+#: ../api/config.rst:21
+msgid ""
+"to programatically run any of the commands in the "
+":ref:`alembic.command.toplevel` module."
+msgstr ""
+
+#: ../api/config.rst:24
+msgid "The :class:`.Config` is *not* needed for these cases:"
+msgstr ""
+
+#: ../api/config.rst:26
+msgid ""
+"to instantiate a :class:`.MigrationContext` directly - this object only "
+"needs a SQLAlchemy connection or dialect name."
+msgstr ""
+
+#: ../api/config.rst:28
+msgid ""
+"to instantiate a :class:`.Operations` object - this object only needs a "
+":class:`.MigrationContext`."
+msgstr ""
+
+#: alembic.config.Config:1 of
+msgid "Represent an Alembic configuration."
+msgstr ""
+
+#: alembic.config.Config:3 of
+msgid ""
+"Within an ``env.py`` script, this is available via the "
+":attr:`.EnvironmentContext.config` attribute, which in turn is available "
+"at ``alembic.context``::"
+msgstr ""
+
+#: alembic.config.Config:11 of
+msgid ""
+"When invoking Alembic programatically, a new :class:`.Config` can be "
+"created by passing the name of an .ini file to the constructor::"
+msgstr ""
+
+#: alembic.config.Config:18 of
+msgid ""
+"With a :class:`.Config` object, you can then run Alembic commands "
+"programmatically using the directives in :mod:`alembic.command`."
+msgstr ""
+
+#: alembic.config.Config:22 of
+msgid ""
+"The :class:`.Config` object can also be constructed without a filename."
+"   Values can be set programmatically, and new sections will be created "
+"as needed::"
+msgstr ""
+
+#: alembic.config.Config:34 of
+msgid ""
+"When using programmatic configuration, make sure the ``env.py`` file in "
+"use is compatible with the target configuration; including that the call "
+"to Python ``logging.fileConfig()`` is omitted if the programmatic "
+"configuration doesn't actually include logging directives."
+msgstr ""
+
+#: alembic.config.Config:40 of
+msgid ""
+"For passing non-string values to environments, such as connections and "
+"engines, use the :attr:`.Config.attributes` dictionary::"
+msgstr ""
+
+#: alembic.config.Config alembic.config.Config.set_main_option
+#: alembic.config.Config.set_section_option of
+msgid "Parameters"
+msgstr ""
+
+#: alembic.config.Config:47 of
+msgid "name of the .ini file to open."
+msgstr ""
+
+#: alembic.config.Config:48 of
+msgid "name of the main Alembic section within the .ini file"
+msgstr ""
+
+#: alembic.config.Config:50 of
+msgid ""
+"optional file-like input buffer which will be passed to the "
+":class:`.MigrationContext` - used to redirect the output of \"offline "
+"generation\" when using Alembic programmatically."
+msgstr ""
+
+#: alembic.config.Config:53 of
+msgid ""
+"buffer where the \"print\" output of commands will be sent. Defaults to "
+"``sys.stdout``.  .. versionadded:: 0.4"
+msgstr ""
+
+#: alembic.config.Config:53 of
+msgid ""
+"buffer where the \"print\" output of commands will be sent. Defaults to "
+"``sys.stdout``."
+msgstr ""
+
+#: alembic.config.Config:58 of
+msgid ""
+"A dictionary of keys and values that will be used for substitution in the"
+" alembic config file.  The dictionary as given is **copied** to a new "
+"one, stored locally as the attribute ``.config_args``. When the "
+":attr:`.Config.file_config` attribute is first invoked, the replacement "
+"variable ``here`` will be added to this dictionary before the dictionary "
+"is passed to ``SafeConfigParser()`` to parse the .ini file.  .. "
+"versionadded:: 0.7.0"
+msgstr ""
+
+#: alembic.config.Config:58 of
+msgid ""
+"A dictionary of keys and values that will be used for substitution in the"
+" alembic config file.  The dictionary as given is **copied** to a new "
+"one, stored locally as the attribute ``.config_args``. When the "
+":attr:`.Config.file_config` attribute is first invoked, the replacement "
+"variable ``here`` will be added to this dictionary before the dictionary "
+"is passed to ``SafeConfigParser()`` to parse the .ini file."
+msgstr ""
+
+#: alembic.config.Config:68 of
+msgid ""
+"optional dictionary of arbitrary Python keys/values, which will be "
+"populated into the :attr:`.Config.attributes` dictionary.  .. "
+"versionadded:: 0.7.5  .. seealso::     :ref:`connection_sharing`"
+msgstr ""
+
+#: alembic.config.Config:68 of
+msgid ""
+"optional dictionary of arbitrary Python keys/values, which will be "
+"populated into the :attr:`.Config.attributes` dictionary."
+msgstr ""
+
+#: alembic.config.Config:75 alembic.config.Config.attributes:14 of
+msgid ":ref:`connection_sharing`"
+msgstr ""
+
+#: alembic.config.Config:78 of
+msgid "Construct a new :class:`.Config`"
+msgstr ""
+
+#: alembic.config.Config.attributes:1 of
+msgid "A Python dictionary for storage of additional state."
+msgstr ""
+
+#: alembic.config.Config.attributes:4 of
+msgid ""
+"This is a utility dictionary which can include not just strings but "
+"engines, connections, schema objects, or anything else. Use this to pass "
+"objects into an env.py script, such as passing a "
+":class:`sqlalchemy.engine.base.Connection` when calling commands from "
+":mod:`alembic.command` programmatically."
+msgstr ""
+
+#: alembic.config.Config.attributes:16 of
+msgid ":paramref:`.Config.attributes`"
+msgstr ""
+
+#: alembic.config.Config.cmd_opts:1 of
+msgid "The command-line options passed to the ``alembic`` script."
+msgstr ""
+
+#: alembic.config.Config.cmd_opts:3 of
+msgid ""
+"Within an ``env.py`` script this can be accessed via the "
+":attr:`.EnvironmentContext.config` attribute."
+msgstr ""
+
+#: alembic.config.Config.cmd_opts:10 of
+msgid ":meth:`.EnvironmentContext.get_x_argument`"
+msgstr ""
+
+#: alembic.config.Config.config_file_name:1 of
+msgid "Filesystem path to the .ini file in use."
+msgstr ""
+
+#: alembic.config.Config.config_ini_section:1 of
+msgid ""
+"Name of the config file section to read basic configuration from.  "
+"Defaults to ``alembic``, that is the ``[alembic]`` section of the .ini "
+"file.  This value is modified using the ``-n/--name`` option to the "
+"Alembic runnier."
+msgstr ""
+
+#: alembic.config.Config.file_config:1 of
+msgid "Return the underlying ``ConfigParser`` object."
+msgstr ""
+
+#: alembic.config.Config.file_config:3 of
+msgid ""
+"Direct access to the .ini file is available here, though the "
+":meth:`.Config.get_section` and :meth:`.Config.get_main_option` methods "
+"provide a possibly simpler interface."
+msgstr ""
+
+#: alembic.config.Config.get_main_option:1 of
+msgid "Return an option from the 'main' section of the .ini file."
+msgstr ""
+
+#: alembic.config.Config.get_main_option:3 of
+msgid ""
+"This defaults to being a key from the ``[alembic]`` section, unless the "
+"``-n/--name`` flag were used to indicate a different section."
+msgstr ""
+
+#: alembic.config.Config.get_section:1 of
+msgid ""
+"Return all the configuration options from a given .ini file section as a "
+"dictionary."
+msgstr ""
+
+#: alembic.config.Config.get_section_option:1 of
+msgid "Return an option from the given section of the .ini file."
+msgstr ""
+
+#: alembic.config.Config.get_template_directory:1 of
+msgid "Return the directory where Alembic setup templates are found."
+msgstr ""
+
+#: alembic.config.Config.get_template_directory:3 of
+msgid ""
+"This method is used by the alembic ``init`` and ``list_templates`` "
+"commands."
+msgstr ""
+
+#: alembic.config.Config.print_stdout:1 of
+msgid "Render a message to standard out."
+msgstr ""
+
+#: alembic.config.Config.print_stdout:3 of
+msgid ""
+"When :meth:`.Config.print_stdout` is called with additional args those "
+"arguments will formatted against the provided text, otherwise we simply "
+"output the provided text verbatim."
+msgstr ""
+
+#: alembic.config.Config.print_stdout:7 of
+msgid "e.g.::"
+msgstr ""
+
+#: alembic.config.Config.set_main_option:1 of
+msgid "Set an option programmatically within the 'main' section."
+msgstr ""
+
+#: alembic.config.Config.set_main_option:3 of
+msgid "This overrides whatever was in the .ini file."
+msgstr ""
+
+#: alembic.config.Config.set_main_option:5
+#: alembic.config.Config.set_section_option:9 of
+msgid "name of the value"
+msgstr ""
+
+#: alembic.config.Config.set_main_option:7
+#: alembic.config.Config.set_section_option:11 of
+#, python-format
+msgid ""
+"the value.  Note that this value is passed to ``ConfigParser.set``, which"
+" supports variable interpolation using pyformat (e.g. "
+"``%(some_value)s``).   A raw percent sign not part of an interpolation "
+"symbol must therefore be escaped, e.g. ``%%``. The given value may refer "
+"to another value already in the file using the interpolation format."
+msgstr ""
+
+#: alembic.config.Config.set_section_option:1 of
+msgid "Set an option programmatically within the given section."
+msgstr ""
+
+#: alembic.config.Config.set_section_option:3 of
+msgid ""
+"The section is created if it doesn't exist already. The value here will "
+"override whatever was in the .ini file."
+msgstr ""
+
+#: alembic.config.Config.set_section_option:7 of
+msgid "name of the section"
+msgstr ""
+
+#: alembic.config.main:1 of
+msgid "The console runner function for Alembic."
+msgstr ""
+

@@ -1,0 +1,744 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010-2019, Mike Bayer
+# This file is distributed under the same license as the Alembic package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Alembic 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-04 13:30+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../api/autogenerate.rst:5
+msgid "Autogeneration"
+msgstr ""
+
+#: ../api/autogenerate.rst:7
+msgid ""
+"this section discusses the **internal API of Alembic** as regards the "
+"autogeneration feature of the ``alembic revision`` command. This section "
+"is only useful for developers who wish to extend the capabilities of "
+"Alembic.  For general documentation on the autogenerate feature, please "
+"see :doc:`/autogenerate`."
+msgstr ""
+
+#: ../api/autogenerate.rst:14
+msgid ""
+"The autogeneration system has a wide degree of public API, including the "
+"following areas:"
+msgstr ""
+
+#: ../api/autogenerate.rst:17
+msgid ""
+"The ability to do a \"diff\" of a :class:`~sqlalchemy.schema.MetaData` "
+"object against a database, and receive a data structure back.  This "
+"structure is available either as a rudimentary list of changes, or as a "
+":class:`.MigrateOperation` structure."
+msgstr ""
+
+#: ../api/autogenerate.rst:22
+msgid ""
+"The ability to alter how the ``alembic revision`` command generates "
+"revision scripts, including support for multiple revision scripts "
+"generated in one pass."
+msgstr ""
+
+#: ../api/autogenerate.rst:26
+msgid ""
+"The ability to add new operation directives to autogeneration, including "
+"custom schema/model comparison functions and revision script rendering."
+msgstr ""
+
+#: ../api/autogenerate.rst:30
+msgid "Getting Diffs"
+msgstr ""
+
+#: ../api/autogenerate.rst:32
+msgid ""
+"The simplest API autogenerate provides is the \"schema comparison\" API; "
+"these are simple functions that will run all registered \"comparison\" "
+"functions between a :class:`~sqlalchemy.schema.MetaData` object and a "
+"database backend to produce a structure showing how they differ.   The "
+"two functions provided are :func:`.compare_metadata`, which is more of "
+"the \"legacy\" function that produces diff tuples, and "
+":func:`.produce_migrations`, which produces a structure consisting of "
+"operation directives detailed in :ref:`alembic.operations.toplevel`."
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata:1 of
+msgid ""
+"Compare a database schema to that given in a "
+":class:`~sqlalchemy.schema.MetaData` instance."
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata:4 of
+msgid ""
+"The database connection is presented in the context of a "
+":class:`.MigrationContext` object, which provides database connectivity "
+"as well as optional comparison functions to use for datatypes and server "
+"defaults - see the \"autogenerate\" arguments at "
+":meth:`.EnvironmentContext.configure` for details on these."
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata:12 of
+msgid ""
+"The return format is a list of \"diff\" directives, each representing "
+"individual differences::"
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata:52 of
+msgid "Output::"
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata
+#: alembic.autogenerate.rewriter.Rewriter.chain of
+msgid "Parameters"
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata:78 of
+msgid "a :class:`.MigrationContext` instance."
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata:80 of
+msgid "a :class:`~sqlalchemy.schema.MetaData` instance."
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata:85 of
+msgid ""
+":func:`.produce_migrations` - produces a :class:`.MigrationScript` "
+"structure based on metadata comparison."
+msgstr ""
+
+#: alembic.autogenerate.produce_migrations:1 of
+msgid "Produce a :class:`.MigrationScript` structure based on schema comparison."
+msgstr ""
+
+#: alembic.autogenerate.produce_migrations:4 of
+msgid ""
+"This function does essentially what :func:`.compare_metadata` does, but "
+"then runs the resulting list of diffs to produce the full "
+":class:`.MigrationScript` object.   For an example of what this looks "
+"like, see the example in :ref:`customizing_revision`."
+msgstr ""
+
+#: alembic.autogenerate.produce_migrations:13 of
+msgid ""
+":func:`.compare_metadata` - returns more fundamental \"diff\" data from "
+"comparing a schema."
+msgstr ""
+
+#: ../api/autogenerate.rst:49
+msgid "Customizing Revision Generation"
+msgstr ""
+
+#: ../api/autogenerate.rst:51
+msgid "- the ``alembic revision`` system is now customizable."
+msgstr ""
+
+#: ../api/autogenerate.rst:53
+msgid ""
+"The ``alembic revision`` command, also available programmatically via "
+":func:`.command.revision`, essentially produces a single migration script"
+" after being run.  Whether or not the ``--autogenerate`` option was "
+"specified basically determines if this script is a blank revision script "
+"with empty ``upgrade()`` and ``downgrade()`` functions, or was produced "
+"with alembic operation directives as the result of autogenerate."
+msgstr ""
+
+#: ../api/autogenerate.rst:60
+msgid ""
+"In either case, the system creates a full plan of what is to be done in "
+"the form of a :class:`.MigrateOperation` structure, which is then used to"
+" produce the script."
+msgstr ""
+
+#: ../api/autogenerate.rst:64
+msgid ""
+"For example, suppose we ran ``alembic revision --autogenerate``, and the "
+"end result was that it produced a new revision ``'eced083f5df'`` with the"
+" following contents::"
+msgstr ""
+
+#: ../api/autogenerate.rst:97
+msgid ""
+"The above script is generated by a :class:`.MigrateOperation` structure "
+"that looks like this::"
+msgstr ""
+
+#: ../api/autogenerate.rst:144
+msgid ""
+"When we deal with a :class:`.MigrationScript` structure, we can render "
+"the upgrade/downgrade sections into strings for debugging purposes using "
+"the :func:`.render_python_code` helper function::"
+msgstr ""
+
+#: ../api/autogenerate.rst:151
+msgid "Renders::"
+msgstr ""
+
+#: ../api/autogenerate.rst:163
+msgid ""
+"Given that structures like the above are used to generate new revision "
+"files, and that we'd like to be able to alter these as they are created, "
+"we then need a system to access this structure when the "
+":func:`.command.revision` command is used.  The "
+":paramref:`.EnvironmentContext.configure.process_revision_directives` "
+"parameter gives us a way to alter this.   This is a function that is "
+"passed the above structure as generated by Alembic, giving us a chance to"
+" alter it. For example, if we wanted to put all the \"upgrade\" "
+"operations into a certain branch, and we wanted our script to not have "
+"any \"downgrade\" operations at all, we could build an extension as "
+"follows, illustrated within an ``env.py`` script::"
+msgstr ""
+
+#: ../api/autogenerate.rst:200
+msgid ""
+"Above, the ``directives`` argument is a Python list.  We may alter the "
+"given structure within this list in-place, or replace it with a new "
+"structure consisting of zero or more :class:`.MigrationScript` "
+"directives. The :func:`.command.revision` command will then produce "
+"scripts corresponding to whatever is in this list."
+msgstr ""
+
+#: alembic.autogenerate.render_python_code:1 of
+msgid ""
+"Render Python code given an :class:`.UpgradeOps` or "
+":class:`.DowngradeOps` object."
+msgstr ""
+
+#: alembic.autogenerate.render_python_code:4 of
+msgid ""
+"This is a convenience function that can be used to test the autogenerate "
+"output of a user-defined :class:`.MigrationScript` structure."
+msgstr ""
+
+#: ../api/autogenerate.rst:211
+msgid "Fine-Grained Autogenerate Generation with Rewriters"
+msgstr ""
+
+#: ../api/autogenerate.rst:213
+msgid ""
+"The preceding example illustrated how we can make a simple change to the "
+"structure of the operation directives to produce new autogenerate output."
+" For the case where we want to affect very specific parts of the "
+"autogenerate stream, we can make a function for "
+":paramref:`.EnvironmentContext.configure.process_revision_directives` "
+"which traverses through the whole :class:`.MigrationScript` structure, "
+"locates the elements we care about and modifies them in-place as needed."
+"  However, to reduce the boilerplate associated with this task, we can "
+"use the :class:`.Rewriter` object to make this easier.  "
+":class:`.Rewriter` gives us an object that we can pass directly to "
+":paramref:`.EnvironmentContext.configure.process_revision_directives` "
+"which we can also attach handler functions onto, keyed to specific types "
+"of constructs."
+msgstr ""
+
+#: ../api/autogenerate.rst:227
+msgid ""
+"Below is an example where we rewrite :class:`.ops.AddColumnOp` "
+"directives; based on whether or not the new column is \"nullable\", we "
+"either return the existing directive, or we return the existing directive"
+" with the nullable flag changed, inside of a list with a second directive"
+" to alter the nullable flag in a second step::"
+msgstr ""
+
+#: ../api/autogenerate.rst:271
+msgid ""
+"Above, in a full :class:`.ops.MigrationScript` structure, the "
+":class:`.AddColumn` directives would be present within the paths "
+"``MigrationScript->UpgradeOps->ModifyTableOps`` and "
+"``MigrationScript->DowngradeOps->ModifyTableOps``.   The "
+":class:`.Rewriter` handles traversing into these structures as well as "
+"rewriting them as needed so that we only need to code for the specific "
+"object we care about."
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter:1 of
+msgid "A helper object that allows easy 'rewriting' of ops streams."
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter:3 of
+msgid ""
+"The :class:`.Rewriter` object is intended to be passed along to the "
+":paramref:`.EnvironmentContext.configure.process_revision_directives` "
+"parameter in an ``env.py`` script.    Once constructed, any number of "
+"\"rewrites\" functions can be associated with it, which will be given the"
+" opportunity to modify the structure without having to have explicit "
+"knowledge of the overall structure."
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter:11 of
+msgid ""
+"The function is passed the :class:`.MigrationContext` object and "
+"``revision`` tuple that are passed to the  :paramref:`.Environment "
+"Context.configure.process_revision_directives` function normally, and the"
+" third argument is an individual directive of the type noted in the "
+"decorator.  The function has the choice of  returning a single op "
+"directive, which normally can be the directive that was actually passed, "
+"or a new directive to replace it, or a list of zero or more directives to"
+" replace it."
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter:22 of
+msgid ":ref:`autogen_rewriter` - usage example"
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter.chain:1 of
+msgid "Produce a \"chain\" of this :class:`.Rewriter` to another."
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter.chain:3 of
+msgid "This allows two rewriters to operate serially on a stream, e.g.::"
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter.chain:25 of
+msgid "a :class:`.Rewriter` instance"
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter.chain of
+msgid "Returns"
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter.chain:26 of
+msgid ""
+"a new :class:`.Rewriter` that will run the operations of this writer, "
+"then the \"other\" writer, in succession."
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter.rewrites:1 of
+msgid "Register a function as rewriter for a given type."
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter.rewrites:3 of
+msgid ""
+"The function should receive three arguments, which are the "
+":class:`.MigrationContext`, a ``revision`` tuple, and an op directive of "
+"the type indicated.  E.g.::"
+msgstr ""
+
+#: ../api/autogenerate.rst:286
+msgid "Revision Generation with Multiple Engines / ``run_migrations()`` calls"
+msgstr ""
+
+#: ../api/autogenerate.rst:288
+msgid ""
+"A lesser-used technique which allows autogenerated migrations to run "
+"against multiple database backends at once, generating changes into a "
+"single migration script, is illustrated in the provided ``multidb`` "
+"template.  This template features a special ``env.py`` which iterates "
+"through multiple :class:`~sqlalchemy.engine.Engine` instances and calls "
+"upon :meth:`.MigrationContext.run_migrations` for each::"
+msgstr ""
+
+#: ../api/autogenerate.rst:305
+msgid ""
+"Above, :meth:`.MigrationContext.run_migrations` is run multiple times, "
+"once for each engine.  Within the context of autogeneration, each time "
+"the method is called the "
+":paramref:`~.EnvironmentContext.configure.upgrade_token` and "
+":paramref:`~.EnvironmentContext.configure.downgrade_token` parameters are"
+" changed, so that the collection of template variables gains distinct "
+"entries for each engine, which are then referred to explicitly within "
+"``script.py.mako``."
+msgstr ""
+
+#: ../api/autogenerate.rst:313
+msgid ""
+"In terms of the "
+":paramref:`.EnvironmentContext.configure.process_revision_directives` "
+"hook, the behavior here is that the ``process_revision_directives`` hook "
+"is invoked **multiple times, once for each call to "
+"context.run_migrations()**.  This means that if a "
+"multi-``run_migrations()`` approach is to be combined with the "
+"``process_revision_directives`` hook, care must be taken to use the hook "
+"appropriately."
+msgstr ""
+
+#: ../api/autogenerate.rst:322
+msgid ""
+"The first point to note is that when a **second** call to "
+"``run_migrations()`` occurs, the ``.upgrade_ops`` and ``.downgrade_ops`` "
+"attributes are **converted into Python lists**, and new "
+":class:`.UpgradeOps` and :class:`.DowngradeOps` objects are appended to "
+"these lists.   Each :class:`.UpgradeOps` and :class:`.DowngradeOps` "
+"object maintains an ``.upgrade_token`` and a ``.downgrade_token`` "
+"attribute respectively, which serves to render their contents into the "
+"appropriate template token."
+msgstr ""
+
+#: ../api/autogenerate.rst:331
+msgid ""
+"For example, a multi-engine run that has the engine names ``engine1`` and"
+" ``engine2`` will generate tokens of ``engine1_upgrades``, "
+"``engine1_downgrades``, ``engine2_upgrades`` and ``engine2_downgrades`` "
+"as it runs.  The resulting migration structure would look like this::"
+msgstr ""
+
+#: ../api/autogenerate.rst:373
+msgid ""
+"Given the above, the following guidelines should be considered when the "
+"``env.py`` script calls upon :meth:`.MigrationContext.run_migrations` "
+"mutiple times when running autogenerate:"
+msgstr ""
+
+#: ../api/autogenerate.rst:377
+msgid ""
+"If the ``process_revision_directives`` hook aims to **add elements based "
+"on inspection of the current database / connection**, it should do its "
+"operation **on each iteration**.  This is so that each time the hook "
+"runs, the database is available."
+msgstr ""
+
+#: ../api/autogenerate.rst:382
+msgid ""
+"Alternatively, if the ``process_revision_directives`` hook aims to "
+"**modify the list of migration directives in place**, this should be "
+"called **only on the last iteration**.  This is so that the hook isn't "
+"being given an ever-growing structure each time which it has already "
+"modified previously."
+msgstr ""
+
+#: ../api/autogenerate.rst:388
+msgid ""
+"The :class:`.Rewriter` object, if used, should be called **only on the "
+"last iteration**, because it will always deliver all directives every "
+"time, so again to avoid double/triple/etc. processing of directives it "
+"should be called only when the structure is complete."
+msgstr ""
+
+#: ../api/autogenerate.rst:393
+msgid ""
+"The :attr:`.MigrationScript.upgrade_ops_list` and "
+":attr:`.MigrationScript.downgrade_ops_list` attributes should be "
+"consulted when referring to the collection of :class:`.UpgradeOps` and "
+":class:`.DowngradeOps` objects."
+msgstr ""
+
+#: ../api/autogenerate.rst:398
+msgid ""
+"- multiple calls to :meth:`.MigrationContext.run_migrations` within an "
+"autogenerate operation, such as that proposed within the ``multidb`` "
+"script template, are now accommodated by the new extensible migration "
+"system introduced in 0.8.0."
+msgstr ""
+
+#: ../api/autogenerate.rst:408
+msgid "Autogenerating Custom Operation Directives"
+msgstr ""
+
+#: ../api/autogenerate.rst:410
+msgid ""
+"In the section :ref:`operation_plugins`, we talked about adding new "
+"subclasses of :class:`.MigrateOperation` in order to add new ``op.`` "
+"directives.  In the preceding section :ref:`customizing_revision`, we "
+"also learned that these same :class:`.MigrateOperation` structures are at"
+" the base of how the autogenerate system knows what Python code to "
+"render. Using this knowledge, we can create additional functions that "
+"plug into the autogenerate system so that our new operations can be "
+"generated into migration scripts when ``alembic revision --autogenerate``"
+" is run."
+msgstr ""
+
+#: ../api/autogenerate.rst:419
+msgid ""
+"The following sections will detail an example of this using the the "
+"``CreateSequenceOp`` and ``DropSequenceOp`` directives we created in "
+":ref:`operation_plugins`, which correspond to the SQLAlchemy "
+":class:`~sqlalchemy.schema.Sequence` construct."
+msgstr ""
+
+#: ../api/autogenerate.rst:424
+msgid ""
+"- custom operations can be added to the autogenerate system to support "
+"new kinds of database objects."
+msgstr ""
+
+#: ../api/autogenerate.rst:428
+msgid "Tracking our Object with the Model"
+msgstr ""
+
+#: ../api/autogenerate.rst:430
+msgid ""
+"The basic job of an autogenerate comparison function is to inspect a "
+"series of objects in the database and compare them against a series of "
+"objects defined in our model.  By \"in our model\", we mean anything "
+"defined in Python code that we want to track, however most commonly we're"
+" talking about a series of :class:`~sqlalchemy.schema.Table` objects "
+"present in a :class:`~sqlalchemy.schema.MetaData` collection."
+msgstr ""
+
+#: ../api/autogenerate.rst:437
+msgid ""
+"Let's propose a simple way of seeing what "
+":class:`~sqlalchemy.schema.Sequence` objects we want to ensure exist in "
+"the database when autogenerate runs.  While these objects do have some "
+"integrations with :class:`~sqlalchemy.schema.Table` and "
+":class:`~sqlalchemy.schema.MetaData` already, let's assume they don't, as"
+" the example here intends to illustrate how we would do this for most any"
+" kind of custom construct.   We associate the object with the "
+":attr:`~sqlalchemy.schema.MetaData.info` collection of "
+":class:`~sqlalchemy.schema.MetaData`, which is a dictionary we can use "
+"for anything, which we also know will be passed to the autogenerate "
+"process::"
+msgstr ""
+
+#: ../api/autogenerate.rst:458
+msgid ""
+"The :attr:`~sqlalchemy.schema.MetaData.info` dictionary is a good place "
+"to put things that we want our autogeneration routines to be able to "
+"locate, which can include any object such as custom DDL objects "
+"representing views, triggers, special constraints, or anything else we "
+"want to support."
+msgstr ""
+
+#: ../api/autogenerate.rst:466
+msgid "Registering a Comparison Function"
+msgstr ""
+
+#: ../api/autogenerate.rst:468
+msgid ""
+"We now need to register a comparison hook, which will be used to compare "
+"the database to our model and produce ``CreateSequenceOp`` and "
+"``DropSequenceOp`` directives to be included in our migration script.  "
+"Note that we are assuming a Postgresql backend::"
+msgstr ""
+
+#: ../api/autogenerate.rst:515
+msgid ""
+"Above, we've built a new function ``compare_sequences()`` and registered "
+"it as a \"schema\" level comparison function with autogenerate.   The job"
+" that it performs is that it compares the list of sequence names present "
+"in each database schema with that of a list of sequence names that we are"
+" maintaining in our :class:`~sqlalchemy.schema.MetaData` object."
+msgstr ""
+
+#: ../api/autogenerate.rst:521
+msgid ""
+"When autogenerate completes, it will have a series of "
+"``CreateSequenceOp`` and ``DropSequenceOp`` directives in the list of "
+"\"upgrade\" operations;  the list of \"downgrade\" operations is "
+"generated directly from these using the ``CreateSequenceOp.reverse()`` "
+"and ``DropSequenceOp.reverse()`` methods that we've implemented on these "
+"objects."
+msgstr ""
+
+#: ../api/autogenerate.rst:528
+msgid ""
+"The registration of our function at the scope of \"schema\" means our "
+"autogenerate comparison function is called outside of the context of any "
+"specific table or column.  The three available scopes are \"schema\", "
+"\"table\", and \"column\", summarized as follows:"
+msgstr ""
+
+#: ../api/autogenerate.rst:533
+msgid ""
+"**Schema level** - these hooks are passed a :class:`.AutogenContext`, an "
+":class:`.UpgradeOps` collection, and a collection of string schema names "
+"to be operated upon. If the :class:`.UpgradeOps` collection contains "
+"changes after all hooks are run, it is included in the migration script:"
+msgstr ""
+
+#: ../api/autogenerate.rst:545
+msgid ""
+"**Table level** - these hooks are passed a :class:`.AutogenContext`, a "
+":class:`.ModifyTableOps` collection, a schema name, table name, a "
+":class:`~sqlalchemy.schema.Table` reflected from the database if any or "
+"``None``, and a :class:`~sqlalchemy.schema.Table` present in the local "
+":class:`~sqlalchemy.schema.MetaData`.  If the :class:`.ModifyTableOps` "
+"collection contains changes after all hooks are run, it is included in "
+"the migration script:"
+msgstr ""
+
+#: ../api/autogenerate.rst:560
+msgid ""
+"**Column level** - these hooks are passed a :class:`.AutogenContext`, an "
+":class:`.AlterColumnOp` object, a schema name, table name, column name, a"
+" :class:`~sqlalchemy.schema.Column` reflected from the database and a "
+":class:`~sqlalchemy.schema.Column` present in the local table.  If the "
+":class:`.AlterColumnOp` contains changes after all hooks are run, it is "
+"included in the migration script; a \"change\" is considered to be "
+"present if any of the ``modify_`` attributes are set to a non-default "
+"value, or there are any keys in the ``.kw`` collection with the prefix "
+"``\"modify_\"``:"
+msgstr ""
+
+#: ../api/autogenerate.rst:577
+msgid "The :class:`.AutogenContext` passed to these hooks is documented below."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext:1 of
+msgid ""
+"Maintains configuration and state that's specific to an autogenerate "
+"operation."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.connection:1 of
+msgid ""
+"The :class:`~sqlalchemy.engine.base.Connection` object currently "
+"connected to the database backend being compared."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.connection:4 of
+msgid ""
+"This is obtained from the :attr:`.MigrationContext.bind` and is utimately"
+" set up in the ``env.py`` script."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.dialect:1 of
+msgid "The :class:`~sqlalchemy.engine.Dialect` object currently in use."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.dialect:3 of
+msgid ""
+"This is normally obtained from the "
+":attr:`~sqlalchemy.engine.base.Connection.dialect` attribute."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.imports:1 of
+msgid "A ``set()`` which contains string Python import directives."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.imports:3 of
+msgid ""
+"The directives are to be rendered into the ``${imports}`` section of a "
+"script template.  The set is normally empty and can be modified within "
+"hooks such as the :paramref:`.EnvironmentContext.configure.render_item` "
+"hook."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.imports:12 of
+msgid ":ref:`autogen_render_types`"
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.metadata:1 of
+msgid ""
+"The :class:`~sqlalchemy.schema.MetaData` object representing the "
+"destination."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.metadata:4 of
+msgid ""
+"This object is the one that is passed within ``env.py`` to the "
+":paramref:`.EnvironmentContext.configure.target_metadata` parameter.  It "
+"represents the structure of :class:`.Table` and other objects as stated "
+"in the current database model, and represents the destination structure "
+"for the database being examined."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.metadata:10 of
+msgid ""
+"While the :class:`~sqlalchemy.schema.MetaData` object is primarily known "
+"as a collection of :class:`~sqlalchemy.schema.Table` objects, it also has"
+" an :attr:`~sqlalchemy.schema.MetaData.info` dictionary that may be used "
+"by end-user schemes to store additional schema-level objects that are to "
+"be compared in custom autogeneration schemes."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.migration_context:1 of
+msgid "The :class:`.MigrationContext` established by the ``env.py`` script."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.run_filters:1 of
+msgid ""
+"Run the context's object filters and return True if the targets should be"
+" part of the autogenerate operation."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.run_filters:4 of
+msgid ""
+"This method should be run for every kind of object encountered within an "
+"autogenerate operation, giving the environment the chance to filter what "
+"objects should be included in the comparison. The filters here are "
+"produced directly via the "
+":paramref:`.EnvironmentContext.configure.include_object` and "
+":paramref:`.EnvironmentContext.configure.include_symbol` functions, if "
+"present."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.sorted_tables:1 of
+msgid "Return an aggregate of the :attr:`.MetaData.sorted_tables` collection(s)."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.sorted_tables:3 of
+msgid ""
+"For a sequence of :class:`.MetaData` objects, this concatenates the "
+":attr:`.MetaData.sorted_tables` collection for each individual "
+":class:`.MetaData`  in the order of the sequence.  It does **not** "
+"collate the sorted tables collections."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.table_key_to_table:1 of
+msgid "Return an aggregate  of the :attr:`.MetaData.tables` dictionaries."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.table_key_to_table:3 of
+msgid ""
+"The :attr:`.MetaData.tables` collection is a dictionary of table key to "
+":class:`.Table`; this method aggregates the dictionary across multiple "
+":class:`.MetaData` objects into one dictionary."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.table_key_to_table:7 of
+msgid ""
+"Duplicate table keys are **not** supported; if two :class:`.MetaData` "
+"objects contain the same table key, an exception is raised."
+msgstr ""
+
+#: ../api/autogenerate.rst:583
+msgid "Creating a Render Function"
+msgstr ""
+
+#: ../api/autogenerate.rst:585
+msgid ""
+"The second autogenerate integration hook is to provide a \"render\" "
+"function; since the autogenerate system renders Python code, we need to "
+"build a function that renders the correct \"op\" instructions for our "
+"directive::"
+msgstr ""
+
+#: ../api/autogenerate.rst:607
+msgid ""
+"The above functions will render Python code corresponding to the presence"
+" of ``CreateSequenceOp`` and ``DropSequenceOp`` instructions in the list "
+"that our comparison function generates."
+msgstr ""
+
+#: ../api/autogenerate.rst:612
+msgid "Running It"
+msgstr ""
+
+#: ../api/autogenerate.rst:614
+msgid ""
+"All the above code can be organized however the developer sees fit; the "
+"only thing that needs to make it work is that when the Alembic "
+"environment ``env.py`` is invoked, it either imports modules which "
+"contain all the above routines, or they are locally present, or some "
+"combination thereof."
+msgstr ""
+
+#: ../api/autogenerate.rst:620
+msgid ""
+"If we then have code in our model (which of course also needs to be "
+"invoked when ``env.py`` runs!) like this::"
+msgstr ""
+
+#: ../api/autogenerate.rst:628
+msgid ""
+"When we first run ``alembic revision --autogenerate``, we'll see this in "
+"our migration file::"
+msgstr ""
+
+#: ../api/autogenerate.rst:642
+msgid ""
+"These are our custom directives that will invoke when ``alembic upgrade``"
+" or ``alembic downgrade`` is run."
+msgstr ""
+

@@ -1,0 +1,522 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010-2019, Mike Bayer
+# This file is distributed under the same license as the Alembic package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Alembic 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-04 13:27+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../cookbook.rst:3
+msgid "Cookbook"
+msgstr ""
+
+#: ../cookbook.rst:5
+msgid "A collection of \"How-Tos\" highlighting popular ways to extend Alembic."
+msgstr ""
+
+#: ../cookbook.rst:10
+msgid ""
+"This is a new section where we catalogue various \"how-tos\" based on "
+"user requests.  It is often the case that users will request a feature "
+"only to learn it can be provided with a simple customization."
+msgstr ""
+
+#: ../cookbook.rst:18
+msgid "Building an Up to Date Database from Scratch"
+msgstr ""
+
+#: ../cookbook.rst:20
+msgid ""
+"There's a theory of database migrations that says that the revisions in "
+"existence for a database should be able to go from an entirely blank "
+"schema to the finished product, and back again.   Alembic can roll this "
+"way.   Though we think it's kind of overkill, considering that SQLAlchemy"
+" itself can emit the full CREATE statements for any given model using "
+":meth:`~sqlalchemy.schema.MetaData.create_all`.   If you check out a copy"
+" of an application, running this will give you the entire database in one"
+" shot, without the need to run through all those migration files, which "
+"are instead tailored towards applying incremental changes to an existing "
+"database."
+msgstr ""
+
+#: ../cookbook.rst:28
+msgid ""
+"Alembic can integrate with a "
+":meth:`~sqlalchemy.schema.MetaData.create_all` script quite easily.  "
+"After running the create operation, tell Alembic to create a new version "
+"table, and to stamp it with the most recent revision (i.e. ``head``)::"
+msgstr ""
+
+#: ../cookbook.rst:43
+msgid ""
+"When this approach is used, the application can generate the database "
+"using normal SQLAlchemy techniques instead of iterating through hundreds "
+"of migration scripts.   Now, the purpose of the migration scripts is "
+"relegated just to movement between versions on out-of-date databases, not"
+" *new* databases.    You can now remove old migration files that are no "
+"longer represented on any existing environments."
+msgstr ""
+
+#: ../cookbook.rst:49
+msgid ""
+"To prune old migration files, simply delete the files.   Then, in the "
+"earliest, still-remaining migration file, set ``down_revision`` to "
+"``None``::"
+msgstr ""
+
+#: ../cookbook.rst:58
+msgid "That file now becomes the \"base\" of the migration series."
+msgstr ""
+
+#: ../cookbook.rst:61
+msgid "Conditional Migration Elements"
+msgstr ""
+
+#: ../cookbook.rst:63
+msgid ""
+"This example features the basic idea of a common need, that of affecting "
+"how a migration runs based on command line switches."
+msgstr ""
+
+#: ../cookbook.rst:66
+msgid ""
+"The technique to use here is simple; within a migration script, inspect "
+"the :meth:`.EnvironmentContext.get_x_argument` collection for any "
+"additional, user-defined parameters.  Then take action based on the "
+"presence of those arguments."
+msgstr ""
+
+#: ../cookbook.rst:71
+msgid ""
+"To make it such that the logic to inspect these flags is easy to use and "
+"modify, we modify our ``script.py.mako`` template to make this feature "
+"available in all new revision files:"
+msgstr ""
+
+#: ../cookbook.rst:122
+msgid ""
+"Now, when we create a new migration file, the ``data_upgrades()`` and "
+"``data_downgrades()`` placeholders will be available, where we can add "
+"optional data migrations::"
+msgstr ""
+
+#: ../cookbook.rst:182
+msgid "To invoke our migrations with data included, we use the ``-x`` flag::"
+msgstr ""
+
+#: ../cookbook.rst:186
+msgid ""
+"The :meth:`.EnvironmentContext.get_x_argument` is an easy way to support "
+"new commandline options within environment and migration scripts."
+msgstr ""
+
+#: ../cookbook.rst:192
+msgid "Sharing a Connection with a Series of Migration Commands and Environments"
+msgstr ""
+
+#: ../cookbook.rst:194
+msgid ""
+"It is often the case that an application will need to call upon a series "
+"of commands within :ref:`alembic.command.toplevel`, where it would be "
+"advantageous for all operations to proceed along a single transaction.   "
+"The connectivity for a migration is typically solely determined within "
+"the ``env.py`` script of a migration environment, which is called within "
+"the scope of a command."
+msgstr ""
+
+#: ../cookbook.rst:200
+msgid "The steps to take here are:"
+msgstr ""
+
+#: ../cookbook.rst:202
+msgid "Produce the :class:`~sqlalchemy.engine.Connection` object to use."
+msgstr ""
+
+#: ../cookbook.rst:204
+msgid ""
+"Place it somewhere that ``env.py`` will be able to access it.  This can "
+"be either a. a module-level global somewhere, or b. an attribute which we"
+" place into the :attr:`.Config.attributes` dictionary (if we are on an "
+"older Alembic version, we may also attach an attribute directly to the "
+":class:`.Config` object)."
+msgstr ""
+
+#: ../cookbook.rst:210
+msgid ""
+"The ``env.py`` script is modified such that it looks for this "
+":class:`~sqlalchemy.engine.Connection` and makes use of it, in lieu of "
+"building up its own :class:`~sqlalchemy.engine.Engine` instance."
+msgstr ""
+
+#: ../cookbook.rst:214
+msgid "We illustrate using :attr:`.Config.attributes`::"
+msgstr ""
+
+#: ../cookbook.rst:223
+msgid "Then in ``env.py``::"
+msgstr ""
+
+msgid "Branched Connections"
+msgstr ""
+
+#: ../cookbook.rst:250
+msgid ""
+"Note that we are calling the ``connect()`` method, **even if we are using"
+" a** :class:`~sqlalchemy.engine.Connection` **object to start with**. The"
+" effect this has when calling "
+":meth:`~sqlalchemy.engine.Connection.connect` is that SQLAlchemy passes "
+"us a **branch** of the original connection; it is in every way the same "
+"as the :class:`~sqlalchemy.engine.Connection` we started with, except it "
+"provides **nested scope**; the context we have here as well as the "
+":meth:`~sqlalchemy.engine.Connection.close` method of this branched "
+"connection doesn't actually close the outer connection, which stays "
+"active for continued use."
+msgstr ""
+
+#: ../cookbook.rst:261
+msgid "Added :attr:`.Config.attributes`."
+msgstr ""
+
+#: ../cookbook.rst:266
+msgid "Replaceable Objects"
+msgstr ""
+
+#: ../cookbook.rst:268
+msgid ""
+"This recipe proposes a hypothetical way of dealing with what we might "
+"call a *replaceable* schema object.  A replaceable object is a schema "
+"object that needs to be created and dropped all at once. Examples of such"
+" objects include views, stored procedures, and triggers."
+msgstr ""
+
+#: ../cookbook.rst:273
+msgid ""
+"Replaceable objects present a problem in that in order to make "
+"incremental changes to them, we have to refer to the whole definition at "
+"once. If we need to add a new column to a view, for example, we have to "
+"drop it entirely and recreate it fresh with the extra column added, "
+"referring to the whole structure; but to make it even tougher, if we wish"
+" to support downgrade operarations in our migration scripts, we need to "
+"refer to the *previous* version of that construct fully, and we'd much "
+"rather not have to type out the whole definition in multiple places."
+msgstr ""
+
+#: ../cookbook.rst:283
+msgid ""
+"This recipe proposes that we may refer to the older version of a "
+"replaceable construct by directly naming the migration version in which "
+"it was created, and having a migration refer to that previous file as "
+"migrations run.   We will also demonstrate how to integrate this logic "
+"within the :ref:`operation_plugins` feature introduced in Alembic 0.8.  "
+"It may be very helpful to review this section first to get an overview of"
+" this API."
+msgstr ""
+
+#: ../cookbook.rst:292
+msgid "The Replaceable Object Structure"
+msgstr ""
+
+#: ../cookbook.rst:294
+msgid ""
+"We first need to devise a simple format that represents the \"CREATE "
+"XYZ\" / \"DROP XYZ\" aspect of what it is we're building.  We will work "
+"with an object that represents a textual definition; while a SQL view is "
+"an object that we can define using a `table-metadata-like system "
+"<https://github.com/sqlalchemy/sqlalchemy/wiki/UsageRecipes/Views>`_, "
+"this is not so much the case for things like stored procedures, where we "
+"pretty much need to have a full string definition written down somewhere."
+" We'll use a simple value object called ``ReplaceableObject`` that can "
+"represent any named set of SQL text to send to a \"CREATE\" statement of "
+"some kind::"
+msgstr ""
+
+#: ../cookbook.rst:309
+msgid ""
+"Using this object in a migration script, assuming a Postgresql-style "
+"syntax, looks like::"
+msgstr ""
+
+#: ../cookbook.rst:329
+msgid ""
+"The ``ReplaceableObject`` class is only one very simplistic way to do "
+"this. The structure of how we represent our schema objects is not too "
+"important for the purposes of this example; we can just as well put "
+"strings inside of tuples or dictionaries, as well as that we could define"
+" any kind of series of fields and class structures we want. The only "
+"important part is that below we will illustrate how organize the code "
+"that can consume the structure we create here."
+msgstr ""
+
+#: ../cookbook.rst:338
+msgid "Create Operations for the Target Objects"
+msgstr ""
+
+#: ../cookbook.rst:340
+msgid ""
+"We'll use the :class:`.Operations` extension API to make new operations "
+"for create, drop, and replace of views and stored procedures.  Using this"
+" API is also optional; we can just as well make any kind of Python "
+"function that we would invoke from our migration scripts. However, using "
+"this API gives us operations built directly into the Alembic ``op.*`` "
+"namespace very nicely."
+msgstr ""
+
+#: ../cookbook.rst:347
+msgid ""
+"The most intricate class is below.  This is the base of our "
+"\"replaceable\" operation, which includes not just a base operation for "
+"emitting CREATE and DROP instructions on a ``ReplaceableObject``, it also"
+" assumes a certain model of \"reversibility\" which makes use of "
+"references to other migration files in order to refer to the \"previous\""
+" version of an object::"
+msgstr ""
+
+#: ../cookbook.rst:393
+msgid ""
+"The workings of this class should become clear as we walk through the "
+"example.   To create usable operations from this base, we will build a "
+"series of stub classes and use :meth:`.Operations.register_operation` to "
+"make them part of the ``op.*`` namespace::"
+msgstr ""
+
+#: ../cookbook.rst:423
+msgid ""
+"To actually run the SQL like \"CREATE VIEW\" and \"DROP SEQUENCE\", we'll"
+" provide implementations using :meth:`.Operations.implementation_for` "
+"that run straight into :meth:`.Operations.execute`::"
+msgstr ""
+
+#: ../cookbook.rst:453
+msgid ""
+"All of the above code can be present anywhere within an application's "
+"source tree; the only requirement is that when the ``env.py`` script is "
+"invoked, it includes imports that ultimately call upon these classes as "
+"well as the :meth:`.Operations.register_operation` and "
+":meth:`.Operations.implementation_for` sequences."
+msgstr ""
+
+#: ../cookbook.rst:460
+msgid "Create Initial Migrations"
+msgstr ""
+
+#: ../cookbook.rst:462
+msgid ""
+"We can now illustrate how these objects look during use.  For the first "
+"step, we'll create a new migration to create a \"customer\" table::"
+msgstr ""
+
+#: ../cookbook.rst:467
+msgid "We build the first revision as follows::"
+msgstr ""
+
+#: ../cookbook.rst:499
+msgid ""
+"For the second migration, we will create a view and a stored procedure "
+"which act upon this table::"
+msgstr ""
+
+#: ../cookbook.rst:504
+msgid "This migration will use the new directives::"
+msgstr ""
+
+#: ../cookbook.rst:553
+msgid ""
+"We see the use of our new ``create_view()``, ``create_sp()``, "
+"``drop_view()``, and ``drop_sp()`` directives.  Running these to \"head\""
+" we get the following (this includes an edited view of SQL emitted)::"
+msgstr ""
+
+#: ../cookbook.rst:597
+msgid ""
+"We see that our CREATE TABLE proceeded as well as the CREATE VIEW and "
+"CREATE FUNCTION operations produced by our new directives."
+msgstr ""
+
+#: ../cookbook.rst:602
+msgid "Create Revision Migrations"
+msgstr ""
+
+#: ../cookbook.rst:604
+msgid ""
+"Finally, we can illustrate how we would \"revise\" these objects. Let's "
+"consider we added a new column ``email`` to our ``customer`` table::"
+msgstr ""
+
+#: ../cookbook.rst:609
+msgid "The migration is::"
+msgstr ""
+
+#: ../cookbook.rst:637
+msgid ""
+"We now need to recreate the ``customer_view`` view and the "
+"``add_customer_sp`` function.   To include downgrade capability, we will "
+"need to refer to the **previous** version of the construct; the "
+"``replace_view()`` and ``replace_sp()`` operations we've created make "
+"this possible, by allowing us to refer to a specific, previous revision. "
+"the ``replaces`` and ``replace_with`` arguments accept a dot-separated "
+"string, which refers to a revision number and an object name, such as "
+"``\"28af9800143f.customer_view\"``.  The ``ReversibleOp`` class makes use"
+" of the :meth:`.Operations.get_context` method to locate the version file"
+" we refer to::"
+msgstr ""
+
+#: ../cookbook.rst:650
+msgid "The migration::"
+msgstr ""
+
+#: ../cookbook.rst:699
+msgid ""
+"Above, instead of using ``create_view()``, ``create_sp()``, "
+"``drop_view()``, and ``drop_sp()`` methods, we now use ``replace_view()``"
+" and ``replace_sp()``.  The replace operation we've built always runs a "
+"DROP *and* a CREATE.  Running an upgrade to head we see::"
+msgstr ""
+
+#: ../cookbook.rst:738
+msgid ""
+"After adding our new ``email`` column, we see that both ``customer_view``"
+" and ``add_customer_sp()`` are dropped before the new version is created."
+" If we downgrade back to the old version, we see the old version of these"
+" recreated again within the downgrade for this migration::"
+msgstr ""
+
+#: ../cookbook.rst:778
+msgid "Don't Generate Empty Migrations with Autogenerate"
+msgstr ""
+
+#: ../cookbook.rst:780
+msgid ""
+"A common request is to have the ``alembic revision --autogenerate`` "
+"command not actually generate a revision file if no changes to the schema"
+" is detected.  Using the "
+":paramref:`.EnvironmentContext.configure.process_revision_directives` "
+"hook, this is straightforward; place a ``process_revision_directives`` "
+"hook in :meth:`.MigrationContext.configure` which removes the single "
+":class:`.MigrationScript` directive if it is empty of any operations::"
+msgstr ""
+
+#: ../cookbook.rst:813
+msgid "Don't emit DROP INDEX when the table is to be dropped as well"
+msgstr ""
+
+#: ../cookbook.rst:815
+msgid ""
+"MySQL may complain when dropping an index that is against a column that "
+"also has a foreign key constraint on it.   If the table is to be dropped "
+"in any case, the DROP INDEX isn't necessary.  This recipe will process "
+"the set of autogenerate directives such that all :class:`.DropIndexOp` "
+"directives are removed against tables that themselves are to be dropped::"
+msgstr ""
+
+#: ../cookbook.rst:884
+msgid ""
+"Whereas autogenerate, when dropping two tables with a foreign key and an "
+"index, would previously generate something like::"
+msgstr ""
+
+#: ../cookbook.rst:894
+msgid "With the above rewriter, it generates as::"
+msgstr ""
+
+#: ../cookbook.rst:905
+msgid "Don't emit CREATE TABLE statements for Views"
+msgstr ""
+
+#: ../cookbook.rst:907
+msgid ""
+"It is sometimes convenient to create :class:`~sqlalchemy.schema.Table` "
+"instances for views so that they can be queried using normal SQLAlchemy "
+"techniques. Unfortunately this causes Alembic to treat them as tables in "
+"need of creation and to generate spurious ``create_table()`` operations. "
+"This is easily fixable by flagging such Tables and using the "
+":paramref:`~.EnvironmentContext.configure.include_object` hook to exclude"
+" them::"
+msgstr ""
+
+#: ../cookbook.rst:915
+msgid "Then define ``include_object`` as::"
+msgstr ""
+
+#: ../cookbook.rst:924
+msgid ""
+"Finally, in ``env.py`` pass your ``include_object`` as a keyword argument"
+" to :meth:`.EnvironmentContext.configure`."
+msgstr ""
+
+#: ../cookbook.rst:929
+msgid "Run Multiple Alembic Environments from one .ini file"
+msgstr ""
+
+#: ../cookbook.rst:931
+msgid ""
+"Long before Alembic had the \"multiple bases\" feature described in "
+":ref:`multiple_bases`, projects had a need to maintain more than one "
+"Alembic version history in a single project, where these version "
+"histories are completely independent of each other and each refer to "
+"their own alembic_version table, either across multiple databases, "
+"schemas, or namespaces.  A simple approach was added to support this, the"
+" ``--name`` flag on the commandline."
+msgstr ""
+
+#: ../cookbook.rst:938
+msgid "First, one would create an alembic.ini file of this form::"
+msgstr ""
+
+#: ../cookbook.rst:962
+msgid ""
+"Above, in the ``[DEFAULT]`` section we set up a default database URL. "
+"Then we create three sections corresponding to different revision "
+"lineages in our project.   Each of these directories would have its own "
+"``env.py`` and set of versioning files.   Then when we run the "
+"``alembic`` command, we simply give it the name of the configuration we "
+"want to use::"
+msgstr ""
+
+#: ../cookbook.rst:970
+msgid ""
+"Above, the ``alembic`` command makes use of the configuration in "
+"``[schema2]``, populated with defaults from the ``[DEFAULT]`` section."
+msgstr ""
+
+#: ../cookbook.rst:973
+msgid ""
+"The above approach can be automated by creating a custom front-end to the"
+" Alembic commandline as well."
+msgstr ""
+
+#: ../cookbook.rst:977
+msgid "Print Python Code to Generate Particular Database Tables"
+msgstr ""
+
+#: ../cookbook.rst:979
+msgid ""
+"Suppose you have a database already, and want to generate some "
+"``op.create_table()`` and other directives that you'd have in a migration"
+" file. How can we automate generating that code? Suppose the database "
+"schema looks like (assume MySQL)::"
+msgstr ""
+
+#: ../cookbook.rst:999
+msgid ""
+"Using :class:`.ops.UpgradeOps`, :class:`.ops.CreateTableOp`, and "
+":class:`.ops.CreateIndexOp`, we create a migration file structure, using "
+":class:`.Table` objects that we get from SQLAlchemy reflection. The "
+"structure is passed to :func:`.autogenerate.render_python_code` to "
+"produce the Python code for a migration file::"
+msgstr ""
+
+#: ../cookbook.rst:1028
+msgid "Output::"
+msgstr ""
+

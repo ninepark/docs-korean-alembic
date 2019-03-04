@@ -1,0 +1,306 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010-2019, Mike Bayer
+# This file is distributed under the same license as the Alembic package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Alembic 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-04 13:30+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../api/commands.rst:5
+msgid "Commands"
+msgstr ""
+
+#: ../api/commands.rst:7
+msgid ""
+"this section discusses the **internal API of Alembic** as regards its "
+"command invocation system. This section is only useful for developers who"
+" wish to extend the capabilities of Alembic.  For documentation on using "
+"Alembic commands, please see :doc:`/tutorial`."
+msgstr ""
+
+#: ../api/commands.rst:13
+msgid ""
+"Alembic commands are all represented by functions in the "
+":ref:`alembic.command.toplevel` package.  They all accept the same style "
+"of usage, being sent the :class:`.Config` object as the first argument."
+msgstr ""
+
+#: ../api/commands.rst:17
+msgid ""
+"Commands can be run programmatically, by first constructing a "
+":class:`.Config` object, as in::"
+msgstr ""
+
+#: ../api/commands.rst:25
+msgid ""
+"In many cases, and perhaps more often than not, an application will wish "
+"to call upon a series of Alembic commands and/or other features.  It is "
+"usually a good idea to link multiple commands along a single connection "
+"and transaction, if feasible.  This can be achieved using the "
+":attr:`.Config.attributes` dictionary in order to share a connection::"
+msgstr ""
+
+#: ../api/commands.rst:35
+msgid ""
+"This recipe requires that ``env.py`` consumes this connection argument; "
+"see the example in :ref:`connection_sharing` for details."
+msgstr ""
+
+#: ../api/commands.rst:38
+msgid ""
+"To write small API functions that make direct use of database and script "
+"directory information, rather than just running one of the built-in "
+"commands, use the :class:`.ScriptDirectory` and "
+":class:`.MigrationContext` classes directly."
+msgstr ""
+
+#: alembic.command.branches:1 of
+msgid "Show current branch points."
+msgstr ""
+
+#: alembic.command.branches alembic.command.current alembic.command.downgrade
+#: alembic.command.edit alembic.command.heads alembic.command.history
+#: alembic.command.init alembic.command.list_templates alembic.command.merge
+#: alembic.command.revision alembic.command.show alembic.command.stamp
+#: alembic.command.upgrade of
+msgid "Parameters"
+msgstr ""
+
+#: alembic.command.branches:3 alembic.command.current:3
+#: alembic.command.downgrade:3 alembic.command.edit:3 alembic.command.heads:3
+#: alembic.command.history:3 alembic.command.show:3 alembic.command.stamp:4
+#: alembic.command.upgrade:3 of
+msgid "a :class:`.Config` instance."
+msgstr ""
+
+#: alembic.command.branches:5 alembic.command.current:5 alembic.command.heads:5
+#: alembic.command.history:7 of
+msgid "output in verbose mode."
+msgstr ""
+
+#: alembic.command.current:1 of
+msgid "Display the current revision for a database."
+msgstr ""
+
+#: alembic.command.current:7 of
+msgid "deprecated; use ``verbose`` for additional output."
+msgstr ""
+
+#: alembic.command.downgrade:1 of
+msgid "Revert to a previous version."
+msgstr ""
+
+#: alembic.command.downgrade:5 alembic.command.upgrade:5 of
+msgid "string revision target or range for --sql mode"
+msgstr ""
+
+#: alembic.command.downgrade:7 alembic.command.upgrade:7 of
+msgid "if True, use ``--sql`` mode"
+msgstr ""
+
+#: alembic.command.downgrade:9 alembic.command.upgrade:9 of
+msgid ""
+"an arbitrary \"tag\" that can be intercepted by custom ``env.py`` scripts"
+" via the :meth:`.EnvironmentContext.get_tag_argument` method."
+msgstr ""
+
+#: alembic.command.edit:1 of
+msgid "Edit revision script(s) using $EDITOR."
+msgstr ""
+
+#: alembic.command.edit:5 alembic.command.stamp:6 of
+msgid "target revision."
+msgstr ""
+
+#: alembic.command.heads:1 of
+msgid "Show current available heads in the script directory"
+msgstr ""
+
+#: alembic.command.heads:7 of
+msgid "treat dependency version as down revisions."
+msgstr ""
+
+#: alembic.command.history:1 of
+msgid "List changeset scripts in chronological order."
+msgstr ""
+
+#: alembic.command.history:5 of
+msgid "string revision range"
+msgstr ""
+
+#: alembic.command.history:9 of
+msgid "indicate current revision.  ..versionadded:: 0.9.9"
+msgstr ""
+
+#: alembic.command.history:9 of
+msgid "indicate current revision."
+msgstr ""
+
+#: alembic.command.history:11 of
+msgid "..versionadded:: 0.9.9"
+msgstr ""
+
+#: alembic.command.init:1 of
+msgid "Initialize a new scripts directory."
+msgstr ""
+
+#: alembic.command.init:3 alembic.command.list_templates:3
+#: alembic.command.revision:3 of
+msgid "a :class:`.Config` object."
+msgstr ""
+
+#: alembic.command.init:5 of
+msgid "string path of the target directory"
+msgstr ""
+
+#: alembic.command.init:7 of
+msgid "string name of the migration environment template to use."
+msgstr ""
+
+#: alembic.command.list_templates:1 of
+msgid "List available templates"
+msgstr ""
+
+#: alembic.command.merge:1 of
+msgid "Merge two revisions together.  Creates a new migration file."
+msgstr ""
+
+#: alembic.command.merge:5 of
+msgid "a :class:`.Config` instance"
+msgstr ""
+
+#: alembic.command.merge:7 of
+msgid "string message to apply to the revision"
+msgstr ""
+
+#: alembic.command.merge:9 of
+msgid "string label name to apply to the new revision"
+msgstr ""
+
+#: alembic.command.merge:11 of
+msgid "hardcoded revision identifier instead of generating a new one."
+msgstr ""
+
+#: alembic.command.merge:16 of
+msgid ":ref:`branches`"
+msgstr ""
+
+#: alembic.command.revision:1 of
+msgid "Create a new revision file."
+msgstr ""
+
+#: alembic.command.revision:5 of
+msgid ""
+"string message to apply to the revision; this is the ``-m`` option to "
+"``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:8 of
+msgid ""
+"whether or not to autogenerate the script from the database; this is the "
+"``--autogenerate`` option to ``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:12 of
+msgid ""
+"whether to dump the script out as a SQL string; when specified, the "
+"script is dumped to stdout.  This is the ``--sql`` option to ``alembic "
+"revision``."
+msgstr ""
+
+#: alembic.command.revision:16 of
+msgid ""
+"head revision to build the new revision upon as a parent; this is the "
+"``--head`` option to ``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:19 of
+msgid ""
+"whether or not the new revision should be made into a new head of its "
+"own; is required when the given ``head`` is not itself a head.  This is "
+"the ``--splice`` option to ``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:23 of
+msgid ""
+"string label to apply to the branch; this is the ``--branch-label`` "
+"option to ``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:26 of
+msgid ""
+"string symbol identifying a specific version path from the configuration;"
+" this is the ``--version-path`` option to ``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:30 of
+msgid ""
+"optional revision identifier to use instead of having one generated; this"
+" is the ``--rev-id`` option to ``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:33 of
+msgid ""
+"optional list of \"depends on\" identifiers; this is the ``--depends-on``"
+" option to ``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:36 of
+msgid ""
+"this is a callable that takes the same form as the callable described at "
+":paramref:`.EnvironmentContext.configure.process_revision_directives`; "
+"will be applied to the structure generated by the revision process where "
+"it can be altered programmatically.   Note that unlike all the other "
+"parameters, this option is only available via programmatic use of "
+":func:`.command.revision`  .. versionadded:: 0.9.0"
+msgstr ""
+
+#: alembic.command.revision:36 of
+msgid ""
+"this is a callable that takes the same form as the callable described at "
+":paramref:`.EnvironmentContext.configure.process_revision_directives`; "
+"will be applied to the structure generated by the revision process where "
+"it can be altered programmatically.   Note that unlike all the other "
+"parameters, this option is only available via programmatic use of "
+":func:`.command.revision`"
+msgstr ""
+
+#: alembic.command.show:1 of
+msgid "Show the revision(s) denoted by the given symbol."
+msgstr ""
+
+#: alembic.command.show:5 of
+msgid "string revision target"
+msgstr ""
+
+#: alembic.command.stamp:1 of
+msgid ""
+"'stamp' the revision table with the given revision; don't run any "
+"migrations."
+msgstr ""
+
+#: alembic.command.stamp:8 of
+msgid "use ``--sql`` mode"
+msgstr ""
+
+#: alembic.command.stamp:10 of
+msgid ""
+"an arbitrary \"tag\" that can be intercepted by custom ``env.py`` scripts"
+" via the :class:`.EnvironmentContext.get_tag_argument` method."
+msgstr ""
+
+#: alembic.command.upgrade:1 of
+msgid "Upgrade to a later version."
+msgstr ""
+

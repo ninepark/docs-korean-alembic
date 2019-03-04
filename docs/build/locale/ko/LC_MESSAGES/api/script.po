@@ -1,0 +1,462 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010-2019, Mike Bayer
+# This file is distributed under the same license as the Alembic package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Alembic 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-04 13:30+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../api/script.rst:5
+msgid "Script Directory"
+msgstr ""
+
+#: ../api/script.rst:7
+msgid ""
+"The :class:`.ScriptDirectory` object provides programmatic access to the "
+"Alembic version files present in the filesystem."
+msgstr ""
+
+#: alembic.script.ScriptDirectory:1 of
+msgid "Provides operations upon an Alembic script directory."
+msgstr ""
+
+#: alembic.script.ScriptDirectory:3 of
+msgid ""
+"This object is useful to get information as to current revisions, most "
+"notably being able to get at the \"head\" revision, for schemes that want"
+" to test if the current revision in the database is the most recent::"
+msgstr ""
+
+#: alembic.script.ScriptDirectory.as_revision_number:1 of
+msgid ""
+"Convert a symbolic revision, i.e. 'head' or 'base', into an actual "
+"revision number."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.from_config:1 of
+msgid "Produce a new :class:`.ScriptDirectory` given a :class:`.Config` instance."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.from_config:4 of
+msgid "The :class:`.Config` need only have the ``script_location`` key present."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:1 of
+msgid "Generate a new revision file."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:3 of
+msgid ""
+"This runs the ``script.py.mako`` template, given template arguments, and "
+"creates a new file."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision
+#: alembic.script.ScriptDirectory.walk_revisions
+#: alembic.script.revision.RevisionMap
+#: alembic.script.revision.RevisionMap.get_current_head of
+msgid "Parameters"
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:6 of
+msgid "String revision id.  Typically this comes from ``alembic.util.rev_id()``."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:8 of
+msgid ""
+"the revision message, the one passed by the -m argument to the "
+"``revision`` command."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:10 of
+msgid ""
+"the head revision to generate against.  Defaults to the current \"head\" "
+"if no branches are present, else raises an exception.  .. versionadded:: "
+"0.7.0"
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:10 of
+msgid ""
+"the head revision to generate against.  Defaults to the current \"head\" "
+"if no branches are present, else raises an exception."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:16 of
+msgid ""
+"if True, allow the \"head\" version to not be an actual head; otherwise, "
+"the selected head must be a head (e.g. endpoint) revision."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:19 of
+msgid "deprecated."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_base:1 of
+msgid "Return the \"base\" revision as a string."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_base:3 of
+msgid ""
+"This is the revision number of the script that has a ``down_revision`` of"
+" None."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_base:6 of
+msgid ""
+"If the script directory has multiple bases, an error is raised; "
+":meth:`.ScriptDirectory.get_bases` should be preferred."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_bases:1 of
+msgid "return all \"base\" revisions as strings."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_bases:3 of
+msgid ""
+"This is the revision number of all scripts that have a ``down_revision`` "
+"of None."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_current_head:1
+#: alembic.script.revision.RevisionMap.get_current_head:1 of
+msgid "Return the current head revision."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_current_head:3
+#: alembic.script.revision.RevisionMap.get_current_head:3 of
+msgid ""
+"If the script directory has multiple heads due to branching, an error is "
+"raised; :meth:`.ScriptDirectory.get_heads` should be preferred."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_current_head
+#: alembic.script.ScriptDirectory.get_heads
+#: alembic.script.revision.RevisionMap.bases
+#: alembic.script.revision.RevisionMap.get_current_head
+#: alembic.script.revision.RevisionMap.heads of
+msgid "Returns"
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_current_head:8
+#: alembic.script.revision.RevisionMap.get_current_head:11 of
+msgid "a string revision number."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_current_head:12
+#: alembic.script.revision.RevisionMap.get_current_head:15 of
+msgid ":meth:`.ScriptDirectory.get_heads`"
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_heads:1 of
+msgid "Return all \"versioned head\" revisions as strings."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_heads:3 of
+msgid ""
+"This is normally a list of length one, unless branches are present.  The "
+":meth:`.ScriptDirectory.get_current_head()` method can be used normally "
+"when a script directory has only one head."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_heads:9
+#: alembic.script.revision.RevisionMap.bases:6
+#: alembic.script.revision.RevisionMap.heads:6 of
+msgid "a tuple of string revision numbers."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_revision:1 of
+msgid "Return the :class:`.Script` instance with the given rev id."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_revision:5 of
+msgid ":meth:`.ScriptDirectory.get_revisions`"
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_revisions:1 of
+msgid ""
+"Return the :class:`.Script` instance with the given rev identifier, "
+"symbolic name, or sequence of identifiers."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.iterate_revisions:1
+#: alembic.script.revision.RevisionMap.iterate_revisions:1 of
+msgid ""
+"Iterate through script revisions, starting at the given upper revision "
+"identifier and ending at the lower."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.iterate_revisions:4
+#: alembic.script.revision.RevisionMap.iterate_revisions:4 of
+msgid ""
+"The traversal uses strictly the `down_revision` marker inside each "
+"migration script, so it is a requirement that upper >= lower, else you'll"
+" get nothing back."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.iterate_revisions:9 of
+msgid "The iterator yields :class:`.Script` objects."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.iterate_revisions:13 of
+msgid ":meth:`.RevisionMap.iterate_revisions`"
+msgstr ""
+
+#: alembic.script.ScriptDirectory.run_env:1 of
+msgid "Run the script environment."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.run_env:3 of
+msgid ""
+"This basically runs the ``env.py`` script present in the migration "
+"environment.   It is called exclusively by the command functions in "
+":mod:`alembic.command`."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.walk_revisions:1 of
+msgid "Iterate through all revisions."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.walk_revisions:3 of
+msgid "the base revision, or \"base\" to start from the empty revision."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.walk_revisions:6 of
+msgid ""
+"the head revision; defaults to \"heads\" to indicate all head revisions."
+"  May also be \"head\" to indicate a single head revision.  .. "
+"versionchanged:: 0.7.0 the \"head\" identifier now refers to    the head "
+"of a non-branched repository only; use \"heads\" to    refer to the set "
+"of all head branches simultaneously."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.walk_revisions:6 of
+msgid ""
+"the head revision; defaults to \"heads\" to indicate all head revisions."
+"  May also be \"head\" to indicate a single head revision."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.walk_revisions:10 of
+msgid ""
+"the \"head\" identifier now refers to the head of a non-branched "
+"repository only; use \"heads\" to refer to the set of all head branches "
+"simultaneously."
+msgstr ""
+
+#: alembic.script.Script:1 of
+msgid "Represent a single revision file in a ``versions/`` directory."
+msgstr ""
+
+#: alembic.script.Script:3 of
+msgid ""
+"The :class:`.Script` instance is returned by methods such as "
+":meth:`.ScriptDirectory.iterate_revisions`."
+msgstr ""
+
+#: alembic.script.Script.doc:1 alembic.script.Script.longdoc:1 of
+msgid "Return the docstring given in the script."
+msgstr ""
+
+#: alembic.script.Script.module:1 of
+msgid "The Python module representing the actual script itself."
+msgstr ""
+
+#: alembic.script.Script.path:1 of
+msgid "Filesystem path of the script."
+msgstr ""
+
+#: ../api/script.rst:14
+msgid "Revision"
+msgstr ""
+
+#: ../api/script.rst:16
+msgid ""
+"The :class:`.RevisionMap` object serves as the basis for revision "
+"management, used exclusively by :class:`.ScriptDirectory`."
+msgstr ""
+
+#: alembic.script.revision.Revision:1 of
+msgid "Base class for revisioned objects."
+msgstr ""
+
+#: alembic.script.revision.Revision:3 of
+msgid ""
+"The :class:`.Revision` class is the base of the more public-facing "
+":class:`.Script` object, which represents a migration script. The "
+"mechanics of revision management and traversal are encapsulated within "
+":class:`.Revision`, while :class:`.Script` applies this logic to Python "
+"files in a version directory."
+msgstr ""
+
+#: alembic.script.revision.Revision.branch_labels:1 of
+msgid "Optional string/tuple of symbolic names to apply to this revision's branch"
+msgstr ""
+
+#: alembic.script.revision.Revision.dependencies:1 of
+msgid "Additional revisions which this revision is dependent on."
+msgstr ""
+
+#: alembic.script.revision.Revision.dependencies:3 of
+msgid ""
+"From a migration standpoint, these dependencies are added to the "
+"down_revision to form the full iteration.  However, the separation of "
+"down_revision from \"dependencies\" is to assist in navigating a history "
+"that contains many branches, typically a multi-root scenario."
+msgstr ""
+
+#: alembic.script.revision.Revision.down_revision:1 of
+msgid "The ``down_revision`` identifier(s) within the migration script."
+msgstr ""
+
+#: alembic.script.revision.Revision.down_revision:3 of
+msgid ""
+"Note that the total set of \"down\" revisions is down_revision + "
+"dependencies."
+msgstr ""
+
+#: alembic.script.revision.Revision.is_base:1 of
+msgid "Return True if this :class:`.Revision` is a 'base' revision."
+msgstr ""
+
+#: alembic.script.revision.Revision.is_branch_point:1 of
+msgid "Return True if this :class:`.Script` is a branch point."
+msgstr ""
+
+#: alembic.script.revision.Revision.is_branch_point:3 of
+msgid ""
+"A branchpoint is defined as a :class:`.Script` which is referred to by "
+"more than one succeeding :class:`.Script`, that is more than one "
+":class:`.Script` has a `down_revision` identifier pointing here."
+msgstr ""
+
+#: alembic.script.revision.Revision.is_head:1 of
+msgid "Return True if this :class:`.Revision` is a 'head' revision."
+msgstr ""
+
+#: alembic.script.revision.Revision.is_head:3 of
+msgid ""
+"This is determined based on whether any other :class:`.Script` within the"
+" :class:`.ScriptDirectory` refers to this :class:`.Script`.   Multiple "
+"heads can be present."
+msgstr ""
+
+#: alembic.script.revision.Revision.is_merge_point:1 of
+msgid "Return True if this :class:`.Script` is a merge point."
+msgstr ""
+
+#: alembic.script.revision.Revision.nextrev:1 of
+msgid "following revisions, based on down_revision only."
+msgstr ""
+
+#: alembic.script.revision.Revision.revision:1 of
+msgid "The string revision number."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap:1 of
+msgid "Maintains a map of :class:`.Revision` objects."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap:3 of
+msgid ""
+":class:`.RevisionMap` is used by :class:`.ScriptDirectory` to maintain "
+"and traverse the collection of :class:`.Script` objects, which are "
+"themselves instances of :class:`.Revision`."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap:8 of
+msgid "Construct a new :class:`.RevisionMap`."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap:10 of
+msgid ""
+"a zero-arg callable that will generate an iterable of :class:`.Revision` "
+"instances to be used.   These are typically :class:`.Script` subclasses "
+"within regular Alembic use."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.add_revision:1 of
+msgid "add a single revision to an existing map."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.add_revision:3 of
+msgid ""
+"This method is for single-revision use cases, it's not appropriate for "
+"fully populating an entire revision map."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.bases:1 of
+msgid "All \"base\" revisions as strings."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.bases:3 of
+msgid "These are revisions that have a ``down_revision`` of None, or empty tuple."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.get_current_head:8 of
+msgid ""
+"optional branch name which will limit the heads considered to those which"
+" include that branch_label."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.get_revision:1 of
+msgid "Return the :class:`.Revision` instance with the given rev id."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.get_revision:3 of
+msgid ""
+"If a symbolic name such as \"head\" or \"base\" is given, resolves the "
+"identifier into the current head or base revision.  If the symbolic name "
+"refers to multiples, :class:`.MultipleHeads` is raised."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.get_revision:7
+#: alembic.script.revision.RevisionMap.get_revisions:11 of
+msgid ""
+"Supports partial identifiers, where the given identifier is matched "
+"against all identifiers that start with the given characters; if there is"
+" exactly one match, that determines the full revision."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.get_revisions:1 of
+msgid ""
+"Return the :class:`.Revision` instances with the given rev id or "
+"identifiers."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.get_revisions:4 of
+msgid ""
+"May be given a single identifier, a sequence of identifiers, or the "
+"special symbols \"head\" or \"base\".  The result is a tuple of one or "
+"more identifiers, or an empty tuple in the case of \"base\"."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.get_revisions:8 of
+msgid ""
+"In the cases where 'head', 'heads' is requested and the revision map is "
+"empty, returns an empty tuple."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.heads:1 of
+msgid "All \"head\" revisions as strings."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.heads:3 of
+msgid ""
+"This is normally a tuple of length one, unless unmerged branches are "
+"present."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.iterate_revisions:9 of
+msgid "The iterator yields :class:`.Revision` objects."
+msgstr ""
+

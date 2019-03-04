@@ -1,0 +1,194 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010-2019, Mike Bayer
+# This file is distributed under the same license as the Alembic package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Alembic 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-04 13:30+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../api/ddl.rst:5
+msgid "DDL Internals"
+msgstr ""
+
+#: ../api/ddl.rst:7
+msgid ""
+"These are some of the constructs used to generate migration instructions."
+"  The APIs here build off of the :class:`sqlalchemy.schema.DDLElement` "
+"and :ref:`sqlalchemy.ext.compiler_toplevel` systems."
+msgstr ""
+
+#: ../api/ddl.rst:11
+msgid ""
+"For programmatic usage of Alembic's migration directives, the easiest "
+"route is to use the higher level functions given by "
+":ref:`alembic.operations.toplevel`."
+msgstr ""
+
+#: alembic.ddl.base.AlterTable:1 of
+msgid "Represent an ALTER TABLE statement."
+msgstr ""
+
+#: alembic.ddl.base.AlterTable:3 of
+msgid ""
+"Only the string name and optional schema name of the table is required, "
+"not a full Table object."
+msgstr ""
+
+#: alembic.ddl.base.quote_dotted:1 of
+msgid "quote the elements of a dotted name"
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl:1 of
+msgid ""
+"Provide the entrypoint for major migration operations, including "
+"database-specific behavioral variances."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl:4 of
+msgid ""
+"While individual SQL/DDL constructs already provide for database-specific"
+" implementations, variances here allow for entirely different sequences "
+"of operations to take place for a particular migration, such as SQL "
+"Server's special 'IDENTITY INSERT' step for bulk inserts."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.autogen_column_reflect:1
+#: alembic.ddl.postgresql.PostgresqlImpl.autogen_column_reflect:1 of
+msgid ""
+"A hook that is attached to the 'column_reflect' event for when a Table is"
+" reflected from the database during the autogenerate process."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.autogen_column_reflect:5
+#: alembic.ddl.postgresql.PostgresqlImpl.autogen_column_reflect:5 of
+msgid "Dialects can elect to modify the information gathered here."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.emit_begin:1
+#: alembic.ddl.mssql.MSSQLImpl.emit_begin:1 of
+msgid ""
+"Emit the string ``BEGIN``, or the backend-specific equivalent, on the "
+"current connection context."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.emit_begin:4
+#: alembic.ddl.impl.DefaultImpl.emit_commit:4
+#: alembic.ddl.mssql.MSSQLImpl.emit_begin:4
+#: alembic.ddl.mssql.MSSQLImpl.emit_commit:4 of
+msgid ""
+"This is used in offline mode and typically via "
+":meth:`.EnvironmentContext.begin_transaction`."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.emit_commit:1
+#: alembic.ddl.mssql.MSSQLImpl.emit_commit:1 of
+msgid ""
+"Emit the string ``COMMIT``, or the backend-specific equivalent, on the "
+"current connection context."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.prep_table_for_batch:1
+#: alembic.ddl.postgresql.PostgresqlImpl.prep_table_for_batch:1 of
+msgid ""
+"perform any operations needed on a table before a new one is created to "
+"replace it in batch mode."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.prep_table_for_batch:4
+#: alembic.ddl.postgresql.PostgresqlImpl.prep_table_for_batch:4 of
+msgid ""
+"the PG dialect uses this to drop constraints on the table before the new "
+"one uses those same names."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.requires_recreate_in_batch:1
+#: alembic.ddl.sqlite.SQLiteImpl.requires_recreate_in_batch:1 of
+msgid ""
+"Return True if the given :class:`.BatchOperationsImpl` would need the "
+"table to be recreated and copied in order to proceed."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.requires_recreate_in_batch:5
+#: alembic.ddl.sqlite.SQLiteImpl.requires_recreate_in_batch:5 of
+msgid ""
+"Normally, only returns True on SQLite when operations other than "
+"add_column are present."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.start_migrations:1 of
+msgid "A hook called when :meth:`.EnvironmentContext.run_migrations` is called."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.start_migrations:4 of
+msgid "Implementations can set up per-migration-run state here."
+msgstr ""
+
+#: ../api/ddl.rst:27
+msgid "MySQL"
+msgstr ""
+
+#: alembic.ddl.mysql.MySQLAlterDefault:1 alembic.ddl.mysql.MySQLChangeColumn:1
+#: alembic.ddl.postgresql.PostgresqlColumnType:1 of
+msgid "Bases: :class:`alembic.ddl.base.AlterColumn`"
+msgstr ""
+
+#: alembic.ddl.mssql.MSSQLImpl:1 alembic.ddl.mysql.MySQLImpl:1
+#: alembic.ddl.postgresql.PostgresqlImpl:1 alembic.ddl.sqlite.SQLiteImpl:1 of
+msgid "Bases: :class:`alembic.ddl.impl.DefaultImpl`"
+msgstr ""
+
+#: alembic.ddl.mysql.MySQLModifyColumn:1 of
+msgid "Bases: :class:`alembic.ddl.mysql.MySQLChangeColumn`"
+msgstr ""
+
+#: ../api/ddl.rst:35
+msgid "MS-SQL"
+msgstr ""
+
+#: ../api/ddl.rst:43
+msgid "Postgresql"
+msgstr ""
+
+#: alembic.ddl.postgresql.CreateExcludeConstraintOp:1 of
+msgid "Bases: :class:`alembic.operations.ops.AddConstraintOp`"
+msgstr ""
+
+#: alembic.ddl.postgresql.CreateExcludeConstraintOp:1 of
+msgid "Represent a create exclude constraint operation."
+msgstr ""
+
+#: alembic.ddl.postgresql.CreateExcludeConstraintOp.batch_create_exclude_constraint:1
+#: of
+msgid ""
+"This method is proxied on the :class:`.BatchOperations` class, via the "
+":meth:`.BatchOperations.create_exclude_constraint` method."
+msgstr ""
+
+#: alembic.ddl.postgresql.CreateExcludeConstraintOp.create_exclude_constraint:1
+#: of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.create_exclude_constraint` method."
+msgstr ""
+
+#: ../api/ddl.rst:51
+msgid "SQLite"
+msgstr ""
+
+#: alembic.ddl.sqlite.SQLiteImpl.transactional_ddl:1 of
+msgid ""
+"SQLite supports transactional DDL, but pysqlite does not: see: "
+"http://bugs.python.org/issue10740"
+msgstr ""
+

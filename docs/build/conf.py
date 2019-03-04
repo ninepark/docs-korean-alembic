@@ -230,3 +230,6 @@ intersphinx_mapping = {
     'sqla':('http://www.sqlalchemy.org/docs/', None),
     'python':('http://docs.python.org/', None),
 }
+
+locale_dirs = ['locale/']
+gettext_compact = False

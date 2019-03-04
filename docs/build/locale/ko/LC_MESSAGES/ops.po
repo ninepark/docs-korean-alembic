@@ -1,0 +1,1598 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010-2019, Mike Bayer
+# This file is distributed under the same license as the Alembic package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Alembic 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-04 13:27+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../ops.rst:5
+msgid "Operation Reference"
+msgstr ""
+
+#: ../ops.rst:7
+msgid "This file provides documentation on Alembic migration directives."
+msgstr ""
+
+#: ../ops.rst:9
+msgid ""
+"The directives here are used within user-defined migration files, within "
+"the ``upgrade()`` and ``downgrade()`` functions, as well as any functions"
+" further invoked by those."
+msgstr ""
+
+#: ../ops.rst:13
+msgid ""
+"All directives exist as methods on a class called :class:`.Operations`. "
+"When migration scripts are run, this object is made available to the "
+"script via the ``alembic.op`` datamember, which is a *proxy* to an actual"
+" instance of :class:`.Operations`. Currently, ``alembic.op`` is a real "
+"Python module, populated with individual proxies for each method on "
+":class:`.Operations`, so symbols can be imported safely from the "
+"``alembic.op`` namespace."
+msgstr ""
+
+#: ../ops.rst:21
+msgid ""
+"The :class:`.Operations` system is also fully extensible.  See "
+":ref:`operation_plugins` for details on this."
+msgstr ""
+
+#: ../ops.rst:24
+msgid ""
+"A key design philosophy to the :ref:`alembic.operations.toplevel` methods"
+" is that to the greatest degree possible, they internally generate the "
+"appropriate SQLAlchemy metadata, typically involving "
+":class:`~sqlalchemy.schema.Table` and "
+":class:`~sqlalchemy.schema.Constraint` objects.  This so that migration "
+"instructions can be given in terms of just the string names and/or flags "
+"involved. The exceptions to this rule include the "
+":meth:`~.Operations.add_column` and :meth:`~.Operations.create_table` "
+"directives, which require full :class:`~sqlalchemy.schema.Column` "
+"objects, though the table metadata is still generated here."
+msgstr ""
+
+#: ../ops.rst:35
+msgid ""
+"The functions here all require that a :class:`.MigrationContext` has been"
+" configured within the ``env.py`` script first, which is typically via "
+":meth:`.EnvironmentContext.configure`.   Under normal circumstances they "
+"are called from an actual migration script, which itself would be invoked"
+" by the :meth:`.EnvironmentContext.run_migrations` method."
+msgstr ""
+
+#: alembic.operations.Operations:1 of
+msgid "Define high level migration operations."
+msgstr ""
+
+#: alembic.operations.Operations:3 of
+msgid ""
+"Each operation corresponds to some schema migration operation, executed "
+"against a particular :class:`.MigrationContext` which in turn represents "
+"connectivity to a database, or a file output stream."
+msgstr ""
+
+#: alembic.operations.Operations:8 of
+msgid ""
+"While :class:`.Operations` is normally configured as part of the "
+":meth:`.EnvironmentContext.run_migrations` method called from an "
+"``env.py`` script, a standalone :class:`.Operations` instance can be made"
+" for use cases external to regular Alembic migrations by passing in a "
+":class:`.MigrationContext`::"
+msgstr ""
+
+#: alembic.operations.BatchOperations:11 alembic.operations.Operations:24 of
+msgid ""
+"Note that as of 0.8, most of the methods on this class are produced "
+"dynamically using the :meth:`.Operations.register_operation` method."
+msgstr ""
+
+#: alembic.operations.BatchOperations:16 alembic.operations.Operations:29 of
+msgid "Construct a new :class:`.Operations`"
+msgstr ""
+
+#: alembic.operations.BatchOperations alembic.operations.Operations
+#: alembic.operations.Operations.add_column
+#: alembic.operations.Operations.alter_column
+#: alembic.operations.Operations.batch_alter_table
+#: alembic.operations.Operations.bulk_insert
+#: alembic.operations.Operations.create_check_constraint
+#: alembic.operations.Operations.create_exclude_constraint
+#: alembic.operations.Operations.create_foreign_key
+#: alembic.operations.Operations.create_index
+#: alembic.operations.Operations.create_primary_key
+#: alembic.operations.Operations.create_table
+#: alembic.operations.Operations.create_table_comment
+#: alembic.operations.Operations.create_unique_constraint
+#: alembic.operations.Operations.drop_column
+#: alembic.operations.Operations.drop_constraint
+#: alembic.operations.Operations.drop_index
+#: alembic.operations.Operations.drop_table
+#: alembic.operations.Operations.drop_table_comment
+#: alembic.operations.Operations.execute
+#: alembic.operations.Operations.inline_literal
+#: alembic.operations.Operations.rename_table of
+msgid "Parameters"
+msgstr ""
+
+#: alembic.operations.BatchOperations:18 alembic.operations.Operations:31 of
+msgid "a :class:`.MigrationContext` instance."
+msgstr ""
+
+#: alembic.operations.Operations.add_column:1 of
+msgid "Issue an \"add column\" instruction using the current migration context."
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_foreign_key:7
+#: alembic.operations.Operations.add_column:4
+#: alembic.operations.Operations.bulk_insert:10
+#: alembic.operations.Operations.create_check_constraint:4
+#: alembic.operations.Operations.create_exclude_constraint:7
+#: alembic.operations.Operations.create_foreign_key:4
+#: alembic.operations.Operations.create_index:4
+#: alembic.operations.Operations.create_primary_key:4
+#: alembic.operations.Operations.create_unique_constraint:4
+#: alembic.operations.Operations.drop_column:4
+#: alembic.operations.Operations.drop_index:4
+#: alembic.operations.Operations.drop_table:5 of
+msgid "e.g.::"
+msgstr ""
+
+#: alembic.operations.Operations.add_column:13 of
+msgid ""
+"The provided :class:`~sqlalchemy.schema.Column` object can also specify a"
+" :class:`~sqlalchemy.schema.ForeignKey`, referencing a remote table name."
+"  Alembic will automatically generate a stub \"referenced\" table and "
+"emit a second ALTER statement in order to add the constraint separately::"
+msgstr ""
+
+#: alembic.operations.Operations.add_column:26 of
+msgid ""
+"Note that this statement uses the :class:`~sqlalchemy.schema.Column` "
+"construct as is from the SQLAlchemy library.  In particular, default "
+"values to be created on the database side are specified using the "
+"``server_default`` parameter, and not ``default`` which only specifies "
+"Python-side defaults::"
+msgstr ""
+
+#: alembic.operations.Operations.add_column:40 of
+msgid "String name of the parent table."
+msgstr ""
+
+#: alembic.operations.Operations.add_column:41 of
+msgid "a :class:`sqlalchemy.schema.Column` object representing the new column."
+msgstr ""
+
+#: alembic.operations.Operations.add_column:43
+#: alembic.operations.Operations.alter_column:78
+#: alembic.operations.Operations.create_check_constraint:35
+#: alembic.operations.Operations.create_index:26
+#: alembic.operations.Operations.create_primary_key:31
+#: alembic.operations.Operations.create_table:68
+#: alembic.operations.Operations.create_unique_constraint:32
+#: alembic.operations.Operations.drop_column:10
+#: alembic.operations.Operations.drop_constraint:7
+#: alembic.operations.Operations.drop_index:11
+#: alembic.operations.Operations.drop_table:10
+#: alembic.operations.Operations.rename_table:5 of
+msgid ""
+"Optional schema name to operate within.  To control quoting of the schema"
+" outside of the default behavior, use the SQLAlchemy construct "
+":class:`~sqlalchemy.sql.elements.quoted_name`.  .. versionadded:: 0.7.0 "
+"'schema' can now accept a    "
+":class:`~sqlalchemy.sql.elements.quoted_name` construct."
+msgstr ""
+
+#: alembic.operations.Operations.add_column:43
+#: alembic.operations.Operations.alter_column:78
+#: alembic.operations.Operations.create_check_constraint:35
+#: alembic.operations.Operations.create_index:26
+#: alembic.operations.Operations.create_primary_key:31
+#: alembic.operations.Operations.create_table:68
+#: alembic.operations.Operations.create_unique_constraint:32
+#: alembic.operations.Operations.drop_column:10
+#: alembic.operations.Operations.drop_constraint:7
+#: alembic.operations.Operations.drop_index:11
+#: alembic.operations.Operations.drop_table:10
+#: alembic.operations.Operations.rename_table:5 of
+msgid ""
+"Optional schema name to operate within.  To control quoting of the schema"
+" outside of the default behavior, use the SQLAlchemy construct "
+":class:`~sqlalchemy.sql.elements.quoted_name`."
+msgstr ""
+
+#: alembic.operations.Operations.add_column:48
+#: alembic.operations.Operations.alter_column:83
+#: alembic.operations.Operations.create_check_constraint:40
+#: alembic.operations.Operations.create_index:31
+#: alembic.operations.Operations.create_primary_key:36
+#: alembic.operations.Operations.create_table:73
+#: alembic.operations.Operations.create_unique_constraint:37
+#: alembic.operations.Operations.drop_column:15
+#: alembic.operations.Operations.drop_constraint:12
+#: alembic.operations.Operations.drop_index:16
+#: alembic.operations.Operations.drop_table:15
+#: alembic.operations.Operations.rename_table:10 of
+msgid ""
+"'schema' can now accept a :class:`~sqlalchemy.sql.elements.quoted_name` "
+"construct."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:1 of
+msgid "Issue an \"alter column\" instruction using the current migration context."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:4 of
+msgid ""
+"Generally, only that aspect of the column which is being changed, i.e. "
+"name, type, nullability, default, needs to be specified.  Multiple "
+"changes can also be specified at once and the backend should \"do the "
+"right thing\", emitting each change either separately or together as the "
+"backend allows."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:11 of
+msgid ""
+"MySQL has special requirements here, since MySQL cannot ALTER a column "
+"without a full specification. When producing MySQL-compatible migration "
+"files, it is recommended that the ``existing_type``, "
+"``existing_server_default``, and ``existing_nullable`` parameters be "
+"present, if not being altered."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:18 of
+msgid ""
+"Type changes which are against the SQLAlchemy \"schema\" types "
+":class:`~sqlalchemy.types.Boolean` and  :class:`~sqlalchemy.types.Enum` "
+"may also add or drop constraints which accompany those types on backends "
+"that don't support them natively. The ``existing_type`` argument is used "
+"in this case to identify and remove a previous constraint that was bound "
+"to the type object."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:27
+#: alembic.operations.Operations.create_table_comment:5
+#: alembic.operations.Operations.drop_table_comment:6 of
+msgid "string name of the target table."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:28 of
+msgid ""
+"string name of the target column, as it exists before the operation "
+"begins."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:30 of
+msgid "Optional; specify ``True`` or ``False`` to alter the column's nullability."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:32 of
+msgid ""
+"Optional; specify a string SQL expression, "
+":func:`~sqlalchemy.sql.expression.text`, or "
+":class:`~sqlalchemy.schema.DefaultClause` to indicate an alteration to "
+"the column's default value. Set to ``None`` to have the default removed."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:37 of
+msgid ""
+"optional string text of a new comment to add to the column.  .. "
+"versionadded:: 1.0.6"
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:37 of
+msgid "optional string text of a new comment to add to the column."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:42 of
+msgid ""
+"Optional; specify a string name here to indicate the new name within a "
+"column rename operation."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:44 of
+msgid ""
+"Optional; a :class:`~sqlalchemy.types.TypeEngine` type object to specify "
+"a change to the column's type. For SQLAlchemy types that also indicate a "
+"constraint (i.e. :class:`~sqlalchemy.types.Boolean`, "
+":class:`~sqlalchemy.types.Enum`), the constraint is also generated."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:49 of
+msgid ""
+"set the ``AUTO_INCREMENT`` flag of the column; currently understood by "
+"the MySQL dialect."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:51 of
+msgid ""
+"Optional; a :class:`~sqlalchemy.types.TypeEngine` type object to specify "
+"the previous type.   This is required for all MySQL column alter "
+"operations that don't otherwise specify a new type, as well as for when "
+"nullability is being changed on a SQL Server column.  It is also used if "
+"the type is a so-called SQLlchemy \"schema\" type which may define a "
+"constraint (i.e. :class:`~sqlalchemy.types.Boolean`, "
+":class:`~sqlalchemy.types.Enum`), so that the constraint can be dropped."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:62 of
+msgid ""
+"Optional; The existing default value of the column.   Required on MySQL "
+"if an existing default is not being changed; else MySQL removes the "
+"default."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:66 of
+msgid ""
+"Optional; the existing nullability of the column.  Required on MySQL if "
+"the existing nullability is not being changed; else MySQL sets this to "
+"NULL."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:69 of
+msgid ""
+"Optional; the existing autoincrement of the column.  Used for MySQL's "
+"system of altering a column that specifies ``AUTO_INCREMENT``."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:72 of
+msgid ""
+"string text of the existing comment on the column to be maintained.  "
+"Required on MySQL if the existing comment on the column is not being "
+"changed.  .. versionadded:: 1.0.6"
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:72 of
+msgid ""
+"string text of the existing comment on the column to be maintained.  "
+"Required on MySQL if the existing comment on the column is not being "
+"changed."
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:86 of
+msgid ""
+"String argument which will indicate a SQL expression to render within the"
+" Postgresql-specific USING clause within ALTER COLUMN.    This string is "
+"taken directly as raw SQL which must explicitly include any necessary "
+"quoting or escaping of tokens within the expression.  .. versionadded:: "
+"0.8.8"
+msgstr ""
+
+#: alembic.operations.Operations.alter_column:86 of
+msgid ""
+"String argument which will indicate a SQL expression to render within the"
+" Postgresql-specific USING clause within ALTER COLUMN.    This string is "
+"taken directly as raw SQL which must explicitly include any necessary "
+"quoting or escaping of tokens within the expression."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:1 of
+msgid "Invoke a series of per-table migrations in batch."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:3 of
+msgid ""
+"Batch mode allows a series of operations specific to a table to be "
+"syntactically grouped together, and allows for alternate modes of table "
+"migration, in particular the \"recreate\" style of migration required by "
+"SQLite."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:8 of
+msgid "\"recreate\" style is as follows:"
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:10 of
+msgid ""
+"A new table is created with the new specification, based on the migration"
+" directives within the batch, using a temporary name."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:13 of
+msgid "the data copied from the existing table to the new table."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:15 of
+msgid "the existing table is dropped."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:17 of
+msgid "the new table is renamed to the existing table name."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:19 of
+msgid ""
+"The directive by default will only use \"recreate\" style on the SQLite "
+"backend, and only if directives are present which require this form, e.g."
+" anything other than ``add_column()``.   The batch operation on other "
+"backends will proceed using standard ALTER TABLE operations."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:25 of
+msgid ""
+"The method is used as a context manager, which returns an instance of "
+":class:`.BatchOperations`; this object is the same as "
+":class:`.Operations` except that table names and schema names are "
+"omitted.  E.g.::"
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:34 of
+msgid ""
+"The operations within the context manager are invoked at once when the "
+"context is ended.   When run against SQLite, if the migrations include "
+"operations not supported by SQLite's ALTER TABLE, the entire table will "
+"be copied to a new one with the new specification, moving all data across"
+" as well."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:40 of
+msgid ""
+"The copy operation by default uses reflection to retrieve the current "
+"structure of the table, and therefore :meth:`.batch_alter_table` in this "
+"mode requires that the migration is run in \"online\" mode. The "
+"``copy_from`` parameter may be passed which refers to an existing "
+":class:`.Table` object, which will bypass this reflection step."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:46 of
+msgid ""
+"The table copy operation will currently not copy CHECK constraints, and "
+"may not copy UNIQUE constraints that are unnamed, as is possible on "
+"SQLite.   See the section :ref:`sqlite_batch_constraints` for "
+"workarounds."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:51
+#: alembic.operations.Operations.drop_column:8 of
+msgid "name of table"
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:52 of
+msgid "optional schema name."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:53 of
+msgid ""
+"under what circumstances the table should be recreated. At its default of"
+" ``\"auto\"``, the SQLite dialect will recreate the table if any "
+"operations other than ``add_column()``, ``create_index()``, or "
+"``drop_index()`` are present. Other options include ``\"always\"`` and "
+"``\"never\"``."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:58 of
+msgid ""
+"optional :class:`~sqlalchemy.schema.Table` object that will act as the "
+"structure of the table being copied.  If omitted, table reflection is "
+"used to retrieve the structure of the table.  .. versionadded:: 0.7.6 "
+"Fully implemented the    "
+":paramref:`~.Operations.batch_alter_table.copy_from`    parameter.  .. "
+"seealso::     :ref:`batch_offline_mode`     "
+":paramref:`~.Operations.batch_alter_table.reflect_args`     "
+":paramref:`~.Operations.batch_alter_table.reflect_kwargs`"
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:58 of
+msgid ""
+"optional :class:`~sqlalchemy.schema.Table` object that will act as the "
+"structure of the table being copied.  If omitted, table reflection is "
+"used to retrieve the structure of the table."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:62 of
+msgid ""
+"Fully implemented the "
+":paramref:`~.Operations.batch_alter_table.copy_from` parameter."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:68 of
+msgid ":ref:`batch_offline_mode`"
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:70 of
+msgid ":paramref:`~.Operations.batch_alter_table.reflect_args`"
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:72 of
+msgid ":paramref:`~.Operations.batch_alter_table.reflect_kwargs`"
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:74 of
+msgid ""
+"a sequence of additional positional arguments that will be applied to the"
+" table structure being reflected / copied; this may be used to pass "
+"column and constraint overrides to the table that will be reflected, in "
+"lieu of passing the whole :class:`~sqlalchemy.schema.Table` using "
+":paramref:`~.Operations.batch_alter_table.copy_from`.  .. versionadded:: "
+"0.7.1"
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:74 of
+msgid ""
+"a sequence of additional positional arguments that will be applied to the"
+" table structure being reflected / copied; this may be used to pass "
+"column and constraint overrides to the table that will be reflected, in "
+"lieu of passing the whole :class:`~sqlalchemy.schema.Table` using "
+":paramref:`~.Operations.batch_alter_table.copy_from`."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:83 of
+msgid ""
+"a dictionary of additional keyword arguments that will be applied to the "
+"table structure being copied; this may be used to pass additional table "
+"and reflection options to the table that will be reflected, in lieu of "
+"passing the whole :class:`~sqlalchemy.schema.Table` using "
+":paramref:`~.Operations.batch_alter_table.copy_from`.  .. versionadded:: "
+"0.7.1"
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:83 of
+msgid ""
+"a dictionary of additional keyword arguments that will be applied to the "
+"table structure being copied; this may be used to pass additional table "
+"and reflection options to the table that will be reflected, in lieu of "
+"passing the whole :class:`~sqlalchemy.schema.Table` using "
+":paramref:`~.Operations.batch_alter_table.copy_from`."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:92 of
+msgid ""
+"a sequence of additional positional arguments that will be applied to the"
+" new :class:`~sqlalchemy.schema.Table` when created, in addition to those"
+" copied from the source table. This may be used to provide additional "
+"constraints such as CHECK constraints that may not be reflected."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:97 of
+msgid ""
+"a dictionary of additional keyword arguments that will be applied to the "
+"new :class:`~sqlalchemy.schema.Table` when created, in addition to those "
+"copied from the source table. This may be used to provide for additional "
+"table options that may not be reflected."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:105 of
+msgid ""
+"a naming convention dictionary of the form described at "
+":ref:`autogen_naming_conventions` which will be applied to the "
+":class:`~sqlalchemy.schema.MetaData` during the reflection process.  This"
+" is typically required if one wants to drop SQLite constraints, as these "
+"constraints will not have names when reflected on this backend.  Requires"
+" SQLAlchemy **0.9.4** or greater.  .. seealso::     "
+":ref:`dropping_sqlite_foreign_keys`  .. versionadded:: 0.7.1"
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:105 of
+msgid ""
+"a naming convention dictionary of the form described at "
+":ref:`autogen_naming_conventions` which will be applied to the "
+":class:`~sqlalchemy.schema.MetaData` during the reflection process.  This"
+" is typically required if one wants to drop SQLite constraints, as these "
+"constraints will not have names when reflected on this backend.  Requires"
+" SQLAlchemy **0.9.4** or greater."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:114 of
+msgid ":ref:`dropping_sqlite_foreign_keys`"
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:118 of
+msgid "batch mode requires SQLAlchemy 0.8 or above."
+msgstr ""
+
+#: alembic.operations.Operations.batch_alter_table:122 of
+msgid ":ref:`batch_migrations`"
+msgstr ""
+
+#: alembic.operations.Operations.bulk_insert:1 of
+msgid "Issue a \"bulk insert\" operation using the current migration context."
+msgstr ""
+
+#: alembic.operations.Operations.bulk_insert:4 of
+msgid ""
+"This provides a means of representing an INSERT of multiple rows which "
+"works equally well in the context of executing on a live connection as "
+"well as that of generating a SQL script.   In the case of a SQL script, "
+"the values are rendered inline into the statement."
+msgstr ""
+
+#: alembic.operations.Operations.bulk_insert:35 of
+msgid ""
+"When using --sql mode, some datatypes may not render inline "
+"automatically, such as dates and other special types.   When this issue "
+"is present, :meth:`.Operations.inline_literal` may be used::"
+msgstr ""
+
+#: alembic.operations.Operations.bulk_insert:51 of
+msgid ""
+"When using :meth:`.Operations.inline_literal` in conjunction with "
+":meth:`.Operations.bulk_insert`, in order for the statement to work in "
+"\"online\" (e.g. non --sql) mode, the "
+":paramref:`~.Operations.bulk_insert.multiinsert` flag should be set to "
+"``False``, which will have the effect of individual INSERT statements "
+"being emitted to the database, each with a distinct VALUES clause, so "
+"that the \"inline\" values can still be rendered, rather than attempting "
+"to pass the values as bound parameters."
+msgstr ""
+
+#: alembic.operations.Operations.bulk_insert:61 of
+msgid ""
+":meth:`.Operations.inline_literal` can now be used with "
+":meth:`.Operations.bulk_insert`, and the "
+":paramref:`~.Operations.bulk_insert.multiinsert` flag has been added to "
+"assist in this usage when running in \"online\" mode."
+msgstr ""
+
+#: alembic.operations.Operations.bulk_insert:67 of
+msgid "a table object which represents the target of the INSERT."
+msgstr ""
+
+#: alembic.operations.Operations.bulk_insert:69 of
+msgid "a list of dictionaries indicating rows."
+msgstr ""
+
+#: alembic.operations.Operations.bulk_insert:71 of
+msgid ""
+"when at its default of True and --sql mode is not enabled, the INSERT "
+"statement will be executed using \"executemany()\" style, where all "
+"elements in the list of dictionaries are passed as bound parameters in a "
+"single list.   Setting this to False results in individual INSERT "
+"statements being emitted per parameter set, and is needed in those cases "
+"where non-literal values are present in the parameter sets.  .. "
+"versionadded:: 0.6.4"
+msgstr ""
+
+#: alembic.operations.Operations.bulk_insert:71 of
+msgid ""
+"when at its default of True and --sql mode is not enabled, the INSERT "
+"statement will be executed using \"executemany()\" style, where all "
+"elements in the list of dictionaries are passed as bound parameters in a "
+"single list.   Setting this to False results in individual INSERT "
+"statements being emitted per parameter set, and is needed in those cases "
+"where non-literal values are present in the parameter sets."
+msgstr ""
+
+#: alembic.operations.Operations.create_check_constraint:1 of
+msgid ""
+"Issue a \"create check constraint\" instruction using the current "
+"migration context."
+msgstr ""
+
+#: alembic.operations.Operations.create_check_constraint:15 of
+msgid ""
+"CHECK constraints are usually against a SQL expression, so ad-hoc table "
+"metadata is usually needed.   The function will convert the given "
+"arguments into a :class:`sqlalchemy.schema.CheckConstraint` bound to an "
+"anonymous table in order to emit the CREATE statement."
+msgstr ""
+
+#: alembic.operations.Operations.create_check_constraint:20 of
+msgid ""
+"Name of the check constraint.  The name is necessary so that an ALTER "
+"statement can be emitted.  For setups that use an automated naming scheme"
+" such as that described at :ref:`sqla:constraint_naming_conventions`, "
+"``name`` here can be ``None``, as the event listener will apply the name "
+"to the constraint object when it is associated with the table."
+msgstr ""
+
+#: alembic.operations.Operations.create_check_constraint:27
+#: alembic.operations.Operations.create_exclude_constraint:26
+#: alembic.operations.Operations.create_foreign_key:27
+#: alembic.operations.Operations.create_unique_constraint:25 of
+msgid "String name of the source table."
+msgstr ""
+
+#: alembic.operations.Operations.create_check_constraint:28 of
+msgid ""
+"SQL expression that's the condition of the constraint. Can be a string or"
+" SQLAlchemy expression language structure."
+msgstr ""
+
+#: alembic.operations.Operations.create_check_constraint:31
+#: alembic.operations.Operations.create_exclude_constraint:30
+#: alembic.operations.Operations.create_foreign_key:39
+#: alembic.operations.Operations.create_unique_constraint:28 of
+msgid ""
+"optional bool. If set, emit DEFERRABLE or NOT DEFERRABLE when issuing DDL"
+" for this constraint."
+msgstr ""
+
+#: alembic.operations.Operations.create_check_constraint:33
+#: alembic.operations.Operations.create_exclude_constraint:32
+#: alembic.operations.Operations.create_unique_constraint:30 of
+msgid ""
+"optional string. If set, emit INITIALLY <value> when issuing DDL for this"
+" constraint."
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_check_constraint:11
+#: alembic.operations.BatchOperations.create_foreign_key:18
+#: alembic.operations.BatchOperations.create_unique_constraint:11
+#: alembic.operations.BatchOperations.drop_constraint:11
+#: alembic.operations.BatchOperations.drop_index:8
+#: alembic.operations.Operations.create_check_constraint:43
+#: alembic.operations.Operations.create_foreign_key:44
+#: alembic.operations.Operations.create_index:51
+#: alembic.operations.Operations.create_primary_key:39
+#: alembic.operations.Operations.create_table:84
+#: alembic.operations.Operations.create_unique_constraint:40
+#: alembic.operations.Operations.drop_constraint:15
+#: alembic.operations.Operations.drop_index:28
+#: alembic.operations.Operations.drop_table:21 of
+msgid "The following positional argument names have been changed:"
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_check_constraint:14
+#: alembic.operations.BatchOperations.create_foreign_key:21
+#: alembic.operations.BatchOperations.create_unique_constraint:14
+#: alembic.operations.BatchOperations.drop_constraint:14
+#: alembic.operations.Operations.create_check_constraint:46
+#: alembic.operations.Operations.create_foreign_key:47
+#: alembic.operations.Operations.create_primary_key:42
+#: alembic.operations.Operations.create_unique_constraint:43
+#: alembic.operations.Operations.drop_constraint:18 of
+msgid "name -> constraint_name"
+msgstr ""
+
+#: alembic.operations.Operations.create_check_constraint:47
+#: alembic.operations.Operations.create_unique_constraint:44 of
+msgid "source -> table_name"
+msgstr ""
+
+#: alembic.operations.Operations.create_exclude_constraint:1 of
+msgid ""
+"Issue an alter to create an EXCLUDE constraint using the current "
+"migration context."
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_exclude_constraint:4
+#: alembic.operations.Operations.create_exclude_constraint:4 of
+msgid ""
+"This method is Postgresql specific, and additionally requires at least "
+"SQLAlchemy 1.0."
+msgstr ""
+
+#: alembic.operations.Operations.create_exclude_constraint:21 of
+msgid ""
+"Note that the expressions work the same way as that of the "
+"``ExcludeConstraint`` object itself; if plain strings are passed, quoting"
+" rules must be applied manually."
+msgstr ""
+
+#: alembic.operations.Operations.create_exclude_constraint:25 of
+msgid "Name of the constraint."
+msgstr ""
+
+#: alembic.operations.Operations.create_exclude_constraint:27 of
+msgid "exclude conditions."
+msgstr ""
+
+#: alembic.operations.Operations.create_exclude_constraint:28 of
+msgid "SQL expression or SQL string with optional WHERE clause."
+msgstr ""
+
+#: alembic.operations.Operations.create_exclude_constraint:34 of
+msgid "Optional schema name to operate within."
+msgstr ""
+
+#: alembic.operations.Operations.create_foreign_key:1 of
+msgid ""
+"Issue a \"create foreign key\" instruction using the current migration "
+"context."
+msgstr ""
+
+#: alembic.operations.Operations.create_foreign_key:11 of
+msgid ""
+"This internally generates a :class:`~sqlalchemy.schema.Table` object "
+"containing the necessary columns, then generates a new "
+":class:`~sqlalchemy.schema.ForeignKeyConstraint` object which it then "
+"associates with the :class:`~sqlalchemy.schema.Table`. Any event "
+"listeners associated with this action will be fired off normally.   The "
+":class:`~sqlalchemy.schema.AddConstraint` construct is ultimately used to"
+" generate the ALTER statement."
+msgstr ""
+
+#: alembic.operations.Operations.create_foreign_key:20 of
+msgid ""
+"Name of the foreign key constraint.  The name is necessary so that an "
+"ALTER statement can be emitted.  For setups that use an automated naming "
+"scheme such as that described at "
+":ref:`sqla:constraint_naming_conventions`, ``name`` here can be ``None``,"
+" as the event listener will apply the name to the constraint object when "
+"it is associated with the table."
+msgstr ""
+
+#: alembic.operations.Operations.create_foreign_key:28 of
+msgid "String name of the destination table."
+msgstr ""
+
+#: alembic.operations.Operations.create_foreign_key:29
+#: alembic.operations.Operations.create_unique_constraint:26 of
+msgid "a list of string column names in the source table."
+msgstr ""
+
+#: alembic.operations.Operations.create_foreign_key:31 of
+msgid "a list of string column names in the remote table."
+msgstr ""
+
+#: alembic.operations.Operations.create_foreign_key:33 of
+msgid ""
+"Optional string. If set, emit ON UPDATE <value> when issuing DDL for this"
+" constraint. Typical values include CASCADE, DELETE and RESTRICT."
+msgstr ""
+
+#: alembic.operations.Operations.create_foreign_key:36 of
+msgid ""
+"Optional string. If set, emit ON DELETE <value> when issuing DDL for this"
+" constraint. Typical values include CASCADE, DELETE and RESTRICT."
+msgstr ""
+
+#: alembic.operations.Operations.create_foreign_key:41 of
+msgid "Optional schema name of the source table."
+msgstr ""
+
+#: alembic.operations.Operations.create_foreign_key:42 of
+msgid "Optional schema name of the destination table."
+msgstr ""
+
+#: alembic.operations.Operations.create_foreign_key:48 of
+msgid "source -> source_table"
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_foreign_key:22
+#: alembic.operations.Operations.create_foreign_key:49 of
+msgid "referent -> referent_table"
+msgstr ""
+
+#: alembic.operations.Operations.create_index:1 of
+msgid "Issue a \"create index\" instruction using the current migration context."
+msgstr ""
+
+#: alembic.operations.Operations.create_index:9 of
+msgid ""
+"Functional indexes can be produced by using the "
+":func:`sqlalchemy.sql.expression.text` construct::"
+msgstr ""
+
+#: alembic.operations.Operations.create_index:16 of
+msgid ""
+"support for making use of the :func:`~sqlalchemy.sql.expression.text` "
+"construct in conjunction with :meth:`.Operations.create_index` in order "
+"to produce functional expressions within CREATE INDEX."
+msgstr ""
+
+#: alembic.operations.Operations.create_index:22
+#: alembic.operations.Operations.drop_index:8 of
+msgid "name of the index."
+msgstr ""
+
+#: alembic.operations.Operations.create_index:23 of
+msgid "name of the owning table."
+msgstr ""
+
+#: alembic.operations.Operations.create_index:24 of
+msgid ""
+"a list consisting of string column names and/or "
+":func:`~sqlalchemy.sql.expression.text` constructs."
+msgstr ""
+
+#: alembic.operations.Operations.create_index:34 of
+msgid "If True, create a unique index."
+msgstr ""
+
+#: alembic.operations.Operations.create_index:36 of
+msgid ""
+"Force quoting of this column's name on or off, corresponding to ``True`` "
+"or ``False``. When left at its default of ``None``, the column identifier"
+" will be quoted according to whether the name is case sensitive "
+"(identifiers with at least one upper case character are treated as case "
+"sensitive), or if it's a reserved word. This flag is only needed to force"
+" quoting of a reserved word which is not known by the SQLAlchemy dialect."
+msgstr ""
+
+#: alembic.operations.Operations.create_index:45
+#: alembic.operations.Operations.drop_index:19 of
+msgid ""
+"Additional keyword arguments not mentioned above are dialect specific, "
+"and passed in the form ``<dialectname>_<argname>``. See the documentation"
+" regarding an individual dialect at :ref:`dialect_toplevel` for detail on"
+" documented arguments."
+msgstr ""
+
+#: alembic.operations.BatchOperations.drop_index:11
+#: alembic.operations.Operations.create_index:54
+#: alembic.operations.Operations.drop_index:31 of
+msgid "name -> index_name"
+msgstr ""
+
+#: alembic.operations.Operations.create_primary_key:1 of
+msgid ""
+"Issue a \"create primary key\" instruction using the current migration "
+"context."
+msgstr ""
+
+#: alembic.operations.Operations.create_primary_key:12 of
+msgid ""
+"This internally generates a :class:`~sqlalchemy.schema.Table` object "
+"containing the necessary columns, then generates a new "
+":class:`~sqlalchemy.schema.PrimaryKeyConstraint` object which it then "
+"associates with the :class:`~sqlalchemy.schema.Table`. Any event "
+"listeners associated with this action will be fired off normally.   The "
+":class:`~sqlalchemy.schema.AddConstraint` construct is ultimately used to"
+" generate the ALTER statement."
+msgstr ""
+
+#: alembic.operations.Operations.create_primary_key:21 of
+msgid ""
+"Name of the primary key constraint.  The name is necessary so that an "
+"ALTER statement can be emitted.  For setups that use an automated naming "
+"scheme such as that described at "
+":ref:`sqla:constraint_naming_conventions` ``name`` here can be ``None``, "
+"as the event listener will apply the name to the constraint object when "
+"it is associated with the table."
+msgstr ""
+
+#: alembic.operations.Operations.create_primary_key:28 of
+msgid "String name of the target table."
+msgstr ""
+
+#: alembic.operations.Operations.create_primary_key:29 of
+msgid "a list of string column names to be applied to the primary key constraint."
+msgstr ""
+
+#: alembic.operations.Operations.create_primary_key:43 of
+msgid "cols -> columns"
+msgstr ""
+
+#: alembic.operations.Operations.create_table:1 of
+msgid "Issue a \"create table\" instruction using the current migration context."
+msgstr ""
+
+#: alembic.operations.Operations.create_table:4 of
+msgid ""
+"This directive receives an argument list similar to that of the "
+"traditional :class:`sqlalchemy.schema.Table` construct, but without the "
+"metadata::"
+msgstr ""
+
+#: alembic.operations.Operations.create_table:19 of
+msgid ""
+"Note that :meth:`.create_table` accepts "
+":class:`~sqlalchemy.schema.Column` constructs directly from the "
+"SQLAlchemy library.  In particular, default values to be created on the "
+"database side are specified using the ``server_default`` parameter, and "
+"not ``default`` which only specifies Python-side defaults::"
+msgstr ""
+
+#: alembic.operations.Operations.create_table:35 of
+msgid ""
+"The function also returns a newly created "
+":class:`~sqlalchemy.schema.Table` object, corresponding to the table "
+"specification given, which is suitable for immediate SQL operations, in "
+"particular :meth:`.Operations.bulk_insert`::"
+msgstr ""
+
+#: alembic.operations.Operations.create_table:62
+#: alembic.operations.Operations.drop_table:9 of
+msgid "Name of the table"
+msgstr ""
+
+#: alembic.operations.Operations.create_table:63 of
+msgid ""
+"collection of :class:`~sqlalchemy.schema.Column` objects within the "
+"table, as well as optional :class:`~sqlalchemy.schema.Constraint` objects"
+" and :class:`~.sqlalchemy.schema.Index` objects."
+msgstr ""
+
+#: alembic.operations.Operations.create_table:75
+#: alembic.operations.Operations.drop_table:18 of
+msgid ""
+"Other keyword arguments are passed to the underlying "
+":class:`sqlalchemy.schema.Table` object created for the command."
+msgstr ""
+
+#: alembic.operations.Operations.create_table of
+msgid "Returns"
+msgstr ""
+
+#: alembic.operations.Operations.create_table:78 of
+msgid ""
+"the :class:`~sqlalchemy.schema.Table` object corresponding to the "
+"parameters given.  .. versionadded:: 0.7.0 - the "
+":class:`~sqlalchemy.schema.Table`    object is returned."
+msgstr ""
+
+#: alembic.operations.Operations.create_table:78 of
+msgid ""
+"the :class:`~sqlalchemy.schema.Table` object corresponding to the "
+"parameters given."
+msgstr ""
+
+#: alembic.operations.Operations.create_table:81 of
+msgid "- the :class:`~sqlalchemy.schema.Table` object is returned."
+msgstr ""
+
+#: alembic.operations.Operations.create_table:87
+#: alembic.operations.Operations.drop_table:24 of
+msgid "name -> table_name"
+msgstr ""
+
+#: alembic.operations.Operations.create_table_comment:1 of
+msgid "Emit a COMMENT ON operation to set the comment for a table."
+msgstr ""
+
+#: alembic.operations.Operations.create_table_comment:6 of
+msgid "string value of the comment being registered against the specified table."
+msgstr ""
+
+#: alembic.operations.Operations.create_table_comment:8 of
+msgid ""
+"String value of a comment already registered on the specified table, used"
+" within autogenerate so that the operation is reversible, but not "
+"required for direct use."
+msgstr ""
+
+#: alembic.operations.Operations.create_table_comment:15 of
+msgid ":meth:`.Operations.drop_table_comment`"
+msgstr ""
+
+#: alembic.operations.Operations.create_table_comment:17
+#: alembic.operations.Operations.drop_table_comment:14 of
+msgid ":paramref:`.Operations.alter_column.comment`"
+msgstr ""
+
+#: alembic.operations.Operations.create_unique_constraint:1 of
+msgid ""
+"Issue a \"create unique constraint\" instruction using the current "
+"migration context."
+msgstr ""
+
+#: alembic.operations.Operations.create_unique_constraint:9 of
+msgid ""
+"This internally generates a :class:`~sqlalchemy.schema.Table` object "
+"containing the necessary columns, then generates a new "
+":class:`~sqlalchemy.schema.UniqueConstraint` object which it then "
+"associates with the :class:`~sqlalchemy.schema.Table`. Any event "
+"listeners associated with this action will be fired off normally.   The "
+":class:`~sqlalchemy.schema.AddConstraint` construct is ultimately used to"
+" generate the ALTER statement."
+msgstr ""
+
+#: alembic.operations.Operations.create_unique_constraint:18 of
+msgid ""
+"Name of the unique constraint.  The name is necessary so that an ALTER "
+"statement can be emitted.  For setups that use an automated naming scheme"
+" such as that described at :ref:`sqla:constraint_naming_conventions`, "
+"``name`` here can be ``None``, as the event listener will apply the name "
+"to the constraint object when it is associated with the table."
+msgstr ""
+
+#: alembic.operations.Operations.create_unique_constraint:45 of
+msgid "local_cols -> columns"
+msgstr ""
+
+#: alembic.operations.Operations.drop_column:1 of
+msgid "Issue a \"drop column\" instruction using the current migration context."
+msgstr ""
+
+#: alembic.operations.Operations.drop_column:9 of
+msgid "name of column"
+msgstr ""
+
+#: alembic.operations.Operations.drop_column:18 of
+msgid ""
+"Optional boolean.  When ``True``, on Microsoft SQL Server only, first "
+"drop the CHECK constraint on the column using a SQL-script-compatible "
+"block that selects into a @variable from sys.check_constraints, then "
+"exec's a separate DROP CONSTRAINT for that constraint."
+msgstr ""
+
+#: alembic.operations.Operations.drop_column:24 of
+msgid ""
+"Optional boolean.  When ``True``, on Microsoft SQL Server only, first "
+"drop the DEFAULT constraint on the column using a SQL-script-compatible "
+"block that selects into a @variable from sys.default_constraints, then "
+"exec's a separate DROP CONSTRAINT for that default."
+msgstr ""
+
+#: alembic.operations.Operations.drop_column:30 of
+msgid ""
+"Optional boolean.  When ``True``, on Microsoft SQL Server only, first "
+"drop a single FOREIGN KEY constraint on the column using a SQL-script-"
+"compatible block that selects into a @variable from "
+"sys.foreign_keys/sys.foreign_key_columns, then exec's a separate DROP "
+"CONSTRAINT for that default.  Only works if the column has exactly one FK"
+" constraint which refers to it, at the moment.  .. versionadded:: 0.6.2"
+msgstr ""
+
+#: alembic.operations.Operations.drop_column:30 of
+msgid ""
+"Optional boolean.  When ``True``, on Microsoft SQL Server only, first "
+"drop a single FOREIGN KEY constraint on the column using a SQL-script-"
+"compatible block that selects into a @variable from "
+"sys.foreign_keys/sys.foreign_key_columns, then exec's a separate DROP "
+"CONSTRAINT for that default.  Only works if the column has exactly one FK"
+" constraint which refers to it, at the moment."
+msgstr ""
+
+#: alembic.operations.Operations.drop_constraint:1 of
+msgid "Drop a constraint of the given name, typically via DROP CONSTRAINT."
+msgstr ""
+
+#: alembic.operations.Operations.drop_constraint:3 of
+msgid "name of the constraint."
+msgstr ""
+
+#: alembic.operations.Operations.drop_constraint:4 of
+msgid "table name."
+msgstr ""
+
+#: alembic.operations.Operations.drop_constraint:5 of
+msgid ""
+"optional, required on MySQL.  can be 'foreignkey', 'primary', 'unique', "
+"or 'check'."
+msgstr ""
+
+#: alembic.operations.Operations.drop_index:1 of
+msgid "Issue a \"drop index\" instruction using the current migration context."
+msgstr ""
+
+#: alembic.operations.Operations.drop_index:9 of
+msgid ""
+"name of the owning table.  Some backends such as Microsoft SQL Server "
+"require this."
+msgstr ""
+
+#: alembic.operations.Operations.drop_index:19 of
+msgid ""
+"Additional keyword arguments not mentioned above are dialect specific, "
+"and passed in the form ``<dialectname>_<argname>``. See the documentation"
+" regarding an individual dialect at :ref:`dialect_toplevel` for detail on"
+" documented arguments.  .. versionadded:: 0.9.5 Support for dialect-"
+"specific keyword    arguments for DROP INDEX"
+msgstr ""
+
+#: alembic.operations.Operations.drop_index:25 of
+msgid "Support for dialect-specific keyword arguments for DROP INDEX"
+msgstr ""
+
+#: alembic.operations.Operations.drop_table:1 of
+msgid "Issue a \"drop table\" instruction using the current migration context."
+msgstr ""
+
+#: alembic.operations.Operations.drop_table_comment:1 of
+msgid ""
+"Issue a \"drop table comment\" operation to remove an existing comment "
+"set on a table."
+msgstr ""
+
+#: alembic.operations.Operations.drop_table_comment:7 of
+msgid ""
+"An optional string value of a comment already registered on the specified"
+" table."
+msgstr ""
+
+#: alembic.operations.Operations.drop_table_comment:12 of
+msgid ":meth:`.Operations.create_table_comment`"
+msgstr ""
+
+#: alembic.operations.Operations.execute:1 of
+msgid "Execute the given SQL using the current migration context."
+msgstr ""
+
+#: alembic.operations.Operations.execute:3 of
+msgid "The given SQL can be a plain string, e.g.::"
+msgstr ""
+
+#: alembic.operations.Operations.execute:7 of
+msgid ""
+"Or it can be any kind of Core SQL Expression construct, such as below "
+"where we use an update construct::"
+msgstr ""
+
+#: alembic.operations.Operations.execute:23 of
+msgid ""
+"Above, we made use of the SQLAlchemy "
+":func:`sqlalchemy.sql.expression.table` and "
+":func:`sqlalchemy.sql.expression.column` constructs to make a brief, ad-"
+"hoc table construct just for our UPDATE statement.  A full "
+":class:`~sqlalchemy.schema.Table` construct of course works perfectly "
+"fine as well, though note it's a recommended practice to at least ensure "
+"the definition of a table is self-contained within the migration script, "
+"rather than imported from a module that may break compatibility with "
+"older migrations."
+msgstr ""
+
+#: alembic.operations.Operations.execute:33 of
+msgid ""
+"In a SQL script context, the statement is emitted directly to the output "
+"stream.   There is *no* return result, however, as this function is "
+"oriented towards generating a change script that can run in \"offline\" "
+"mode.     Additionally, parameterized statements are discouraged here, as"
+" they *will not work* in offline mode.  Above, we use "
+":meth:`.inline_literal` where parameters are to be used."
+msgstr ""
+
+#: alembic.operations.Operations.execute:41 of
+msgid ""
+"For full interaction with a connected database where parameters can also "
+"be used normally, use the \"bind\" available from the context::"
+msgstr ""
+
+#: alembic.operations.Operations.execute:52 of
+msgid ""
+"Additionally, when passing the statement as a plain string, it is first "
+"coerceed into a :func:`sqlalchemy.sql.expression.text` construct before "
+"being passed along.  In the less likely case that the literal SQL string "
+"contains a colon, it must be escaped with a backslash, as::"
+msgstr ""
+
+#: alembic.operations.Operations.execute:61 of
+msgid "Any legal SQLAlchemy expression, including:"
+msgstr ""
+
+#: alembic.operations.Operations.execute:63 of
+msgid "a string"
+msgstr ""
+
+#: alembic.operations.Operations.execute:64 of
+msgid "a :func:`sqlalchemy.sql.expression.text` construct."
+msgstr ""
+
+#: alembic.operations.Operations.execute:65 of
+msgid "a :func:`sqlalchemy.sql.expression.insert` construct."
+msgstr ""
+
+#: alembic.operations.Operations.execute:66 of
+msgid ""
+"a :func:`sqlalchemy.sql.expression.update`, "
+":func:`sqlalchemy.sql.expression.insert`, or "
+":func:`sqlalchemy.sql.expression.delete`  construct."
+msgstr ""
+
+#: alembic.operations.Operations.execute:69 of
+msgid ""
+"Pretty much anything that's \"executable\" as described in "
+":ref:`sqlexpression_toplevel`."
+msgstr ""
+
+#: alembic.operations.Operations.execute:72 of
+msgid ""
+"when passing a plain string, the statement is coerced into a "
+":func:`sqlalchemy.sql.expression.text` construct. This construct "
+"considers symbols with colons, e.g. ``:foo`` to be bound parameters. To "
+"avoid this, ensure that colon symbols are escaped, e.g. ``\\:foo``."
+msgstr ""
+
+#: alembic.operations.Operations.execute:78 of
+msgid ""
+"Optional dictionary of execution options, will be passed to "
+":meth:`sqlalchemy.engine.Connection.execution_options`."
+msgstr ""
+
+#: alembic.operations.Operations.f:1 of
+msgid ""
+"Indicate a string name that has already had a naming convention applied "
+"to it."
+msgstr ""
+
+#: alembic.operations.Operations.f:4 of
+#, python-format
+msgid ""
+"This feature combines with the SQLAlchemy ``naming_convention`` feature "
+"to disambiguate constraint names that have already had naming conventions"
+" applied to them, versus those that have not.  This is necessary in the "
+"case that the ``\"%(constraint_name)s\"`` token is used within a naming "
+"convention, so that it can be identified that this particular name should"
+" remain fixed."
+msgstr ""
+
+#: alembic.operations.Operations.f:11 of
+msgid ""
+"If the :meth:`.Operations.f` is used on a constraint, the naming "
+"convention will not take effect::"
+msgstr ""
+
+#: alembic.operations.Operations.f:16 of
+msgid ""
+"Above, the CHECK constraint generated will have the name ``ck_bool_t_x`` "
+"regardless of whether or not a naming convention is in use."
+msgstr ""
+
+#: alembic.operations.Operations.f:20 of
+#, python-format
+msgid ""
+"Alternatively, if a naming convention is in use, and 'f' is not used, "
+"names will be converted along conventions.  If the ``target_metadata`` "
+"contains the naming convention ``{\"ck\": "
+"\"ck_bool_%(table_name)s_%(constraint_name)s\"}``, then the output of the"
+" following:"
+msgstr ""
+
+#: alembic.operations.Operations.f:26 of
+msgid "op.add_column('t', 'x', Boolean(name='x'))"
+msgstr ""
+
+#: alembic.operations.Operations.f:28 of
+msgid "will be::"
+msgstr ""
+
+#: alembic.operations.Operations.f:32 of
+msgid ""
+"The function is rendered in the output of autogenerate when a particular "
+"constraint name is already converted, for SQLAlchemy version **0.9.4 and "
+"greater only**.   Even though ``naming_convention`` was introduced in "
+"0.9.2, the string disambiguation service is new as of 0.9.4."
+msgstr ""
+
+#: alembic.operations.Operations.get_bind:1 of
+msgid "Return the current 'bind'."
+msgstr ""
+
+#: alembic.operations.Operations.get_bind:3 of
+msgid ""
+"Under normal circumstances, this is the "
+":class:`~sqlalchemy.engine.Connection` currently being used to emit SQL "
+"to the database."
+msgstr ""
+
+#: alembic.operations.Operations.get_bind:7 of
+msgid "In a SQL script context, this value is ``None``. [TODO: verify this]"
+msgstr ""
+
+#: alembic.operations.Operations.get_context:1 of
+msgid "Return the :class:`.MigrationContext` object that's currently in use."
+msgstr ""
+
+#: alembic.operations.Operations.implementation_for:1 of
+msgid "Register an implementation for a given :class:`.MigrateOperation`."
+msgstr ""
+
+#: alembic.operations.Operations.implementation_for:3 of
+msgid "This is part of the operation extensibility API."
+msgstr ""
+
+#: alembic.operations.Operations.implementation_for:7 of
+msgid ":ref:`operation_plugins` - example of use"
+msgstr ""
+
+#: alembic.operations.Operations.inline_literal:1 of
+msgid ""
+"Produce an 'inline literal' expression, suitable for using in an INSERT, "
+"UPDATE, or DELETE statement."
+msgstr ""
+
+#: alembic.operations.Operations.inline_literal:4 of
+msgid ""
+"When using Alembic in \"offline\" mode, CRUD operations aren't compatible"
+" with SQLAlchemy's default behavior surrounding literal values, which is "
+"that they are converted into bound values and passed separately into the "
+"``execute()`` method of the DBAPI cursor. An offline SQL script needs to "
+"have these rendered inline.  While it should always be noted that inline "
+"literal values are an **enormous** security hole in an application that "
+"handles untrusted input, a schema migration is not run in this context, "
+"so literals are safe to render inline, with the caveat that advanced "
+"types like dates may not be supported directly by SQLAlchemy."
+msgstr ""
+
+#: alembic.operations.Operations.inline_literal:18 of
+msgid "See :meth:`.execute` for an example usage of :meth:`.inline_literal`."
+msgstr ""
+
+#: alembic.operations.Operations.inline_literal:21 of
+msgid ""
+"The environment can also be configured to attempt to render \"literal\" "
+"values inline automatically, for those simple types that are supported by"
+" the dialect; see :paramref:`.EnvironmentContext.configure.literal_binds`"
+" for this more recently added feature."
+msgstr ""
+
+#: alembic.operations.Operations.inline_literal:27 of
+msgid ""
+"The value to render.  Strings, integers, and simple numerics should be "
+"supported.   Other types like boolean, dates, etc. may or may not be "
+"supported yet by various backends."
+msgstr ""
+
+#: alembic.operations.Operations.inline_literal:31 of
+msgid ""
+"optional - a :class:`sqlalchemy.types.TypeEngine` subclass stating the "
+"type of this value.  In SQLAlchemy expressions, this is usually derived "
+"automatically from the Python type of the value itself, as well as based "
+"on the context in which the value is used."
+msgstr ""
+
+#: alembic.operations.Operations.inline_literal:39 of
+msgid ":paramref:`.EnvironmentContext.configure.literal_binds`"
+msgstr ""
+
+#: alembic.operations.Operations.invoke:1 of
+msgid ""
+"Given a :class:`.MigrateOperation`, invoke it in terms of this "
+":class:`.Operations` instance."
+msgstr ""
+
+#: alembic.operations.Operations.register_operation:1 of
+msgid "Register a new operation for this class."
+msgstr ""
+
+#: alembic.operations.Operations.register_operation:3 of
+msgid ""
+"This method is normally used to add new operations to the "
+":class:`.Operations` class, and possibly the :class:`.BatchOperations` "
+"class as well.   All Alembic migration operations are implemented via "
+"this system, however the system is also available as a public API to "
+"facilitate adding custom operations."
+msgstr ""
+
+#: alembic.operations.Operations.register_operation:14 of
+msgid ":ref:`operation_plugins`"
+msgstr ""
+
+#: alembic.operations.Operations.rename_table:1 of
+msgid "Emit an ALTER TABLE to rename a table."
+msgstr ""
+
+#: alembic.operations.Operations.rename_table:3 of
+msgid "old name."
+msgstr ""
+
+#: alembic.operations.Operations.rename_table:4 of
+msgid "new name."
+msgstr ""
+
+#: alembic.operations.BatchOperations:1 of
+msgid "Modifies the interface :class:`.Operations` for batch mode."
+msgstr ""
+
+#: alembic.operations.BatchOperations:3 of
+msgid ""
+"This basically omits the ``table_name`` and ``schema`` parameters from "
+"associated methods, as these are a given when running under batch mode."
+msgstr ""
+
+#: alembic.operations.BatchOperations:9 of
+msgid ":meth:`.Operations.batch_alter_table`"
+msgstr ""
+
+#: alembic.operations.BatchOperations.add_column:1 of
+msgid ""
+"Issue an \"add column\" instruction using the current batch migration "
+"context."
+msgstr ""
+
+#: alembic.operations.BatchOperations.add_column:6 of
+msgid ":meth:`.Operations.add_column`"
+msgstr ""
+
+#: alembic.operations.BatchOperations.alter_column:1 of
+msgid ""
+"Issue an \"alter column\" instruction using the current batch migration "
+"context."
+msgstr ""
+
+#: alembic.operations.BatchOperations.alter_column:6 of
+msgid ":meth:`.Operations.alter_column`"
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_check_constraint:1 of
+msgid ""
+"Issue a \"create check constraint\" instruction using the current batch "
+"migration context."
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_check_constraint:4
+#: alembic.operations.BatchOperations.create_unique_constraint:4 of
+msgid ""
+"The batch form of this call omits the ``source`` and ``schema`` arguments"
+" from the call."
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_check_constraint:9 of
+msgid ":meth:`.Operations.create_check_constraint`"
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_exclude_constraint:1 of
+msgid ""
+"Issue a \"create exclude constraint\" instruction using the current batch"
+" migration context."
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_exclude_constraint:11 of
+msgid ":meth:`.Operations.create_exclude_constraint`"
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_foreign_key:1 of
+msgid ""
+"Issue a \"create foreign key\" instruction using the current batch "
+"migration context."
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_foreign_key:4 of
+msgid ""
+"The batch form of this call omits the ``source`` and ``source_schema`` "
+"arguments from the call."
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_foreign_key:16 of
+msgid ":meth:`.Operations.create_foreign_key`"
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_index:1 of
+msgid ""
+"Issue a \"create index\" instruction using the current batch migration "
+"context."
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_index:6 of
+msgid ":meth:`.Operations.create_index`"
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_primary_key:1 of
+msgid ""
+"Issue a \"create primary key\" instruction using the current batch "
+"migration context."
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_primary_key:4
+#: alembic.operations.BatchOperations.drop_constraint:4 of
+msgid ""
+"The batch form of this call omits the ``table_name`` and ``schema`` "
+"arguments from the call."
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_primary_key:9 of
+msgid ":meth:`.Operations.create_primary_key`"
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_unique_constraint:1 of
+msgid ""
+"Issue a \"create unique constraint\" instruction using the current batch "
+"migration context."
+msgstr ""
+
+#: alembic.operations.BatchOperations.create_unique_constraint:9 of
+msgid ":meth:`.Operations.create_unique_constraint`"
+msgstr ""
+
+#: alembic.operations.BatchOperations.drop_column:1 of
+msgid ""
+"Issue a \"drop column\" instruction using the current batch migration "
+"context."
+msgstr ""
+
+#: alembic.operations.BatchOperations.drop_column:6 of
+msgid ":meth:`.Operations.drop_column`"
+msgstr ""
+
+#: alembic.operations.BatchOperations.drop_constraint:1 of
+msgid ""
+"Issue a \"drop constraint\" instruction using the current batch migration"
+" context."
+msgstr ""
+
+#: alembic.operations.BatchOperations.drop_constraint:9 of
+msgid ":meth:`.Operations.drop_constraint`"
+msgstr ""
+
+#: alembic.operations.BatchOperations.drop_index:1 of
+msgid ""
+"Issue a \"drop index\" instruction using the current batch migration "
+"context."
+msgstr ""
+
+#: alembic.operations.BatchOperations.drop_index:6 of
+msgid ":meth:`.Operations.drop_index`"
+msgstr ""
+

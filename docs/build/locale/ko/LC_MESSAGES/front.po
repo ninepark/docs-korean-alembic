@@ -1,0 +1,122 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010-2019, Mike Bayer
+# This file is distributed under the same license as the Alembic package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Alembic 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-04 13:27+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../front.rst:3
+msgid "Front Matter"
+msgstr ""
+
+#: ../front.rst:5
+msgid "Information about the Alembic project."
+msgstr ""
+
+#: ../front.rst:8
+msgid "Project Homepage"
+msgstr ""
+
+#: ../front.rst:10
+msgid ""
+"Alembic is hosted on GitHub at https://github.com/sqlalchemy/alembic "
+"under the SQLAlchemy organization."
+msgstr ""
+
+#: ../front.rst:12
+msgid ""
+"Releases and project status are available on Pypi at "
+"https://pypi.python.org/pypi/alembic."
+msgstr ""
+
+#: ../front.rst:14
+msgid ""
+"The most recent published version of this documentation should be at "
+"https://alembic.sqlalchemy.org."
+msgstr ""
+
+#: ../front.rst:20
+msgid "Installation"
+msgstr ""
+
+#: ../front.rst:22
+msgid ""
+"Install released versions of Alembic from the Python package index with "
+"`pip <http://pypi.python.org/pypi/pip>`_ or a similar tool::"
+msgstr ""
+
+#: ../front.rst:26
+msgid "Installation via source distribution is via the ``setup.py`` script::"
+msgstr ""
+
+#: ../front.rst:30
+msgid ""
+"The install will add the ``alembic`` command to the environment.  All "
+"operations with Alembic then proceed through the usage of this command."
+msgstr ""
+
+#: ../front.rst:34
+msgid "Dependencies"
+msgstr ""
+
+#: ../front.rst:36
+msgid ""
+"Alembic's install process will ensure that SQLAlchemy_ is installed, in "
+"addition to other dependencies.  Alembic will work with SQLAlchemy as of "
+"version **0.9.0**, however more features are available with newer "
+"versions such as the 1.1 or 1.2 series."
+msgstr ""
+
+#: ../front.rst:41
+msgid "Support for SQLAlchemy 0.8 and 0.7.9 was dropped."
+msgstr ""
+
+#: ../front.rst:43
+msgid "Alembic supports Python versions 2.7, 3.4 and above."
+msgstr ""
+
+#: ../front.rst:45
+msgid "Support for Python 2.6 and 3.3 was dropped."
+msgstr ""
+
+#: ../front.rst:48
+msgid "Community"
+msgstr ""
+
+#: ../front.rst:50
+msgid ""
+"Alembic is developed by `Mike Bayer <http://techspot.zzzeek.org>`_, and "
+"is loosely associated with the SQLAlchemy_, `Pylons "
+"<http://www.pylonsproject.org>`_, and `Openstack "
+"<http://www.openstack.org>`_ projects."
+msgstr ""
+
+#: ../front.rst:54
+msgid ""
+"User issues, discussion of potential bugs and features should be posted "
+"to the Alembic Google Group at `sqlalchemy-alembic "
+"<https://groups.google.com/group/sqlalchemy-alembic>`_."
+msgstr ""
+
+#: ../front.rst:60
+msgid "Bugs"
+msgstr ""
+
+#: ../front.rst:62
+msgid ""
+"Bugs and feature enhancements to Alembic should be reported on the "
+"`GitHub issue tracker <https://github.com/sqlalchemy/alembic/issues/>`_."
+msgstr ""
+

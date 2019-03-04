@@ -1,0 +1,580 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010-2019, Mike Bayer
+# This file is distributed under the same license as the Alembic package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Alembic 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-04 13:27+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../tutorial.rst:3
+msgid "Tutorial"
+msgstr ""
+
+#: ../tutorial.rst:5
+msgid ""
+"Alembic provides for the creation, management, and invocation of *change "
+"management* scripts for a relational database, using SQLAlchemy as the "
+"underlying engine. This tutorial will provide a full introduction to the "
+"theory and usage of this tool."
+msgstr ""
+
+#: ../tutorial.rst:9
+msgid ""
+"To begin, make sure Alembic is installed as described at "
+":ref:`installation`."
+msgstr ""
+
+#: ../tutorial.rst:12
+msgid "The Migration Environment"
+msgstr ""
+
+#: ../tutorial.rst:14
+msgid ""
+"Usage of Alembic starts with creation of the *Migration Environment*.  "
+"This is a directory of scripts that is specific to a particular "
+"application.   The migration environment is created just once, and is "
+"then maintained along with the application's source code itself.   The "
+"environment is created using the ``init`` command of Alembic, and is then"
+" customizable to suit the specific needs of the application."
+msgstr ""
+
+#: ../tutorial.rst:20
+msgid ""
+"The structure of this environment, including some generated migration "
+"scripts, looks like::"
+msgstr ""
+
+#: ../tutorial.rst:32
+msgid "The directory includes these directories/files:"
+msgstr ""
+
+#: ../tutorial.rst:34
+msgid ""
+"``yourproject`` - this is the root of your application's source code, or "
+"some directory within it."
+msgstr ""
+
+#: ../tutorial.rst:35
+msgid ""
+"``alembic`` - this directory lives within your application's source tree "
+"and is the home of the migration environment.   It can be named anything,"
+" and a project that uses multiple databases may even have more than one."
+msgstr ""
+
+#: ../tutorial.rst:38
+msgid ""
+"``env.py`` - This is a Python script that is run whenever the alembic "
+"migration tool is invoked. At the very least, it contains instructions to"
+" configure and generate a SQLAlchemy engine, procure a connection from "
+"that engine along with a transaction, and then invoke the migration "
+"engine, using the connection as a source of database connectivity."
+msgstr ""
+
+#: ../tutorial.rst:43
+msgid ""
+"The ``env.py`` script is part of the generated environment so that the "
+"way migrations run is entirely customizable.   The exact specifics of how"
+" to connect are here, as well as the specifics of how the migration "
+"environment are invoked.  The script can be modified so that multiple "
+"engines can be operated upon, custom arguments can be passed into the "
+"migration environment, application-specific libraries and models can be "
+"loaded in and made available."
+msgstr ""
+
+#: ../tutorial.rst:50
+msgid ""
+"Alembic includes a set of initialization templates which feature "
+"different varieties of ``env.py`` for different use cases."
+msgstr ""
+
+#: ../tutorial.rst:52
+msgid ""
+"``README`` - included with the various environment templates, should have"
+" something informative."
+msgstr ""
+
+#: ../tutorial.rst:54
+msgid ""
+"``script.py.mako`` - This is a `Mako <http://www.makotemplates.org>`_ "
+"template file which is used to generate new migration scripts.   Whatever"
+" is here is used to generate new files within ``versions/``.   This is "
+"scriptable so that the structure of each migration file can be "
+"controlled, including standard imports to be within each, as well as "
+"changes to the structure of the ``upgrade()`` and ``downgrade()`` "
+"functions.  For example, the ``multidb`` environment allows for multiple "
+"functions to be generated using a naming scheme ``upgrade_engine1()``, "
+"``upgrade_engine2()``."
+msgstr ""
+
+#: ../tutorial.rst:61
+msgid ""
+"``versions/`` - This directory holds the individual version scripts.  "
+"Users of other migration tools may notice that the files here don't use "
+"ascending integers, and instead use a partial GUID approach.   In "
+"Alembic, the ordering of version scripts is relative to directives within"
+" the scripts themselves, and it is theoretically possible to \"splice\" "
+"version files in between others, allowing migration sequences from "
+"different branches to be merged, albeit carefully by hand."
+msgstr ""
+
+#: ../tutorial.rst:70
+msgid "Creating an Environment"
+msgstr ""
+
+#: ../tutorial.rst:72
+msgid ""
+"With a basic understanding of what the environment is, we can create one "
+"using ``alembic init``. This will create an environment using the "
+"\"generic\" template::"
+msgstr ""
+
+#: ../tutorial.rst:78
+msgid ""
+"Where above, the ``init`` command was called to generate a migrations "
+"directory called ``alembic``::"
+msgstr ""
+
+#: ../tutorial.rst:89
+msgid ""
+"Alembic also includes other environment templates.  These can be listed "
+"out using the ``list_templates`` command::"
+msgstr ""
+
+#: ../tutorial.rst:104
+msgid "Editing the .ini File"
+msgstr ""
+
+#: ../tutorial.rst:106
+msgid ""
+"Alembic placed a file ``alembic.ini`` into the current directory.  This "
+"is a file that the ``alembic`` script looks for when invoked.  This file "
+"can be anywhere, either in the same directory from which the ``alembic`` "
+"script will normally be invoked, or if in a different directory, can be "
+"specified by using the ``--config`` option to the ``alembic`` runner."
+msgstr ""
+
+#: ../tutorial.rst:111
+msgid "The file generated with the \"generic\" configuration looks like::"
+msgstr ""
+
+#: ../tutorial.rst:187
+#, python-format
+msgid ""
+"The file is read using Python's :class:`ConfigParser.SafeConfigParser` "
+"object.  The ``%(here)s`` variable is provided as a substitution "
+"variable, which can be used to produce absolute pathnames to directories "
+"and files, as we do above with the path to the Alembic script location."
+msgstr ""
+
+#: ../tutorial.rst:192
+msgid "This file contains the following features:"
+msgstr ""
+
+#: ../tutorial.rst:194
+msgid ""
+"``[alembic]`` - this is the section read by Alembic to determine "
+"configuration.  Alembic itself does not directly read any other areas of "
+"the file.    The name \"alembic\" can be customized using the ``--name`` "
+"commandline flag; see :ref:`multiple_environments` for a basic example of"
+" this."
+msgstr ""
+
+#: ../tutorial.rst:199
+msgid ""
+"``script_location`` - this is the location of the Alembic environment.   "
+"It is normally specified as a filesystem location, either relative or "
+"absolute.  If the location is a relative path, it's interpreted as "
+"relative to the current directory."
+msgstr ""
+
+#: ../tutorial.rst:203
+#, python-format
+msgid ""
+"This is the only key required by Alembic in all cases.   The generation "
+"of the .ini file by the command ``alembic init alembic`` automatically "
+"placed the directory name ``alembic`` here.   The special variable "
+"``%(here)s`` can also be used, as in ``%(here)s/alembic``."
+msgstr ""
+
+#: ../tutorial.rst:208
+msgid ""
+"For support of applications that package themselves into .egg files, the "
+"value can also be specified as a `package resource "
+"<https://setuptools.readthedocs.io/en/latest/pkg_resources.html>`_, in "
+"which case ``resource_filename()`` is used to find the file (new in "
+"0.2.2).  Any non-absolute URI which contains colons is interpreted here "
+"as a resource name, rather than a straight filename."
+msgstr ""
+
+#: ../tutorial.rst:215
+msgid ""
+"``file_template`` - this is the naming scheme used to generate new "
+"migration files. The value present is the default, so is commented out."
+"   Tokens available include:"
+msgstr ""
+
+#: ../tutorial.rst:218
+#, python-format
+msgid "``%%(rev)s`` - revision id"
+msgstr ""
+
+#: ../tutorial.rst:219
+#, python-format
+msgid "``%%(slug)s`` - a truncated string derived from the revision message"
+msgstr ""
+
+#: ../tutorial.rst:220
+#, python-format
+msgid ""
+"``%%(year)d``, ``%%(month).2d``, ``%%(day).2d``, ``%%(hour).2d``, "
+"``%%(minute).2d``, ``%%(second).2d`` - components of the create date, by "
+"default ``datetime.datetime.now()`` unless the ``timezone`` configuration"
+" option is also used."
+msgstr ""
+
+#: ../tutorial.rst:225
+msgid ""
+"``timezone`` - an optional timezone name (e.g. ``UTC``, ``EST5EDT``, "
+"etc.) that will be applied to the timestamp which renders inside the "
+"migration file's comment as well as within the filename.  If ``timezone``"
+" is specified, the create date object is no longer derived from "
+"``datetime.datetime.now()`` and is instead generated as::"
+msgstr ""
+
+#: ../tutorial.rst:239
+msgid ""
+"``truncate_slug_length`` - defaults to 40, the max number of characters "
+"to include in the \"slug\" field."
+msgstr ""
+
+#: ../tutorial.rst:242
+msgid "- added ``truncate_slug_length`` configuration"
+msgstr ""
+
+#: ../tutorial.rst:244
+msgid ""
+"``sqlalchemy.url`` - A URL to connect to the database via SQLAlchemy.  "
+"This key is in fact only referenced within the ``env.py`` file that is "
+"specific to the \"generic\" configuration; a file that can be customized "
+"by the developer. A multiple database configuration may respond to "
+"multiple keys here, or may reference other sections of the file."
+msgstr ""
+
+#: ../tutorial.rst:250
+msgid ""
+"``revision_environment`` - this is a flag which when set to the value "
+"'true', will indicate that the migration environment script ``env.py`` "
+"should be run unconditionally when generating new revision files, as well"
+" as when running the ``alembic history`` command."
+msgstr ""
+
+#: ../tutorial.rst:255
+msgid ""
+"the ``alembic history`` command uses the environment unconditionally when"
+" ``revision_environment`` is set to true."
+msgstr ""
+
+#: ../tutorial.rst:258
+msgid ""
+"``sourceless`` - when set to 'true', revision files that only exist as "
+".pyc or .pyo files in the versions directory will be used as versions, "
+"allowing \"sourceless\" versioning folders.  When left at the default of "
+"'false', only .py files are consumed as version files."
+msgstr ""
+
+#: ../tutorial.rst:265
+msgid ""
+"``version_locations`` - an optional list of revision file locations, to "
+"allow revisions to exist in multiple directories simultaneously. See "
+":ref:`multiple_bases` for examples."
+msgstr ""
+
+#: ../tutorial.rst:271
+msgid ""
+"``output_encoding`` - the encoding to use when Alembic writes the "
+"``script.py.mako`` file into a new migration file.  Defaults to "
+"``'utf-8'``."
+msgstr ""
+
+#: ../tutorial.rst:276
+msgid ""
+"``[loggers]``, ``[handlers]``, ``[formatters]``, ``[logger_*]``, "
+"``[handler_*]``, ``[formatter_*]`` - these sections are all part of "
+"Python's standard logging configuration, the mechanics of which are "
+"documented at `Configuration File Format "
+"<http://docs.python.org/library/logging.config.html#configuration-file-"
+"format>`_. As is the case with the database connection, these directives "
+"are used directly as the result of the ``logging.config.fileConfig()`` "
+"call present in the ``env.py`` script, which you're free to modify."
+msgstr ""
+
+#: ../tutorial.rst:283
+msgid ""
+"For starting up with just a single database and the generic "
+"configuration, setting up the SQLAlchemy URL is all that's needed::"
+msgstr ""
+
+#: ../tutorial.rst:292
+msgid "Create a Migration Script"
+msgstr ""
+
+#: ../tutorial.rst:294
+msgid ""
+"With the environment in place we can create a new revision, using "
+"``alembic revision``::"
+msgstr ""
+
+#: ../tutorial.rst:300
+msgid ""
+"A new file ``1975ea83b712_create_account_table.py`` is generated.  "
+"Looking inside the file::"
+msgstr ""
+
+#: ../tutorial.rst:324
+msgid ""
+"The file contains some header information, identifiers for the current "
+"revision and a \"downgrade\" revision, an import of basic Alembic "
+"directives, and empty ``upgrade()`` and ``downgrade()`` functions.  Our "
+"job here is to populate the ``upgrade()`` and ``downgrade()`` functions "
+"with directives that will apply a set of changes to our database.    "
+"Typically, ``upgrade()`` is required while ``downgrade()`` is only needed"
+" if down-revision capability is desired, though it's probably a good "
+"idea."
+msgstr ""
+
+#: ../tutorial.rst:332
+msgid ""
+"Another thing to notice is the ``down_revision`` variable.  This is how "
+"Alembic knows the correct order in which to apply migrations.   When we "
+"create the next revision, the new file's ``down_revision`` identifier "
+"would point to this one::"
+msgstr ""
+
+#: ../tutorial.rst:340
+msgid ""
+"Every time Alembic runs an operation against the ``versions/`` directory,"
+" it reads all the files in, and composes a list based on how the "
+"``down_revision`` identifiers link together, with the ``down_revision`` "
+"of ``None`` representing the first file.   In theory, if a migration "
+"environment had thousands of migrations, this could begin to add some "
+"latency to startup, but in practice a project should probably prune old "
+"migrations anyway (see the section :ref:`building_uptodate` for a "
+"description on how to do this, while maintaining the ability to build the"
+" current database fully)."
+msgstr ""
+
+#: ../tutorial.rst:348
+msgid ""
+"We can then add some directives to our script, suppose adding a new table"
+" ``account``::"
+msgstr ""
+
+#: ../tutorial.rst:361
+msgid ""
+":meth:`~.Operations.create_table` and :meth:`~.Operations.drop_table` are"
+" Alembic directives.   Alembic provides all the basic database migration "
+"operations via these directives, which are designed to be as simple and "
+"minimalistic as possible; there's no reliance upon existing table "
+"metadata for most of these directives.  They draw upon a global "
+"\"context\" that indicates how to get at a database connection (if any; "
+"migrations can dump SQL/DDL directives to files as well) in order to "
+"invoke the command.   This global context is set up, like everything "
+"else, in the ``env.py`` script."
+msgstr ""
+
+#: ../tutorial.rst:369
+msgid "An overview of all Alembic directives is at :ref:`ops`."
+msgstr ""
+
+#: ../tutorial.rst:372
+msgid "Running our First Migration"
+msgstr ""
+
+#: ../tutorial.rst:374
+msgid ""
+"We now want to run our migration.   Assuming our database is totally "
+"clean, it's as yet unversioned.   The ``alembic upgrade`` command will "
+"run upgrade operations, proceeding from the current database revision, in"
+" this example ``None``, to the given target revision. We can specify "
+"``1975ea83b712`` as the revision we'd like to upgrade to, but it's easier"
+" in most cases just to tell it \"the most recent\", in this case "
+"``head``::"
+msgstr ""
+
+#: ../tutorial.rst:385
+msgid ""
+"Wow that rocked!   Note that the information we see on the screen is the "
+"result of the logging configuration set up in ``alembic.ini`` - logging "
+"the ``alembic`` stream to the console (standard error, specifically)."
+msgstr ""
+
+#: ../tutorial.rst:389
+msgid ""
+"The process which occurred here included that Alembic first checked if "
+"the database had a table called ``alembic_version``, and if not, created "
+"it.   It looks in this table for the current version, if any, and then "
+"calculates the path from this version to the version requested, in this "
+"case ``head``, which is known to be ``1975ea83b712``. It then invokes the"
+" ``upgrade()`` method in each file to get to the target revision."
+msgstr ""
+
+#: ../tutorial.rst:396
+msgid "Running our Second Migration"
+msgstr ""
+
+#: ../tutorial.rst:398
+msgid ""
+"Let's do another one so we have some things to play with.    We again "
+"create a revision file::"
+msgstr ""
+
+#: ../tutorial.rst:405
+msgid "Let's edit this file and add a new column to the ``account`` table::"
+msgstr ""
+
+#: ../tutorial.rst:428
+msgid "Running again to ``head``::"
+msgstr ""
+
+#: ../tutorial.rst:435
+msgid "We've now added the ``last_transaction_date`` column to the database."
+msgstr ""
+
+#: ../tutorial.rst:438
+msgid "Partial Revision Identifiers"
+msgstr ""
+
+#: ../tutorial.rst:440
+msgid ""
+"Any time we need to refer to a revision number explicitly, we have the "
+"option to use a partial number.  As long as this number uniquely "
+"identifies the version, it may be used in any command in any place that "
+"version numbers are accepted::"
+msgstr ""
+
+#: ../tutorial.rst:447
+msgid ""
+"Above, we use ``ae1`` to refer to revision ``ae1027a6acf``. Alembic will "
+"stop and let you know if more than one version starts with that prefix."
+msgstr ""
+
+#: ../tutorial.rst:454
+msgid "Relative Migration Identifiers"
+msgstr ""
+
+#: ../tutorial.rst:456
+msgid ""
+"Relative upgrades/downgrades are also supported.  To move two versions "
+"from the current, a decimal value \"+N\" can be supplied::"
+msgstr ""
+
+#: ../tutorial.rst:461
+msgid "Negative values are accepted for downgrades::"
+msgstr ""
+
+#: ../tutorial.rst:465
+msgid ""
+"Relative identifiers may also be in terms of a specific revision.  For "
+"example, to upgrade to revision ``ae1027a6acf`` plus two additional "
+"steps::"
+msgstr ""
+
+#: ../tutorial.rst:470
+msgid "Support for relative migrations in terms of a specific revision."
+msgstr ""
+
+#: ../tutorial.rst:474
+msgid "Getting Information"
+msgstr ""
+
+#: ../tutorial.rst:476
+msgid ""
+"With a few revisions present we can get some information about the state "
+"of things."
+msgstr ""
+
+#: ../tutorial.rst:478
+msgid "First we can view the current revision::"
+msgstr ""
+
+#: ../tutorial.rst:485
+msgid ""
+"``head`` is displayed only if the revision identifier for this database "
+"matches the head revision."
+msgstr ""
+
+#: ../tutorial.rst:487
+msgid ""
+"We can also view history with ``alembic history``; the ``--verbose`` "
+"option (accepted by several commands, including ``history``, ``current``,"
+" ``heads`` and ``branches``) will show us full information about each "
+"revision::"
+msgstr ""
+
+#: ../tutorial.rst:514
+msgid "Viewing History Ranges"
+msgstr ""
+
+#: ../tutorial.rst:516
+msgid ""
+"Using the ``-r`` option to ``alembic history``, we can also view various "
+"slices of history.  The ``-r`` argument accepts an argument "
+"``[start]:[end]``, where either may be a revision number, symbols like "
+"``head``, ``heads`` or ``base``,  ``current`` to specify the current "
+"revision(s), as well as negative relative ranges for ``[start]`` and "
+"positive relative ranges for ``[end]``::"
+msgstr ""
+
+#: ../tutorial.rst:524
+msgid ""
+"A relative range starting from three revs ago up to current migration, "
+"which will invoke the migration environment against the database to get "
+"the current migration::"
+msgstr ""
+
+#: ../tutorial.rst:530
+msgid "View all revisions from 1975 to the head::"
+msgstr ""
+
+#: ../tutorial.rst:534
+msgid ""
+"``alembic revision`` now accepts the ``-r`` argument to specify specific "
+"ranges based on version numbers, symbols, or relative deltas."
+msgstr ""
+
+#: ../tutorial.rst:539
+msgid "Downgrading"
+msgstr ""
+
+#: ../tutorial.rst:541
+msgid ""
+"We can illustrate a downgrade back to nothing, by calling ``alembic "
+"downgrade`` back to the beginning, which in Alembic is called ``base``::"
+msgstr ""
+
+#: ../tutorial.rst:550
+msgid "Back to nothing - and up again::"
+msgstr ""
+
+#: ../tutorial.rst:559
+msgid "Next Steps"
+msgstr ""
+
+#: ../tutorial.rst:561
+msgid ""
+"The vast majority of Alembic environments make heavy use of the "
+"\"autogenerate\" feature.   Continue onto the next section, "
+":doc:`autogenerate`."
+msgstr ""
+

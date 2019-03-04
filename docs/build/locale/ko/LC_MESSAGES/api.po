@@ -1,0 +1,4031 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010-2019, Mike Bayer
+# This file is distributed under the same license as the Alembic package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Alembic 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-04 13:27+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../api/autogenerate.rst:5
+msgid "Autogeneration"
+msgstr ""
+
+#: ../api/autogenerate.rst:7
+msgid ""
+"this section discusses the **internal API of Alembic** as regards the "
+"autogeneration feature of the ``alembic revision`` command. This section "
+"is only useful for developers who wish to extend the capabilities of "
+"Alembic.  For general documentation on the autogenerate feature, please "
+"see :doc:`/autogenerate`."
+msgstr ""
+
+#: ../api/autogenerate.rst:14
+msgid ""
+"The autogeneration system has a wide degree of public API, including the "
+"following areas:"
+msgstr ""
+
+#: ../api/autogenerate.rst:17
+msgid ""
+"The ability to do a \"diff\" of a :class:`~sqlalchemy.schema.MetaData` "
+"object against a database, and receive a data structure back.  This "
+"structure is available either as a rudimentary list of changes, or as a "
+":class:`.MigrateOperation` structure."
+msgstr ""
+
+#: ../api/autogenerate.rst:22
+msgid ""
+"The ability to alter how the ``alembic revision`` command generates "
+"revision scripts, including support for multiple revision scripts "
+"generated in one pass."
+msgstr ""
+
+#: ../api/autogenerate.rst:26
+msgid ""
+"The ability to add new operation directives to autogeneration, including "
+"custom schema/model comparison functions and revision script rendering."
+msgstr ""
+
+#: ../api/autogenerate.rst:30
+msgid "Getting Diffs"
+msgstr ""
+
+#: ../api/autogenerate.rst:32
+msgid ""
+"The simplest API autogenerate provides is the \"schema comparison\" API; "
+"these are simple functions that will run all registered \"comparison\" "
+"functions between a :class:`~sqlalchemy.schema.MetaData` object and a "
+"database backend to produce a structure showing how they differ.   The "
+"two functions provided are :func:`.compare_metadata`, which is more of "
+"the \"legacy\" function that produces diff tuples, and "
+":func:`.produce_migrations`, which produces a structure consisting of "
+"operation directives detailed in :ref:`alembic.operations.toplevel`."
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata:1 of
+msgid ""
+"Compare a database schema to that given in a "
+":class:`~sqlalchemy.schema.MetaData` instance."
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata:4 of
+msgid ""
+"The database connection is presented in the context of a "
+":class:`.MigrationContext` object, which provides database connectivity "
+"as well as optional comparison functions to use for datatypes and server "
+"defaults - see the \"autogenerate\" arguments at "
+":meth:`.EnvironmentContext.configure` for details on these."
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata:12 of
+msgid ""
+"The return format is a list of \"diff\" directives, each representing "
+"individual differences::"
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata:52 of
+msgid "Output::"
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata
+#: alembic.autogenerate.rewriter.Rewriter.chain alembic.command.branches
+#: alembic.command.current alembic.command.downgrade alembic.command.edit
+#: alembic.command.heads alembic.command.history alembic.command.init
+#: alembic.command.list_templates alembic.command.merge
+#: alembic.command.revision alembic.command.show alembic.command.stamp
+#: alembic.command.upgrade alembic.config.Config
+#: alembic.config.Config.set_main_option
+#: alembic.config.Config.set_section_option
+#: alembic.runtime.environment.EnvironmentContext
+#: alembic.runtime.environment.EnvironmentContext.configure
+#: alembic.runtime.migration.MigrationContext.configure
+#: alembic.runtime.migration.MigrationContext.run_migrations
+#: alembic.script.ScriptDirectory.generate_revision
+#: alembic.script.ScriptDirectory.walk_revisions
+#: alembic.script.revision.RevisionMap
+#: alembic.script.revision.RevisionMap.get_current_head of
+msgid "Parameters"
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata:78 of
+msgid "a :class:`.MigrationContext` instance."
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata:80 of
+msgid "a :class:`~sqlalchemy.schema.MetaData` instance."
+msgstr ""
+
+#: alembic.autogenerate.compare_metadata:85 of
+msgid ""
+":func:`.produce_migrations` - produces a :class:`.MigrationScript` "
+"structure based on metadata comparison."
+msgstr ""
+
+#: alembic.autogenerate.produce_migrations:1 of
+msgid "Produce a :class:`.MigrationScript` structure based on schema comparison."
+msgstr ""
+
+#: alembic.autogenerate.produce_migrations:4 of
+msgid ""
+"This function does essentially what :func:`.compare_metadata` does, but "
+"then runs the resulting list of diffs to produce the full "
+":class:`.MigrationScript` object.   For an example of what this looks "
+"like, see the example in :ref:`customizing_revision`."
+msgstr ""
+
+#: alembic.autogenerate.produce_migrations:13 of
+msgid ""
+":func:`.compare_metadata` - returns more fundamental \"diff\" data from "
+"comparing a schema."
+msgstr ""
+
+#: ../api/autogenerate.rst:49
+msgid "Customizing Revision Generation"
+msgstr ""
+
+#: ../api/autogenerate.rst:51
+msgid "- the ``alembic revision`` system is now customizable."
+msgstr ""
+
+#: ../api/autogenerate.rst:53
+msgid ""
+"The ``alembic revision`` command, also available programmatically via "
+":func:`.command.revision`, essentially produces a single migration script"
+" after being run.  Whether or not the ``--autogenerate`` option was "
+"specified basically determines if this script is a blank revision script "
+"with empty ``upgrade()`` and ``downgrade()`` functions, or was produced "
+"with alembic operation directives as the result of autogenerate."
+msgstr ""
+
+#: ../api/autogenerate.rst:60
+msgid ""
+"In either case, the system creates a full plan of what is to be done in "
+"the form of a :class:`.MigrateOperation` structure, which is then used to"
+" produce the script."
+msgstr ""
+
+#: ../api/autogenerate.rst:64
+msgid ""
+"For example, suppose we ran ``alembic revision --autogenerate``, and the "
+"end result was that it produced a new revision ``'eced083f5df'`` with the"
+" following contents::"
+msgstr ""
+
+#: ../api/autogenerate.rst:97
+msgid ""
+"The above script is generated by a :class:`.MigrateOperation` structure "
+"that looks like this::"
+msgstr ""
+
+#: ../api/autogenerate.rst:144
+msgid ""
+"When we deal with a :class:`.MigrationScript` structure, we can render "
+"the upgrade/downgrade sections into strings for debugging purposes using "
+"the :func:`.render_python_code` helper function::"
+msgstr ""
+
+#: ../api/autogenerate.rst:151
+msgid "Renders::"
+msgstr ""
+
+#: ../api/autogenerate.rst:163
+msgid ""
+"Given that structures like the above are used to generate new revision "
+"files, and that we'd like to be able to alter these as they are created, "
+"we then need a system to access this structure when the "
+":func:`.command.revision` command is used.  The "
+":paramref:`.EnvironmentContext.configure.process_revision_directives` "
+"parameter gives us a way to alter this.   This is a function that is "
+"passed the above structure as generated by Alembic, giving us a chance to"
+" alter it. For example, if we wanted to put all the \"upgrade\" "
+"operations into a certain branch, and we wanted our script to not have "
+"any \"downgrade\" operations at all, we could build an extension as "
+"follows, illustrated within an ``env.py`` script::"
+msgstr ""
+
+#: ../api/autogenerate.rst:200
+msgid ""
+"Above, the ``directives`` argument is a Python list.  We may alter the "
+"given structure within this list in-place, or replace it with a new "
+"structure consisting of zero or more :class:`.MigrationScript` "
+"directives. The :func:`.command.revision` command will then produce "
+"scripts corresponding to whatever is in this list."
+msgstr ""
+
+#: alembic.autogenerate.render_python_code:1 of
+msgid ""
+"Render Python code given an :class:`.UpgradeOps` or "
+":class:`.DowngradeOps` object."
+msgstr ""
+
+#: alembic.autogenerate.render_python_code:4 of
+msgid ""
+"This is a convenience function that can be used to test the autogenerate "
+"output of a user-defined :class:`.MigrationScript` structure."
+msgstr ""
+
+#: ../api/autogenerate.rst:211
+msgid "Fine-Grained Autogenerate Generation with Rewriters"
+msgstr ""
+
+#: ../api/autogenerate.rst:213
+msgid ""
+"The preceding example illustrated how we can make a simple change to the "
+"structure of the operation directives to produce new autogenerate output."
+" For the case where we want to affect very specific parts of the "
+"autogenerate stream, we can make a function for "
+":paramref:`.EnvironmentContext.configure.process_revision_directives` "
+"which traverses through the whole :class:`.MigrationScript` structure, "
+"locates the elements we care about and modifies them in-place as needed."
+"  However, to reduce the boilerplate associated with this task, we can "
+"use the :class:`.Rewriter` object to make this easier.  "
+":class:`.Rewriter` gives us an object that we can pass directly to "
+":paramref:`.EnvironmentContext.configure.process_revision_directives` "
+"which we can also attach handler functions onto, keyed to specific types "
+"of constructs."
+msgstr ""
+
+#: ../api/autogenerate.rst:227
+msgid ""
+"Below is an example where we rewrite :class:`.ops.AddColumnOp` "
+"directives; based on whether or not the new column is \"nullable\", we "
+"either return the existing directive, or we return the existing directive"
+" with the nullable flag changed, inside of a list with a second directive"
+" to alter the nullable flag in a second step::"
+msgstr ""
+
+#: ../api/autogenerate.rst:271
+msgid ""
+"Above, in a full :class:`.ops.MigrationScript` structure, the "
+":class:`.AddColumn` directives would be present within the paths "
+"``MigrationScript->UpgradeOps->ModifyTableOps`` and "
+"``MigrationScript->DowngradeOps->ModifyTableOps``.   The "
+":class:`.Rewriter` handles traversing into these structures as well as "
+"rewriting them as needed so that we only need to code for the specific "
+"object we care about."
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter:1 of
+msgid "A helper object that allows easy 'rewriting' of ops streams."
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter:3 of
+msgid ""
+"The :class:`.Rewriter` object is intended to be passed along to the "
+":paramref:`.EnvironmentContext.configure.process_revision_directives` "
+"parameter in an ``env.py`` script.    Once constructed, any number of "
+"\"rewrites\" functions can be associated with it, which will be given the"
+" opportunity to modify the structure without having to have explicit "
+"knowledge of the overall structure."
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter:11 of
+msgid ""
+"The function is passed the :class:`.MigrationContext` object and "
+"``revision`` tuple that are passed to the  :paramref:`.Environment "
+"Context.configure.process_revision_directives` function normally, and the"
+" third argument is an individual directive of the type noted in the "
+"decorator.  The function has the choice of  returning a single op "
+"directive, which normally can be the directive that was actually passed, "
+"or a new directive to replace it, or a list of zero or more directives to"
+" replace it."
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter:22 of
+msgid ":ref:`autogen_rewriter` - usage example"
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter.chain:1 of
+msgid "Produce a \"chain\" of this :class:`.Rewriter` to another."
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter.chain:3 of
+msgid "This allows two rewriters to operate serially on a stream, e.g.::"
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter.chain:25 of
+msgid "a :class:`.Rewriter` instance"
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter.chain
+#: alembic.script.ScriptDirectory.get_current_head
+#: alembic.script.ScriptDirectory.get_heads
+#: alembic.script.revision.RevisionMap.bases
+#: alembic.script.revision.RevisionMap.get_current_head
+#: alembic.script.revision.RevisionMap.heads of
+msgid "Returns"
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter.chain:26 of
+msgid ""
+"a new :class:`.Rewriter` that will run the operations of this writer, "
+"then the \"other\" writer, in succession."
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter.rewrites:1 of
+msgid "Register a function as rewriter for a given type."
+msgstr ""
+
+#: alembic.autogenerate.rewriter.Rewriter.rewrites:3 of
+msgid ""
+"The function should receive three arguments, which are the "
+":class:`.MigrationContext`, a ``revision`` tuple, and an op directive of "
+"the type indicated.  E.g.::"
+msgstr ""
+
+#: ../api/autogenerate.rst:286
+msgid "Revision Generation with Multiple Engines / ``run_migrations()`` calls"
+msgstr ""
+
+#: ../api/autogenerate.rst:288
+msgid ""
+"A lesser-used technique which allows autogenerated migrations to run "
+"against multiple database backends at once, generating changes into a "
+"single migration script, is illustrated in the provided ``multidb`` "
+"template.  This template features a special ``env.py`` which iterates "
+"through multiple :class:`~sqlalchemy.engine.Engine` instances and calls "
+"upon :meth:`.MigrationContext.run_migrations` for each::"
+msgstr ""
+
+#: ../api/autogenerate.rst:305
+msgid ""
+"Above, :meth:`.MigrationContext.run_migrations` is run multiple times, "
+"once for each engine.  Within the context of autogeneration, each time "
+"the method is called the "
+":paramref:`~.EnvironmentContext.configure.upgrade_token` and "
+":paramref:`~.EnvironmentContext.configure.downgrade_token` parameters are"
+" changed, so that the collection of template variables gains distinct "
+"entries for each engine, which are then referred to explicitly within "
+"``script.py.mako``."
+msgstr ""
+
+#: ../api/autogenerate.rst:313
+msgid ""
+"In terms of the "
+":paramref:`.EnvironmentContext.configure.process_revision_directives` "
+"hook, the behavior here is that the ``process_revision_directives`` hook "
+"is invoked **multiple times, once for each call to "
+"context.run_migrations()**.  This means that if a "
+"multi-``run_migrations()`` approach is to be combined with the "
+"``process_revision_directives`` hook, care must be taken to use the hook "
+"appropriately."
+msgstr ""
+
+#: ../api/autogenerate.rst:322
+msgid ""
+"The first point to note is that when a **second** call to "
+"``run_migrations()`` occurs, the ``.upgrade_ops`` and ``.downgrade_ops`` "
+"attributes are **converted into Python lists**, and new "
+":class:`.UpgradeOps` and :class:`.DowngradeOps` objects are appended to "
+"these lists.   Each :class:`.UpgradeOps` and :class:`.DowngradeOps` "
+"object maintains an ``.upgrade_token`` and a ``.downgrade_token`` "
+"attribute respectively, which serves to render their contents into the "
+"appropriate template token."
+msgstr ""
+
+#: ../api/autogenerate.rst:331
+msgid ""
+"For example, a multi-engine run that has the engine names ``engine1`` and"
+" ``engine2`` will generate tokens of ``engine1_upgrades``, "
+"``engine1_downgrades``, ``engine2_upgrades`` and ``engine2_downgrades`` "
+"as it runs.  The resulting migration structure would look like this::"
+msgstr ""
+
+#: ../api/autogenerate.rst:373
+msgid ""
+"Given the above, the following guidelines should be considered when the "
+"``env.py`` script calls upon :meth:`.MigrationContext.run_migrations` "
+"mutiple times when running autogenerate:"
+msgstr ""
+
+#: ../api/autogenerate.rst:377
+msgid ""
+"If the ``process_revision_directives`` hook aims to **add elements based "
+"on inspection of the current database / connection**, it should do its "
+"operation **on each iteration**.  This is so that each time the hook "
+"runs, the database is available."
+msgstr ""
+
+#: ../api/autogenerate.rst:382
+msgid ""
+"Alternatively, if the ``process_revision_directives`` hook aims to "
+"**modify the list of migration directives in place**, this should be "
+"called **only on the last iteration**.  This is so that the hook isn't "
+"being given an ever-growing structure each time which it has already "
+"modified previously."
+msgstr ""
+
+#: ../api/autogenerate.rst:388
+msgid ""
+"The :class:`.Rewriter` object, if used, should be called **only on the "
+"last iteration**, because it will always deliver all directives every "
+"time, so again to avoid double/triple/etc. processing of directives it "
+"should be called only when the structure is complete."
+msgstr ""
+
+#: ../api/autogenerate.rst:393
+msgid ""
+"The :attr:`.MigrationScript.upgrade_ops_list` and "
+":attr:`.MigrationScript.downgrade_ops_list` attributes should be "
+"consulted when referring to the collection of :class:`.UpgradeOps` and "
+":class:`.DowngradeOps` objects."
+msgstr ""
+
+#: ../api/autogenerate.rst:398
+msgid ""
+"- multiple calls to :meth:`.MigrationContext.run_migrations` within an "
+"autogenerate operation, such as that proposed within the ``multidb`` "
+"script template, are now accommodated by the new extensible migration "
+"system introduced in 0.8.0."
+msgstr ""
+
+#: ../api/autogenerate.rst:408
+msgid "Autogenerating Custom Operation Directives"
+msgstr ""
+
+#: ../api/autogenerate.rst:410
+msgid ""
+"In the section :ref:`operation_plugins`, we talked about adding new "
+"subclasses of :class:`.MigrateOperation` in order to add new ``op.`` "
+"directives.  In the preceding section :ref:`customizing_revision`, we "
+"also learned that these same :class:`.MigrateOperation` structures are at"
+" the base of how the autogenerate system knows what Python code to "
+"render. Using this knowledge, we can create additional functions that "
+"plug into the autogenerate system so that our new operations can be "
+"generated into migration scripts when ``alembic revision --autogenerate``"
+" is run."
+msgstr ""
+
+#: ../api/autogenerate.rst:419
+msgid ""
+"The following sections will detail an example of this using the the "
+"``CreateSequenceOp`` and ``DropSequenceOp`` directives we created in "
+":ref:`operation_plugins`, which correspond to the SQLAlchemy "
+":class:`~sqlalchemy.schema.Sequence` construct."
+msgstr ""
+
+#: ../api/autogenerate.rst:424
+msgid ""
+"- custom operations can be added to the autogenerate system to support "
+"new kinds of database objects."
+msgstr ""
+
+#: ../api/autogenerate.rst:428
+msgid "Tracking our Object with the Model"
+msgstr ""
+
+#: ../api/autogenerate.rst:430
+msgid ""
+"The basic job of an autogenerate comparison function is to inspect a "
+"series of objects in the database and compare them against a series of "
+"objects defined in our model.  By \"in our model\", we mean anything "
+"defined in Python code that we want to track, however most commonly we're"
+" talking about a series of :class:`~sqlalchemy.schema.Table` objects "
+"present in a :class:`~sqlalchemy.schema.MetaData` collection."
+msgstr ""
+
+#: ../api/autogenerate.rst:437
+msgid ""
+"Let's propose a simple way of seeing what "
+":class:`~sqlalchemy.schema.Sequence` objects we want to ensure exist in "
+"the database when autogenerate runs.  While these objects do have some "
+"integrations with :class:`~sqlalchemy.schema.Table` and "
+":class:`~sqlalchemy.schema.MetaData` already, let's assume they don't, as"
+" the example here intends to illustrate how we would do this for most any"
+" kind of custom construct.   We associate the object with the "
+":attr:`~sqlalchemy.schema.MetaData.info` collection of "
+":class:`~sqlalchemy.schema.MetaData`, which is a dictionary we can use "
+"for anything, which we also know will be passed to the autogenerate "
+"process::"
+msgstr ""
+
+#: ../api/autogenerate.rst:458
+msgid ""
+"The :attr:`~sqlalchemy.schema.MetaData.info` dictionary is a good place "
+"to put things that we want our autogeneration routines to be able to "
+"locate, which can include any object such as custom DDL objects "
+"representing views, triggers, special constraints, or anything else we "
+"want to support."
+msgstr ""
+
+#: ../api/autogenerate.rst:466
+msgid "Registering a Comparison Function"
+msgstr ""
+
+#: ../api/autogenerate.rst:468
+msgid ""
+"We now need to register a comparison hook, which will be used to compare "
+"the database to our model and produce ``CreateSequenceOp`` and "
+"``DropSequenceOp`` directives to be included in our migration script.  "
+"Note that we are assuming a Postgresql backend::"
+msgstr ""
+
+#: ../api/autogenerate.rst:515
+msgid ""
+"Above, we've built a new function ``compare_sequences()`` and registered "
+"it as a \"schema\" level comparison function with autogenerate.   The job"
+" that it performs is that it compares the list of sequence names present "
+"in each database schema with that of a list of sequence names that we are"
+" maintaining in our :class:`~sqlalchemy.schema.MetaData` object."
+msgstr ""
+
+#: ../api/autogenerate.rst:521
+msgid ""
+"When autogenerate completes, it will have a series of "
+"``CreateSequenceOp`` and ``DropSequenceOp`` directives in the list of "
+"\"upgrade\" operations;  the list of \"downgrade\" operations is "
+"generated directly from these using the ``CreateSequenceOp.reverse()`` "
+"and ``DropSequenceOp.reverse()`` methods that we've implemented on these "
+"objects."
+msgstr ""
+
+#: ../api/autogenerate.rst:528
+msgid ""
+"The registration of our function at the scope of \"schema\" means our "
+"autogenerate comparison function is called outside of the context of any "
+"specific table or column.  The three available scopes are \"schema\", "
+"\"table\", and \"column\", summarized as follows:"
+msgstr ""
+
+#: ../api/autogenerate.rst:533
+msgid ""
+"**Schema level** - these hooks are passed a :class:`.AutogenContext`, an "
+":class:`.UpgradeOps` collection, and a collection of string schema names "
+"to be operated upon. If the :class:`.UpgradeOps` collection contains "
+"changes after all hooks are run, it is included in the migration script:"
+msgstr ""
+
+#: ../api/autogenerate.rst:545
+msgid ""
+"**Table level** - these hooks are passed a :class:`.AutogenContext`, a "
+":class:`.ModifyTableOps` collection, a schema name, table name, a "
+":class:`~sqlalchemy.schema.Table` reflected from the database if any or "
+"``None``, and a :class:`~sqlalchemy.schema.Table` present in the local "
+":class:`~sqlalchemy.schema.MetaData`.  If the :class:`.ModifyTableOps` "
+"collection contains changes after all hooks are run, it is included in "
+"the migration script:"
+msgstr ""
+
+#: ../api/autogenerate.rst:560
+msgid ""
+"**Column level** - these hooks are passed a :class:`.AutogenContext`, an "
+":class:`.AlterColumnOp` object, a schema name, table name, column name, a"
+" :class:`~sqlalchemy.schema.Column` reflected from the database and a "
+":class:`~sqlalchemy.schema.Column` present in the local table.  If the "
+":class:`.AlterColumnOp` contains changes after all hooks are run, it is "
+"included in the migration script; a \"change\" is considered to be "
+"present if any of the ``modify_`` attributes are set to a non-default "
+"value, or there are any keys in the ``.kw`` collection with the prefix "
+"``\"modify_\"``:"
+msgstr ""
+
+#: ../api/autogenerate.rst:577
+msgid "The :class:`.AutogenContext` passed to these hooks is documented below."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext:1 of
+msgid ""
+"Maintains configuration and state that's specific to an autogenerate "
+"operation."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.connection:1 of
+msgid ""
+"The :class:`~sqlalchemy.engine.base.Connection` object currently "
+"connected to the database backend being compared."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.connection:4 of
+msgid ""
+"This is obtained from the :attr:`.MigrationContext.bind` and is utimately"
+" set up in the ``env.py`` script."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.dialect:1 of
+msgid "The :class:`~sqlalchemy.engine.Dialect` object currently in use."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.dialect:3 of
+msgid ""
+"This is normally obtained from the "
+":attr:`~sqlalchemy.engine.base.Connection.dialect` attribute."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.imports:1 of
+msgid "A ``set()`` which contains string Python import directives."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.imports:3 of
+msgid ""
+"The directives are to be rendered into the ``${imports}`` section of a "
+"script template.  The set is normally empty and can be modified within "
+"hooks such as the :paramref:`.EnvironmentContext.configure.render_item` "
+"hook."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.imports:12
+#: alembic.runtime.environment.EnvironmentContext.configure:340 of
+msgid ":ref:`autogen_render_types`"
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.metadata:1 of
+msgid ""
+"The :class:`~sqlalchemy.schema.MetaData` object representing the "
+"destination."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.metadata:4 of
+msgid ""
+"This object is the one that is passed within ``env.py`` to the "
+":paramref:`.EnvironmentContext.configure.target_metadata` parameter.  It "
+"represents the structure of :class:`.Table` and other objects as stated "
+"in the current database model, and represents the destination structure "
+"for the database being examined."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.metadata:10 of
+msgid ""
+"While the :class:`~sqlalchemy.schema.MetaData` object is primarily known "
+"as a collection of :class:`~sqlalchemy.schema.Table` objects, it also has"
+" an :attr:`~sqlalchemy.schema.MetaData.info` dictionary that may be used "
+"by end-user schemes to store additional schema-level objects that are to "
+"be compared in custom autogeneration schemes."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.migration_context:1 of
+msgid "The :class:`.MigrationContext` established by the ``env.py`` script."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.run_filters:1 of
+msgid ""
+"Run the context's object filters and return True if the targets should be"
+" part of the autogenerate operation."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.run_filters:4 of
+msgid ""
+"This method should be run for every kind of object encountered within an "
+"autogenerate operation, giving the environment the chance to filter what "
+"objects should be included in the comparison. The filters here are "
+"produced directly via the "
+":paramref:`.EnvironmentContext.configure.include_object` and "
+":paramref:`.EnvironmentContext.configure.include_symbol` functions, if "
+"present."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.sorted_tables:1 of
+msgid "Return an aggregate of the :attr:`.MetaData.sorted_tables` collection(s)."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.sorted_tables:3 of
+msgid ""
+"For a sequence of :class:`.MetaData` objects, this concatenates the "
+":attr:`.MetaData.sorted_tables` collection for each individual "
+":class:`.MetaData`  in the order of the sequence.  It does **not** "
+"collate the sorted tables collections."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.table_key_to_table:1 of
+msgid "Return an aggregate  of the :attr:`.MetaData.tables` dictionaries."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.table_key_to_table:3 of
+msgid ""
+"The :attr:`.MetaData.tables` collection is a dictionary of table key to "
+":class:`.Table`; this method aggregates the dictionary across multiple "
+":class:`.MetaData` objects into one dictionary."
+msgstr ""
+
+#: alembic.autogenerate.api.AutogenContext.table_key_to_table:7 of
+msgid ""
+"Duplicate table keys are **not** supported; if two :class:`.MetaData` "
+"objects contain the same table key, an exception is raised."
+msgstr ""
+
+#: ../api/autogenerate.rst:583
+msgid "Creating a Render Function"
+msgstr ""
+
+#: ../api/autogenerate.rst:585
+msgid ""
+"The second autogenerate integration hook is to provide a \"render\" "
+"function; since the autogenerate system renders Python code, we need to "
+"build a function that renders the correct \"op\" instructions for our "
+"directive::"
+msgstr ""
+
+#: ../api/autogenerate.rst:607
+msgid ""
+"The above functions will render Python code corresponding to the presence"
+" of ``CreateSequenceOp`` and ``DropSequenceOp`` instructions in the list "
+"that our comparison function generates."
+msgstr ""
+
+#: ../api/autogenerate.rst:612
+msgid "Running It"
+msgstr ""
+
+#: ../api/autogenerate.rst:614
+msgid ""
+"All the above code can be organized however the developer sees fit; the "
+"only thing that needs to make it work is that when the Alembic "
+"environment ``env.py`` is invoked, it either imports modules which "
+"contain all the above routines, or they are locally present, or some "
+"combination thereof."
+msgstr ""
+
+#: ../api/autogenerate.rst:620
+msgid ""
+"If we then have code in our model (which of course also needs to be "
+"invoked when ``env.py`` runs!) like this::"
+msgstr ""
+
+#: ../api/autogenerate.rst:628
+msgid ""
+"When we first run ``alembic revision --autogenerate``, we'll see this in "
+"our migration file::"
+msgstr ""
+
+#: ../api/autogenerate.rst:642
+msgid ""
+"These are our custom directives that will invoke when ``alembic upgrade``"
+" or ``alembic downgrade`` is run."
+msgstr ""
+
+#: ../api/commands.rst:5
+msgid "Commands"
+msgstr ""
+
+#: ../api/commands.rst:7
+msgid ""
+"this section discusses the **internal API of Alembic** as regards its "
+"command invocation system. This section is only useful for developers who"
+" wish to extend the capabilities of Alembic.  For documentation on using "
+"Alembic commands, please see :doc:`/tutorial`."
+msgstr ""
+
+#: ../api/commands.rst:13
+msgid ""
+"Alembic commands are all represented by functions in the "
+":ref:`alembic.command.toplevel` package.  They all accept the same style "
+"of usage, being sent the :class:`.Config` object as the first argument."
+msgstr ""
+
+#: ../api/commands.rst:17
+msgid ""
+"Commands can be run programmatically, by first constructing a "
+":class:`.Config` object, as in::"
+msgstr ""
+
+#: ../api/commands.rst:25
+msgid ""
+"In many cases, and perhaps more often than not, an application will wish "
+"to call upon a series of Alembic commands and/or other features.  It is "
+"usually a good idea to link multiple commands along a single connection "
+"and transaction, if feasible.  This can be achieved using the "
+":attr:`.Config.attributes` dictionary in order to share a connection::"
+msgstr ""
+
+#: ../api/commands.rst:35
+msgid ""
+"This recipe requires that ``env.py`` consumes this connection argument; "
+"see the example in :ref:`connection_sharing` for details."
+msgstr ""
+
+#: ../api/commands.rst:38
+msgid ""
+"To write small API functions that make direct use of database and script "
+"directory information, rather than just running one of the built-in "
+"commands, use the :class:`.ScriptDirectory` and "
+":class:`.MigrationContext` classes directly."
+msgstr ""
+
+#: alembic.command.branches:1 of
+msgid "Show current branch points."
+msgstr ""
+
+#: alembic.command.branches:3 alembic.command.current:3
+#: alembic.command.downgrade:3 alembic.command.edit:3 alembic.command.heads:3
+#: alembic.command.history:3 alembic.command.show:3 alembic.command.stamp:4
+#: alembic.command.upgrade:3 alembic.runtime.environment.EnvironmentContext:63
+#: of
+msgid "a :class:`.Config` instance."
+msgstr ""
+
+#: alembic.command.branches:5 alembic.command.current:5 alembic.command.heads:5
+#: alembic.command.history:7 of
+msgid "output in verbose mode."
+msgstr ""
+
+#: alembic.command.current:1 of
+msgid "Display the current revision for a database."
+msgstr ""
+
+#: alembic.command.current:7 of
+msgid "deprecated; use ``verbose`` for additional output."
+msgstr ""
+
+#: alembic.command.downgrade:1 of
+msgid "Revert to a previous version."
+msgstr ""
+
+#: alembic.command.downgrade:5 alembic.command.upgrade:5 of
+msgid "string revision target or range for --sql mode"
+msgstr ""
+
+#: alembic.command.downgrade:7 alembic.command.upgrade:7 of
+msgid "if True, use ``--sql`` mode"
+msgstr ""
+
+#: alembic.command.downgrade:9 alembic.command.upgrade:9 of
+msgid ""
+"an arbitrary \"tag\" that can be intercepted by custom ``env.py`` scripts"
+" via the :meth:`.EnvironmentContext.get_tag_argument` method."
+msgstr ""
+
+#: alembic.command.edit:1 of
+msgid "Edit revision script(s) using $EDITOR."
+msgstr ""
+
+#: alembic.command.edit:5 alembic.command.stamp:6 of
+msgid "target revision."
+msgstr ""
+
+#: alembic.command.heads:1 of
+msgid "Show current available heads in the script directory"
+msgstr ""
+
+#: alembic.command.heads:7 of
+msgid "treat dependency version as down revisions."
+msgstr ""
+
+#: alembic.command.history:1 of
+msgid "List changeset scripts in chronological order."
+msgstr ""
+
+#: alembic.command.history:5 of
+msgid "string revision range"
+msgstr ""
+
+#: alembic.command.history:9 of
+msgid "indicate current revision.  ..versionadded:: 0.9.9"
+msgstr ""
+
+#: alembic.command.history:9 of
+msgid "indicate current revision."
+msgstr ""
+
+#: alembic.command.history:11 of
+msgid "..versionadded:: 0.9.9"
+msgstr ""
+
+#: alembic.command.init:1 of
+msgid "Initialize a new scripts directory."
+msgstr ""
+
+#: alembic.command.init:3 alembic.command.list_templates:3
+#: alembic.command.revision:3 of
+msgid "a :class:`.Config` object."
+msgstr ""
+
+#: alembic.command.init:5 of
+msgid "string path of the target directory"
+msgstr ""
+
+#: alembic.command.init:7 of
+msgid "string name of the migration environment template to use."
+msgstr ""
+
+#: alembic.command.list_templates:1 of
+msgid "List available templates"
+msgstr ""
+
+#: alembic.command.merge:1 of
+msgid "Merge two revisions together.  Creates a new migration file."
+msgstr ""
+
+#: alembic.command.merge:5 of
+msgid "a :class:`.Config` instance"
+msgstr ""
+
+#: alembic.command.merge:7 of
+msgid "string message to apply to the revision"
+msgstr ""
+
+#: alembic.command.merge:9 of
+msgid "string label name to apply to the new revision"
+msgstr ""
+
+#: alembic.command.merge:11 of
+msgid "hardcoded revision identifier instead of generating a new one."
+msgstr ""
+
+#: alembic.command.merge:16 of
+msgid ":ref:`branches`"
+msgstr ""
+
+#: alembic.command.revision:1 of
+msgid "Create a new revision file."
+msgstr ""
+
+#: alembic.command.revision:5 of
+msgid ""
+"string message to apply to the revision; this is the ``-m`` option to "
+"``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:8 of
+msgid ""
+"whether or not to autogenerate the script from the database; this is the "
+"``--autogenerate`` option to ``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:12 of
+msgid ""
+"whether to dump the script out as a SQL string; when specified, the "
+"script is dumped to stdout.  This is the ``--sql`` option to ``alembic "
+"revision``."
+msgstr ""
+
+#: alembic.command.revision:16 of
+msgid ""
+"head revision to build the new revision upon as a parent; this is the "
+"``--head`` option to ``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:19 of
+msgid ""
+"whether or not the new revision should be made into a new head of its "
+"own; is required when the given ``head`` is not itself a head.  This is "
+"the ``--splice`` option to ``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:23 of
+msgid ""
+"string label to apply to the branch; this is the ``--branch-label`` "
+"option to ``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:26 of
+msgid ""
+"string symbol identifying a specific version path from the configuration;"
+" this is the ``--version-path`` option to ``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:30 of
+msgid ""
+"optional revision identifier to use instead of having one generated; this"
+" is the ``--rev-id`` option to ``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:33 of
+msgid ""
+"optional list of \"depends on\" identifiers; this is the ``--depends-on``"
+" option to ``alembic revision``."
+msgstr ""
+
+#: alembic.command.revision:36 of
+msgid ""
+"this is a callable that takes the same form as the callable described at "
+":paramref:`.EnvironmentContext.configure.process_revision_directives`; "
+"will be applied to the structure generated by the revision process where "
+"it can be altered programmatically.   Note that unlike all the other "
+"parameters, this option is only available via programmatic use of "
+":func:`.command.revision`  .. versionadded:: 0.9.0"
+msgstr ""
+
+#: alembic.command.revision:36 of
+msgid ""
+"this is a callable that takes the same form as the callable described at "
+":paramref:`.EnvironmentContext.configure.process_revision_directives`; "
+"will be applied to the structure generated by the revision process where "
+"it can be altered programmatically.   Note that unlike all the other "
+"parameters, this option is only available via programmatic use of "
+":func:`.command.revision`"
+msgstr ""
+
+#: alembic.command.show:1 of
+msgid "Show the revision(s) denoted by the given symbol."
+msgstr ""
+
+#: alembic.command.show:5 of
+msgid "string revision target"
+msgstr ""
+
+#: alembic.command.stamp:1 of
+msgid ""
+"'stamp' the revision table with the given revision; don't run any "
+"migrations."
+msgstr ""
+
+#: alembic.command.stamp:8 of
+msgid "use ``--sql`` mode"
+msgstr ""
+
+#: alembic.command.stamp:10 of
+msgid ""
+"an arbitrary \"tag\" that can be intercepted by custom ``env.py`` scripts"
+" via the :class:`.EnvironmentContext.get_tag_argument` method."
+msgstr ""
+
+#: alembic.command.upgrade:1 of
+msgid "Upgrade to a later version."
+msgstr ""
+
+#: ../api/config.rst:5
+msgid "Configuration"
+msgstr ""
+
+#: ../api/config.rst:7
+msgid ""
+"this section discusses the **internal API of Alembic** as regards "
+"internal configuration constructs. This section is only useful for "
+"developers who wish to extend the capabilities of Alembic.  For "
+"documentation on configuration of an Alembic environment, please see "
+":doc:`/tutorial`."
+msgstr ""
+
+#: ../api/config.rst:13
+msgid ""
+"The :class:`.Config` object represents the configuration passed to the "
+"Alembic environment.  From an API usage perspective, it is needed for the"
+" following use cases:"
+msgstr ""
+
+#: ../api/config.rst:17
+msgid ""
+"to create a :class:`.ScriptDirectory`, which allows you to work with the "
+"actual script files in a migration environment"
+msgstr ""
+
+#: ../api/config.rst:19
+msgid ""
+"to create an :class:`.EnvironmentContext`, which allows you to actually "
+"run the ``env.py`` module within the migration environment"
+msgstr ""
+
+#: ../api/config.rst:21
+msgid ""
+"to programatically run any of the commands in the "
+":ref:`alembic.command.toplevel` module."
+msgstr ""
+
+#: ../api/config.rst:24
+msgid "The :class:`.Config` is *not* needed for these cases:"
+msgstr ""
+
+#: ../api/config.rst:26
+msgid ""
+"to instantiate a :class:`.MigrationContext` directly - this object only "
+"needs a SQLAlchemy connection or dialect name."
+msgstr ""
+
+#: ../api/config.rst:28
+msgid ""
+"to instantiate a :class:`.Operations` object - this object only needs a "
+":class:`.MigrationContext`."
+msgstr ""
+
+#: alembic.config.Config:1 of
+msgid "Represent an Alembic configuration."
+msgstr ""
+
+#: alembic.config.Config:3 of
+msgid ""
+"Within an ``env.py`` script, this is available via the "
+":attr:`.EnvironmentContext.config` attribute, which in turn is available "
+"at ``alembic.context``::"
+msgstr ""
+
+#: alembic.config.Config:11 of
+msgid ""
+"When invoking Alembic programatically, a new :class:`.Config` can be "
+"created by passing the name of an .ini file to the constructor::"
+msgstr ""
+
+#: alembic.config.Config:18 of
+msgid ""
+"With a :class:`.Config` object, you can then run Alembic commands "
+"programmatically using the directives in :mod:`alembic.command`."
+msgstr ""
+
+#: alembic.config.Config:22 of
+msgid ""
+"The :class:`.Config` object can also be constructed without a filename."
+"   Values can be set programmatically, and new sections will be created "
+"as needed::"
+msgstr ""
+
+#: alembic.config.Config:34 of
+msgid ""
+"When using programmatic configuration, make sure the ``env.py`` file in "
+"use is compatible with the target configuration; including that the call "
+"to Python ``logging.fileConfig()`` is omitted if the programmatic "
+"configuration doesn't actually include logging directives."
+msgstr ""
+
+#: alembic.config.Config:40 of
+msgid ""
+"For passing non-string values to environments, such as connections and "
+"engines, use the :attr:`.Config.attributes` dictionary::"
+msgstr ""
+
+#: alembic.config.Config:47 of
+msgid "name of the .ini file to open."
+msgstr ""
+
+#: alembic.config.Config:48 of
+msgid "name of the main Alembic section within the .ini file"
+msgstr ""
+
+#: alembic.config.Config:50 of
+msgid ""
+"optional file-like input buffer which will be passed to the "
+":class:`.MigrationContext` - used to redirect the output of \"offline "
+"generation\" when using Alembic programmatically."
+msgstr ""
+
+#: alembic.config.Config:53 of
+msgid ""
+"buffer where the \"print\" output of commands will be sent. Defaults to "
+"``sys.stdout``.  .. versionadded:: 0.4"
+msgstr ""
+
+#: alembic.config.Config:53 of
+msgid ""
+"buffer where the \"print\" output of commands will be sent. Defaults to "
+"``sys.stdout``."
+msgstr ""
+
+#: alembic.config.Config:58 of
+msgid ""
+"A dictionary of keys and values that will be used for substitution in the"
+" alembic config file.  The dictionary as given is **copied** to a new "
+"one, stored locally as the attribute ``.config_args``. When the "
+":attr:`.Config.file_config` attribute is first invoked, the replacement "
+"variable ``here`` will be added to this dictionary before the dictionary "
+"is passed to ``SafeConfigParser()`` to parse the .ini file.  .. "
+"versionadded:: 0.7.0"
+msgstr ""
+
+#: alembic.config.Config:58 of
+msgid ""
+"A dictionary of keys and values that will be used for substitution in the"
+" alembic config file.  The dictionary as given is **copied** to a new "
+"one, stored locally as the attribute ``.config_args``. When the "
+":attr:`.Config.file_config` attribute is first invoked, the replacement "
+"variable ``here`` will be added to this dictionary before the dictionary "
+"is passed to ``SafeConfigParser()`` to parse the .ini file."
+msgstr ""
+
+#: alembic.config.Config:68 of
+msgid ""
+"optional dictionary of arbitrary Python keys/values, which will be "
+"populated into the :attr:`.Config.attributes` dictionary.  .. "
+"versionadded:: 0.7.5  .. seealso::     :ref:`connection_sharing`"
+msgstr ""
+
+#: alembic.config.Config:68 of
+msgid ""
+"optional dictionary of arbitrary Python keys/values, which will be "
+"populated into the :attr:`.Config.attributes` dictionary."
+msgstr ""
+
+#: alembic.config.Config:75 alembic.config.Config.attributes:14 of
+msgid ":ref:`connection_sharing`"
+msgstr ""
+
+#: alembic.config.Config:78 of
+msgid "Construct a new :class:`.Config`"
+msgstr ""
+
+#: alembic.config.Config.attributes:1 of
+msgid "A Python dictionary for storage of additional state."
+msgstr ""
+
+#: alembic.config.Config.attributes:4 of
+msgid ""
+"This is a utility dictionary which can include not just strings but "
+"engines, connections, schema objects, or anything else. Use this to pass "
+"objects into an env.py script, such as passing a "
+":class:`sqlalchemy.engine.base.Connection` when calling commands from "
+":mod:`alembic.command` programmatically."
+msgstr ""
+
+#: alembic.config.Config.attributes:16 of
+msgid ":paramref:`.Config.attributes`"
+msgstr ""
+
+#: alembic.config.Config.cmd_opts:1 of
+msgid "The command-line options passed to the ``alembic`` script."
+msgstr ""
+
+#: alembic.config.Config.cmd_opts:3 of
+msgid ""
+"Within an ``env.py`` script this can be accessed via the "
+":attr:`.EnvironmentContext.config` attribute."
+msgstr ""
+
+#: alembic.config.Config.cmd_opts:10 of
+msgid ":meth:`.EnvironmentContext.get_x_argument`"
+msgstr ""
+
+#: alembic.config.Config.config_file_name:1 of
+msgid "Filesystem path to the .ini file in use."
+msgstr ""
+
+#: alembic.config.Config.config_ini_section:1 of
+msgid ""
+"Name of the config file section to read basic configuration from.  "
+"Defaults to ``alembic``, that is the ``[alembic]`` section of the .ini "
+"file.  This value is modified using the ``-n/--name`` option to the "
+"Alembic runnier."
+msgstr ""
+
+#: alembic.config.Config.file_config:1 of
+msgid "Return the underlying ``ConfigParser`` object."
+msgstr ""
+
+#: alembic.config.Config.file_config:3 of
+msgid ""
+"Direct access to the .ini file is available here, though the "
+":meth:`.Config.get_section` and :meth:`.Config.get_main_option` methods "
+"provide a possibly simpler interface."
+msgstr ""
+
+#: alembic.config.Config.get_main_option:1 of
+msgid "Return an option from the 'main' section of the .ini file."
+msgstr ""
+
+#: alembic.config.Config.get_main_option:3 of
+msgid ""
+"This defaults to being a key from the ``[alembic]`` section, unless the "
+"``-n/--name`` flag were used to indicate a different section."
+msgstr ""
+
+#: alembic.config.Config.get_section:1 of
+msgid ""
+"Return all the configuration options from a given .ini file section as a "
+"dictionary."
+msgstr ""
+
+#: alembic.config.Config.get_section_option:1 of
+msgid "Return an option from the given section of the .ini file."
+msgstr ""
+
+#: alembic.config.Config.get_template_directory:1 of
+msgid "Return the directory where Alembic setup templates are found."
+msgstr ""
+
+#: alembic.config.Config.get_template_directory:3 of
+msgid ""
+"This method is used by the alembic ``init`` and ``list_templates`` "
+"commands."
+msgstr ""
+
+#: alembic.config.Config.print_stdout:1 of
+msgid "Render a message to standard out."
+msgstr ""
+
+#: alembic.config.Config.print_stdout:3 of
+msgid ""
+"When :meth:`.Config.print_stdout` is called with additional args those "
+"arguments will formatted against the provided text, otherwise we simply "
+"output the provided text verbatim."
+msgstr ""
+
+#: alembic.config.Config.print_stdout:7
+#: alembic.runtime.environment.EnvironmentContext.begin_transaction:6 of
+msgid "e.g.::"
+msgstr ""
+
+#: alembic.config.Config.set_main_option:1 of
+msgid "Set an option programmatically within the 'main' section."
+msgstr ""
+
+#: alembic.config.Config.set_main_option:3 of
+msgid "This overrides whatever was in the .ini file."
+msgstr ""
+
+#: alembic.config.Config.set_main_option:5
+#: alembic.config.Config.set_section_option:9 of
+msgid "name of the value"
+msgstr ""
+
+#: alembic.config.Config.set_main_option:7
+#: alembic.config.Config.set_section_option:11 of
+#, python-format
+msgid ""
+"the value.  Note that this value is passed to ``ConfigParser.set``, which"
+" supports variable interpolation using pyformat (e.g. "
+"``%(some_value)s``).   A raw percent sign not part of an interpolation "
+"symbol must therefore be escaped, e.g. ``%%``. The given value may refer "
+"to another value already in the file using the interpolation format."
+msgstr ""
+
+#: alembic.config.Config.set_section_option:1 of
+msgid "Set an option programmatically within the given section."
+msgstr ""
+
+#: alembic.config.Config.set_section_option:3 of
+msgid ""
+"The section is created if it doesn't exist already. The value here will "
+"override whatever was in the .ini file."
+msgstr ""
+
+#: alembic.config.Config.set_section_option:7 of
+msgid "name of the section"
+msgstr ""
+
+#: alembic.config.main:1 of
+msgid "The console runner function for Alembic."
+msgstr ""
+
+#: ../api/ddl.rst:5
+msgid "DDL Internals"
+msgstr ""
+
+#: ../api/ddl.rst:7
+msgid ""
+"These are some of the constructs used to generate migration instructions."
+"  The APIs here build off of the :class:`sqlalchemy.schema.DDLElement` "
+"and :ref:`sqlalchemy.ext.compiler_toplevel` systems."
+msgstr ""
+
+#: ../api/ddl.rst:11
+msgid ""
+"For programmatic usage of Alembic's migration directives, the easiest "
+"route is to use the higher level functions given by "
+":ref:`alembic.operations.toplevel`."
+msgstr ""
+
+#: alembic.ddl.base.AlterTable:1 of
+msgid "Represent an ALTER TABLE statement."
+msgstr ""
+
+#: alembic.ddl.base.AlterTable:3 of
+msgid ""
+"Only the string name and optional schema name of the table is required, "
+"not a full Table object."
+msgstr ""
+
+#: alembic.ddl.base.quote_dotted:1 of
+msgid "quote the elements of a dotted name"
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl:1 of
+msgid ""
+"Provide the entrypoint for major migration operations, including "
+"database-specific behavioral variances."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl:4 of
+msgid ""
+"While individual SQL/DDL constructs already provide for database-specific"
+" implementations, variances here allow for entirely different sequences "
+"of operations to take place for a particular migration, such as SQL "
+"Server's special 'IDENTITY INSERT' step for bulk inserts."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.autogen_column_reflect:1
+#: alembic.ddl.postgresql.PostgresqlImpl.autogen_column_reflect:1 of
+msgid ""
+"A hook that is attached to the 'column_reflect' event for when a Table is"
+" reflected from the database during the autogenerate process."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.autogen_column_reflect:5
+#: alembic.ddl.postgresql.PostgresqlImpl.autogen_column_reflect:5 of
+msgid "Dialects can elect to modify the information gathered here."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.emit_begin:1
+#: alembic.ddl.mssql.MSSQLImpl.emit_begin:1 of
+msgid ""
+"Emit the string ``BEGIN``, or the backend-specific equivalent, on the "
+"current connection context."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.emit_begin:4
+#: alembic.ddl.impl.DefaultImpl.emit_commit:4
+#: alembic.ddl.mssql.MSSQLImpl.emit_begin:4
+#: alembic.ddl.mssql.MSSQLImpl.emit_commit:4 of
+msgid ""
+"This is used in offline mode and typically via "
+":meth:`.EnvironmentContext.begin_transaction`."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.emit_commit:1
+#: alembic.ddl.mssql.MSSQLImpl.emit_commit:1 of
+msgid ""
+"Emit the string ``COMMIT``, or the backend-specific equivalent, on the "
+"current connection context."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.prep_table_for_batch:1
+#: alembic.ddl.postgresql.PostgresqlImpl.prep_table_for_batch:1 of
+msgid ""
+"perform any operations needed on a table before a new one is created to "
+"replace it in batch mode."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.prep_table_for_batch:4
+#: alembic.ddl.postgresql.PostgresqlImpl.prep_table_for_batch:4 of
+msgid ""
+"the PG dialect uses this to drop constraints on the table before the new "
+"one uses those same names."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.requires_recreate_in_batch:1
+#: alembic.ddl.sqlite.SQLiteImpl.requires_recreate_in_batch:1 of
+msgid ""
+"Return True if the given :class:`.BatchOperationsImpl` would need the "
+"table to be recreated and copied in order to proceed."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.requires_recreate_in_batch:5
+#: alembic.ddl.sqlite.SQLiteImpl.requires_recreate_in_batch:5 of
+msgid ""
+"Normally, only returns True on SQLite when operations other than "
+"add_column are present."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.start_migrations:1 of
+msgid "A hook called when :meth:`.EnvironmentContext.run_migrations` is called."
+msgstr ""
+
+#: alembic.ddl.impl.DefaultImpl.start_migrations:4 of
+msgid "Implementations can set up per-migration-run state here."
+msgstr ""
+
+#: ../api/ddl.rst:27
+msgid "MySQL"
+msgstr ""
+
+#: alembic.ddl.mysql.MySQLAlterDefault:1 alembic.ddl.mysql.MySQLChangeColumn:1
+#: alembic.ddl.postgresql.PostgresqlColumnType:1 of
+msgid "Bases: :class:`alembic.ddl.base.AlterColumn`"
+msgstr ""
+
+#: alembic.ddl.mssql.MSSQLImpl:1 alembic.ddl.mysql.MySQLImpl:1
+#: alembic.ddl.postgresql.PostgresqlImpl:1 alembic.ddl.sqlite.SQLiteImpl:1 of
+msgid "Bases: :class:`alembic.ddl.impl.DefaultImpl`"
+msgstr ""
+
+#: alembic.ddl.mysql.MySQLModifyColumn:1 of
+msgid "Bases: :class:`alembic.ddl.mysql.MySQLChangeColumn`"
+msgstr ""
+
+#: ../api/ddl.rst:35
+msgid "MS-SQL"
+msgstr ""
+
+#: ../api/ddl.rst:43
+msgid "Postgresql"
+msgstr ""
+
+#: alembic.ddl.postgresql.CreateExcludeConstraintOp:1 of
+msgid "Bases: :class:`alembic.operations.ops.AddConstraintOp`"
+msgstr ""
+
+#: alembic.ddl.postgresql.CreateExcludeConstraintOp:1 of
+msgid "Represent a create exclude constraint operation."
+msgstr ""
+
+#: alembic.ddl.postgresql.CreateExcludeConstraintOp.batch_create_exclude_constraint:1
+#: of
+msgid ""
+"This method is proxied on the :class:`.BatchOperations` class, via the "
+":meth:`.BatchOperations.create_exclude_constraint` method."
+msgstr ""
+
+#: alembic.ddl.postgresql.CreateExcludeConstraintOp.create_exclude_constraint:1
+#: of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.create_exclude_constraint` method."
+msgstr ""
+
+#: ../api/ddl.rst:51
+msgid "SQLite"
+msgstr ""
+
+#: alembic.ddl.sqlite.SQLiteImpl.transactional_ddl:1 of
+msgid ""
+"SQLite supports transactional DDL, but pysqlite does not: see: "
+"http://bugs.python.org/issue10740"
+msgstr ""
+
+#: ../api/index.rst:5
+msgid "API Details"
+msgstr ""
+
+#: ../api/index.rst:7
+msgid ""
+"Alembic's internal API has many public integration points that can be "
+"used to extend Alembic's functionality as well as to re-use its "
+"functionality in new ways.   As the project has grown, more APIs are "
+"created and exposed for this purpose."
+msgstr ""
+
+#: ../api/index.rst:12
+msgid ""
+"Direct use of the vast majority of API details discussed here is not "
+"needed for rudimentary use of Alembic; the only API that is used normally"
+" by end users is the methods provided by the :class:`.Operations` class, "
+"which is discussed outside of this subsection, and the parameters that "
+"can be passed to the :meth:`.EnvironmentContext.configure` method, used "
+"when configuring one's ``env.py`` environment.  However, real-world "
+"applications will usually end up using more of the internal API, in "
+"particular being able to run commands programmatically, as discussed in "
+"the section :doc:`/api/commands`."
+msgstr ""
+
+#: ../api/operations.rst:5
+msgid "Operation Directives"
+msgstr ""
+
+#: ../api/operations.rst:7
+msgid ""
+"this section discusses the **internal API of Alembic** as regards the "
+"internal system of defining migration operation directives. This section "
+"is only useful for developers who wish to extend the capabilities of "
+"Alembic.  For end-user guidance on Alembic migration operations, please "
+"see :ref:`ops`."
+msgstr ""
+
+#: ../api/operations.rst:13
+msgid ""
+"Within migration scripts, actual database migration operations are "
+"handled via an instance of :class:`.Operations`.   The "
+":class:`.Operations` class lists out available migration operations that "
+"are linked to a :class:`.MigrationContext`, which communicates "
+"instructions originated by the :class:`.Operations` object into SQL that "
+"is sent to a database or SQL output stream."
+msgstr ""
+
+#: ../api/operations.rst:20
+msgid ""
+"Most methods on the :class:`.Operations` class are generated dynamically "
+"using a \"plugin\" system, described in the next section "
+":ref:`operation_plugins`.   Additionally, when Alembic migration scripts "
+"actually run, the methods on the current :class:`.Operations` object are "
+"proxied out to the ``alembic.op`` module, so that they are available "
+"using module-style access."
+msgstr ""
+
+#: ../api/operations.rst:27
+msgid ""
+"For an overview of how to use an :class:`.Operations` object directly in "
+"programs, as well as for reference to the standard operation methods as "
+"well as \"batch\" methods, see :ref:`ops`."
+msgstr ""
+
+#: ../api/operations.rst:34
+msgid "Operation Plugins"
+msgstr ""
+
+#: ../api/operations.rst:36
+msgid ""
+"The Operations object is extensible using a plugin system.   This system "
+"allows one to add new ``op.<some_operation>`` methods at runtime.  The "
+"steps to use this system are to first create a subclass of "
+":class:`.MigrateOperation`, register it using the "
+":meth:`.Operations.register_operation` class decorator, then build a "
+"default \"implementation\" function which is established using the "
+":meth:`.Operations.implementation_for` decorator."
+msgstr ""
+
+#: ../api/operations.rst:43
+msgid ""
+"- the :class:`.Operations` class is now an open namespace that is "
+"extensible via the creation of new :class:`.MigrateOperation` subclasses."
+msgstr ""
+
+#: ../api/operations.rst:47
+msgid ""
+"Below we illustrate a very simple operation ``CreateSequenceOp`` which "
+"will implement a new method ``op.create_sequence()`` for use in migration"
+" scripts::"
+msgstr ""
+
+#: ../api/operations.rst:91
+msgid ""
+"Above, the ``CreateSequenceOp`` and ``DropSequenceOp`` classes represent "
+"new operations that will be available as ``op.create_sequence()`` and "
+"``op.drop_sequence()``. The reason the operations are represented as "
+"stateful classes is so that an operation and a specific set of arguments "
+"can be represented generically; the state can then correspond to "
+"different kinds of operations, such as invoking the instruction against a"
+" database, or autogenerating Python code for the operation into a script."
+msgstr ""
+
+#: ../api/operations.rst:101
+msgid ""
+"In order to establish the migrate-script behavior of the new operations, "
+"we use the :meth:`.Operations.implementation_for` decorator::"
+msgstr ""
+
+#: ../api/operations.rst:121
+msgid ""
+"Above, we use the simplest possible technique of invoking our DDL, which "
+"is just to call :meth:`.Operations.execute` with literal SQL.  If this is"
+" all a custom operation needs, then this is fine.  However, options for "
+"more comprehensive support include building out a custom SQL construct, "
+"as documented at :ref:`sqlalchemy.ext.compiler_toplevel`."
+msgstr ""
+
+#: ../api/operations.rst:127
+msgid ""
+"With the above two steps, a migration script can now use new methods "
+"``op.create_sequence()`` and ``op.drop_sequence()`` that will proxy to "
+"our object as a classmethod::"
+msgstr ""
+
+#: ../api/operations.rst:137
+msgid ""
+"The registration of new operations only needs to occur in time for the "
+"``env.py`` script to invoke :meth:`.MigrationContext.run_migrations`; "
+"within the module level of the ``env.py`` script is sufficient."
+msgstr ""
+
+#: ../api/operations.rst:143
+msgid ""
+":ref:`autogen_custom_ops` - how to add autogenerate support to custom "
+"operations."
+msgstr ""
+
+#: ../api/operations.rst:146
+msgid ""
+"- the migration operations available via the :class:`.Operations` class "
+"as well as the ``alembic.op`` namespace is now extensible using a plugin "
+"system."
+msgstr ""
+
+#: ../api/operations.rst:155
+msgid "Built-in Operation Objects"
+msgstr ""
+
+#: ../api/operations.rst:157
+msgid ""
+"The migration operations present on :class:`.Operations` are themselves "
+"delivered via operation objects that represent an operation and its "
+"arguments.   All operations descend from the :class:`.MigrateOperation` "
+"class, and are registered with the :class:`.Operations` class using the "
+":meth:`.Operations.register_operation` class decorator.  The "
+":class:`.MigrateOperation` objects also serve as the basis for how the "
+"autogenerate system renders new migration scripts."
+msgstr ""
+
+#: ../api/operations.rst:167 alembic.operations.ops.MigrateOperation:11 of
+msgid ":ref:`operation_plugins`"
+msgstr ""
+
+#: ../api/operations.rst:169 alembic.operations.ops.DowngradeOps:6
+#: alembic.operations.ops.MigrateOperation:13
+#: alembic.operations.ops.MigrationScript:25
+#: alembic.operations.ops.UpgradeOps:6
+#: alembic.runtime.environment.EnvironmentContext.configure:436 of
+msgid ":ref:`customizing_revision`"
+msgstr ""
+
+#: ../api/operations.rst:171
+msgid "The built-in operation objects are listed below."
+msgstr ""
+
+#: alembic.operations.ops.AddColumnOp:1 of
+msgid "Represent an add column operation."
+msgstr ""
+
+#: alembic.operations.ops.AddColumnOp.add_column:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.add_column` method."
+msgstr ""
+
+#: alembic.operations.ops.AddColumnOp.batch_add_column:1 of
+msgid ""
+"This method is proxied on the :class:`.BatchOperations` class, via the "
+":meth:`.BatchOperations.add_column` method."
+msgstr ""
+
+#: alembic.operations.ops.AddConstraintOp:1 of
+msgid "Represent an add constraint operation."
+msgstr ""
+
+#: alembic.operations.ops.AlterColumnOp:1 of
+msgid "Represent an alter column operation."
+msgstr ""
+
+#: alembic.operations.ops.AlterColumnOp.alter_column:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.alter_column` method."
+msgstr ""
+
+#: alembic.operations.ops.AlterColumnOp.batch_alter_column:1 of
+msgid ""
+"This method is proxied on the :class:`.BatchOperations` class, via the "
+":meth:`.BatchOperations.alter_column` method."
+msgstr ""
+
+#: alembic.operations.ops.AlterTableOp:1 of
+msgid "Represent an alter table operation."
+msgstr ""
+
+#: alembic.operations.ops.BulkInsertOp:1 of
+msgid "Represent a bulk insert operation."
+msgstr ""
+
+#: alembic.operations.ops.BulkInsertOp.bulk_insert:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.bulk_insert` method."
+msgstr ""
+
+#: alembic.operations.ops.CreateCheckConstraintOp:1 of
+msgid "Represent a create check constraint operation."
+msgstr ""
+
+#: alembic.operations.ops.CreateCheckConstraintOp.batch_create_check_constraint:1
+#: of
+msgid ""
+"This method is proxied on the :class:`.BatchOperations` class, via the "
+":meth:`.BatchOperations.create_check_constraint` method."
+msgstr ""
+
+#: alembic.operations.ops.CreateCheckConstraintOp.create_check_constraint:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.create_check_constraint` method."
+msgstr ""
+
+#: alembic.operations.ops.CreateForeignKeyOp:1 of
+msgid "Represent a create foreign key constraint operation."
+msgstr ""
+
+#: alembic.operations.ops.CreateForeignKeyOp.batch_create_foreign_key:1 of
+msgid ""
+"This method is proxied on the :class:`.BatchOperations` class, via the "
+":meth:`.BatchOperations.create_foreign_key` method."
+msgstr ""
+
+#: alembic.operations.ops.CreateForeignKeyOp.create_foreign_key:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.create_foreign_key` method."
+msgstr ""
+
+#: alembic.operations.ops.CreateIndexOp:1 of
+msgid "Represent a create index operation."
+msgstr ""
+
+#: alembic.operations.ops.CreateIndexOp.batch_create_index:1 of
+msgid ""
+"This method is proxied on the :class:`.BatchOperations` class, via the "
+":meth:`.BatchOperations.create_index` method."
+msgstr ""
+
+#: alembic.operations.ops.CreateIndexOp.create_index:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.create_index` method."
+msgstr ""
+
+#: alembic.operations.ops.CreatePrimaryKeyOp:1 of
+msgid "Represent a create primary key operation."
+msgstr ""
+
+#: alembic.operations.ops.CreatePrimaryKeyOp.batch_create_primary_key:1 of
+msgid ""
+"This method is proxied on the :class:`.BatchOperations` class, via the "
+":meth:`.BatchOperations.create_primary_key` method."
+msgstr ""
+
+#: alembic.operations.ops.CreatePrimaryKeyOp.create_primary_key:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.create_primary_key` method."
+msgstr ""
+
+#: alembic.operations.ops.CreateTableCommentOp:1 of
+msgid "Represent a COMMENT ON `table` operation."
+msgstr ""
+
+#: alembic.operations.ops.CreateTableCommentOp.create_table_comment:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.create_table_comment` method."
+msgstr ""
+
+#: alembic.operations.ops.CreateTableCommentOp.reverse:1
+#: alembic.operations.ops.DropTableCommentOp.reverse:1 of
+msgid "Reverses the COMMENT ON operation against a table."
+msgstr ""
+
+#: alembic.operations.ops.CreateTableOp:1 of
+msgid "Represent a create table operation."
+msgstr ""
+
+#: alembic.operations.ops.CreateTableOp.create_table:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.create_table` method."
+msgstr ""
+
+#: alembic.operations.ops.CreateUniqueConstraintOp:1 of
+msgid "Represent a create unique constraint operation."
+msgstr ""
+
+#: alembic.operations.ops.CreateUniqueConstraintOp.batch_create_unique_constraint:1
+#: of
+msgid ""
+"This method is proxied on the :class:`.BatchOperations` class, via the "
+":meth:`.BatchOperations.create_unique_constraint` method."
+msgstr ""
+
+#: alembic.operations.ops.CreateUniqueConstraintOp.create_unique_constraint:1
+#: of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.create_unique_constraint` method."
+msgstr ""
+
+#: alembic.operations.ops.DowngradeOps:1 of
+msgid ""
+"contains a sequence of operations that would apply to the 'downgrade' "
+"stream of a script."
+msgstr ""
+
+#: alembic.operations.ops.DropColumnOp:1 of
+msgid "Represent a drop column operation."
+msgstr ""
+
+#: alembic.operations.ops.DropColumnOp.batch_drop_column:1 of
+msgid ""
+"This method is proxied on the :class:`.BatchOperations` class, via the "
+":meth:`.BatchOperations.drop_column` method."
+msgstr ""
+
+#: alembic.operations.ops.DropColumnOp.drop_column:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.drop_column` method."
+msgstr ""
+
+#: alembic.operations.ops.DropConstraintOp:1 of
+msgid "Represent a drop constraint operation."
+msgstr ""
+
+#: alembic.operations.ops.DropConstraintOp.batch_drop_constraint:1 of
+msgid ""
+"This method is proxied on the :class:`.BatchOperations` class, via the "
+":meth:`.BatchOperations.drop_constraint` method."
+msgstr ""
+
+#: alembic.operations.ops.DropConstraintOp.drop_constraint:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.drop_constraint` method."
+msgstr ""
+
+#: alembic.operations.ops.DropIndexOp:1 of
+msgid "Represent a drop index operation."
+msgstr ""
+
+#: alembic.operations.ops.DropIndexOp.batch_drop_index:1 of
+msgid ""
+"This method is proxied on the :class:`.BatchOperations` class, via the "
+":meth:`.BatchOperations.drop_index` method."
+msgstr ""
+
+#: alembic.operations.ops.DropIndexOp.drop_index:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.drop_index` method."
+msgstr ""
+
+#: alembic.operations.ops.DropTableCommentOp:1 of
+msgid "Represent an operation to remove the comment from a table."
+msgstr ""
+
+#: alembic.operations.ops.DropTableCommentOp.drop_table_comment:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.drop_table_comment` method."
+msgstr ""
+
+#: alembic.operations.ops.DropTableOp:1 of
+msgid "Represent a drop table operation."
+msgstr ""
+
+#: alembic.operations.ops.DropTableOp.drop_table:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.drop_table` method."
+msgstr ""
+
+#: alembic.operations.ops.ExecuteSQLOp:1 of
+msgid "Represent an execute SQL operation."
+msgstr ""
+
+#: alembic.operations.ops.ExecuteSQLOp.execute:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.execute` method."
+msgstr ""
+
+#: alembic.operations.ops.MigrateOperation:1 of
+msgid "base class for migration command and organization objects."
+msgstr ""
+
+#: alembic.operations.ops.MigrateOperation:3 of
+msgid "This system is part of the operation extensibility API."
+msgstr ""
+
+#: alembic.operations.ops.MigrateOperation:9 of
+msgid ":ref:`operation_objects`"
+msgstr ""
+
+#: alembic.operations.ops.MigrateOperation.info:1 of
+msgid ""
+"A dictionary that may be used to store arbitrary information along with "
+"this :class:`.MigrateOperation` object."
+msgstr ""
+
+#: alembic.operations.ops.MigrationScript:1 of
+msgid "represents a migration script."
+msgstr ""
+
+#: alembic.operations.ops.MigrationScript:3 of
+msgid ""
+"E.g. when autogenerate encounters this object, this corresponds to the "
+"production of an actual script file."
+msgstr ""
+
+#: alembic.operations.ops.MigrationScript:6 of
+msgid ""
+"A normal :class:`.MigrationScript` object would contain a single "
+":class:`.UpgradeOps` and a single :class:`.DowngradeOps` directive. These"
+" are accessible via the ``.upgrade_ops`` and ``.downgrade_ops`` "
+"attributes."
+msgstr ""
+
+#: alembic.operations.ops.MigrationScript:11 of
+msgid ""
+"In the case of an autogenerate operation that runs multiple times, such "
+"as the multiple database example in the \"multidb\" template, the "
+"``.upgrade_ops`` and ``.downgrade_ops`` attributes are disabled, and "
+"instead these objects should be accessed via the ``.upgrade_ops_list`` "
+"and ``.downgrade_ops_list`` list-based attributes.  These latter "
+"attributes are always available at the very least as single-element "
+"lists."
+msgstr ""
+
+#: alembic.operations.ops.MigrationScript:18 of
+msgid ""
+"the ``.upgrade_ops`` and ``.downgrade_ops`` attributes should be accessed"
+" via the ``.upgrade_ops_list`` and ``.downgrade_ops_list`` attributes if "
+"multiple autogenerate passes proceed on the same "
+":class:`.MigrationScript` object."
+msgstr ""
+
+#: alembic.operations.ops.MigrationScript.downgrade_ops:1 of
+msgid "An instance of :class:`.DowngradeOps`."
+msgstr ""
+
+#: alembic.operations.ops.MigrationScript.downgrade_ops:5 of
+msgid ":attr:`.MigrationScript.downgrade_ops_list`"
+msgstr ""
+
+#: alembic.operations.ops.MigrationScript.downgrade_ops_list:1 of
+msgid "A list of :class:`.DowngradeOps` instances."
+msgstr ""
+
+#: alembic.operations.ops.MigrationScript.downgrade_ops_list:3 of
+msgid ""
+"This is used in place of the :attr:`.MigrationScript.downgrade_ops` "
+"attribute when dealing with a revision operation that does multiple "
+"autogenerate passes."
+msgstr ""
+
+#: alembic.operations.ops.MigrationScript.upgrade_ops:1 of
+msgid "An instance of :class:`.UpgradeOps`."
+msgstr ""
+
+#: alembic.operations.ops.MigrationScript.upgrade_ops:5 of
+msgid ":attr:`.MigrationScript.upgrade_ops_list`"
+msgstr ""
+
+#: alembic.operations.ops.MigrationScript.upgrade_ops_list:1 of
+msgid "A list of :class:`.UpgradeOps` instances."
+msgstr ""
+
+#: alembic.operations.ops.MigrationScript.upgrade_ops_list:3 of
+msgid ""
+"This is used in place of the :attr:`.MigrationScript.upgrade_ops` "
+"attribute when dealing with a revision operation that does multiple "
+"autogenerate passes."
+msgstr ""
+
+#: alembic.operations.ops.ModifyTableOps:1 of
+msgid "Contains a sequence of operations that all apply to a single Table."
+msgstr ""
+
+#: alembic.operations.ops.OpContainer:1 of
+msgid "Represent a sequence of operations operation."
+msgstr ""
+
+#: alembic.operations.ops.RenameTableOp:1 of
+msgid "Represent a rename table operation."
+msgstr ""
+
+#: alembic.operations.ops.RenameTableOp.rename_table:1 of
+msgid ""
+"This method is proxied on the :class:`.Operations` class, via the "
+":meth:`.Operations.rename_table` method."
+msgstr ""
+
+#: alembic.operations.ops.UpgradeOps:1 of
+msgid ""
+"contains a sequence of operations that would apply to the 'upgrade' "
+"stream of a script."
+msgstr ""
+
+#: ../api/overview.rst:3
+msgid "Overview"
+msgstr ""
+
+#: ../api/overview.rst:5
+msgid ""
+"this section is a technical overview of the **internal API of Alembic**. "
+"This section is only useful for developers who wish to extend the "
+"capabilities of Alembic; for regular users, reading this section is **not"
+" necessary**."
+msgstr ""
+
+#: ../api/overview.rst:11
+msgid ""
+"A visualization of the primary features of Alembic's internals is "
+"presented in the following figure.   The module and class boxes do not "
+"list out all the operations provided by each unit; only a small set of "
+"representative elements intended to convey the primary purpose of each "
+"system."
+msgstr ""
+
+#: ../api/overview.rst:18
+msgid ""
+"The script runner for Alembic is present in the "
+":ref:`alembic.config.toplevel` module. This module produces a "
+":class:`.Config` object and passes it to the appropriate function in "
+":ref:`alembic.command.toplevel`.   Functions within "
+":ref:`alembic.command.toplevel` will typically instantiate an "
+":class:`.ScriptDirectory` instance, which represents the collection of "
+"version files, and an :class:`.EnvironmentContext`, which is a "
+"configurational facade passed to the environment's ``env.py`` script."
+msgstr ""
+
+#: ../api/overview.rst:26
+msgid ""
+"The :class:`.EnvironmentContext` object is the primary object used within"
+" the ``env.py`` script, whose main purpose is that of a facade for "
+"creating and using a :class:`.MigrationContext` object, which is the "
+"actual migration engine that refers to a database implementation.   The "
+"primary method called on this object within an ``env.py`` script is the "
+":meth:`.EnvironmentContext.configure` method, which sets up the "
+":class:`.MigrationContext` with database connectivity and behavioral "
+"configuration.  It also supplies methods for transaction demarcation and "
+"migration running, but these methods ultimately call upon the "
+":class:`.MigrationContext` that's been configured."
+msgstr ""
+
+#: ../api/overview.rst:37
+msgid ""
+":class:`.MigrationContext` is the gateway to the database for other parts"
+" of the application, and produces a :class:`.DefaultImpl` object which "
+"does the actual database communication, and knows how to create the "
+"specific SQL text of the various DDL directives such as ALTER TABLE; "
+":class:`.DefaultImpl` has subclasses that are per-database-backend. In "
+"\"offline\" mode (e.g. ``--sql``), the :class:`.MigrationContext` will "
+"produce SQL to a file output stream instead of a database."
+msgstr ""
+
+#: ../api/overview.rst:45
+msgid ""
+"During an upgrade or downgrade operation, a specific series of migration "
+"scripts are invoked starting with the :class:`.MigrationContext` in "
+"conjunction with the :class:`.ScriptDirectory`; the actual scripts "
+"themselves make use of the :class:`.Operations` object, which provide the"
+" end-user interface to specific database operations.   The "
+":class:`.Operations` object is generated based on a series of \"operation"
+" directive\" objects that are user-extensible, and start out in the "
+":ref:`alembic.operations.ops.toplevel` module."
+msgstr ""
+
+#: ../api/overview.rst:53
+msgid ""
+"Another prominent feature of Alembic is the \"autogenerate\" feature, "
+"which produces new migration scripts that contain Python code.  The "
+"autogenerate feature starts in :ref:`alembic.autogenerate.toplevel`, and "
+"is used exclusively by the :func:`.alembic.command.revision` command when"
+" the ``--autogenerate`` flag is passed.  Autogenerate refers to the "
+":class:`.MigrationContext` and :class:`.DefaultImpl` in order to access "
+"database connectivity and access per-backend rules for autogenerate "
+"comparisons.  It also makes use of :ref:`alembic.operations.ops.toplevel`"
+" in order to represent the operations that it will render into scripts."
+msgstr ""
+
+#: ../api/runtime.rst:5
+msgid "Runtime Objects"
+msgstr ""
+
+#: ../api/runtime.rst:7
+msgid ""
+"The \"runtime\" of Alembic involves the :class:`.EnvironmentContext` and "
+":class:`.MigrationContext` objects.   These are the objects that are in "
+"play once the ``env.py`` script is loaded up by a command and a migration"
+" operation proceeds."
+msgstr ""
+
+#: ../api/runtime.rst:13
+msgid "The Environment Context"
+msgstr ""
+
+#: ../api/runtime.rst:15
+msgid ""
+"The :class:`.EnvironmentContext` class provides most of the API used "
+"within an ``env.py`` script.  Within ``env.py``, the instantated "
+":class:`.EnvironmentContext` is made available via a special *proxy "
+"module* called ``alembic.context``.   That is, you can import "
+"``alembic.context`` like a regular Python module, and each name you call "
+"upon it is ultimately routed towards the current "
+":class:`.EnvironmentContext` in use."
+msgstr ""
+
+#: ../api/runtime.rst:23
+msgid ""
+"In particular, the key method used within ``env.py`` is "
+":meth:`.EnvironmentContext.configure`, which establishes all the details "
+"about how the database will be accessed."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext:1 of
+msgid "A configurational facade made available in an ``env.py`` script."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext:3 of
+msgid ""
+"The :class:`.EnvironmentContext` acts as a *facade* to the more nuts-and-"
+"bolts objects of :class:`.MigrationContext` as well as certain aspects of"
+" :class:`.Config`, within the context of the ``env.py`` script that is "
+"invoked by most Alembic commands."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext:9 of
+msgid ""
+":class:`.EnvironmentContext` is normally instantiated when a command in "
+":mod:`alembic.command` is run.  It then makes itself available in the "
+"``alembic.context`` module for the scope of the command.   From within an"
+" ``env.py`` script, the current :class:`.EnvironmentContext` is available"
+" by importing this module."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext:15 of
+msgid ""
+":class:`.EnvironmentContext` also supports programmatic usage. At this "
+"level, it acts as a Python context manager, that is, is intended to be "
+"used using the ``with:`` statement.  A typical use of "
+":class:`.EnvironmentContext`::"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext:44 of
+msgid ""
+"The above script will invoke the ``env.py`` script within the migration "
+"environment.  If and when ``env.py`` calls "
+":meth:`.MigrationContext.run_migrations`, the ``my_function()`` function "
+"above will be called by the :class:`.MigrationContext`, given the context"
+" itself as well as the current revision in the database."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext:53 of
+msgid ""
+"For most API usages other than full blown invocation of migration "
+"scripts, the :class:`.MigrationContext` and :class:`.ScriptDirectory` "
+"objects can be created and used directly.  The "
+":class:`.EnvironmentContext` object is *only* needed when you need to "
+"actually invoke the ``env.py`` module present in the migration "
+"environment."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext:61 of
+msgid "Construct a new :class:`.EnvironmentContext`."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext:64 of
+msgid "a :class:`.ScriptDirectory` instance."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext:65 of
+msgid ""
+"keyword options that will be ultimately passed along to the "
+":class:`.MigrationContext` when :meth:`.EnvironmentContext.configure` is "
+"called."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.begin_transaction:1 of
+msgid ""
+"Return a context manager that will enclose an operation within a "
+"\"transaction\", as defined by the environment's offline and "
+"transactional DDL settings."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.begin_transaction:11 of
+msgid ""
+":meth:`.begin_transaction` is intended to \"do the right thing\" "
+"regardless of calling context:"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.begin_transaction:15 of
+msgid ""
+"If :meth:`.is_transactional_ddl` is ``False``, returns a \"do nothing\" "
+"context manager which otherwise produces no transactional state or "
+"directives."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.begin_transaction:19 of
+msgid ""
+"If :meth:`.is_offline_mode` is ``True``, returns a context manager that "
+"will invoke the :meth:`.DefaultImpl.emit_begin` and "
+":meth:`.DefaultImpl.emit_commit` methods, which will produce the string "
+"directives ``BEGIN`` and ``COMMIT`` on the output stream, as rendered by "
+"the target backend (e.g. SQL Server would emit ``BEGIN TRANSACTION``)."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.begin_transaction:28 of
+msgid ""
+"Otherwise, calls :meth:`sqlalchemy.engine.Connection.begin` on the "
+"current online connection, which returns a "
+":class:`sqlalchemy.engine.Transaction` object.  This object demarcates a "
+"real transaction and is itself a context manager, which will roll back if"
+" an exception is raised."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.begin_transaction:36 of
+msgid ""
+"Note that a custom ``env.py`` script which has more specific "
+"transactional needs can of course manipulate the "
+":class:`~sqlalchemy.engine.Connection` directly to produce transactional "
+"state in \"online\" mode."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.config:1 of
+msgid ""
+"An instance of :class:`.Config` representing the configuration file "
+"contents as well as other variables set programmatically within it."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:1 of
+msgid ""
+"Configure a :class:`.MigrationContext` within this "
+":class:`.EnvironmentContext` which will provide database connectivity and"
+" other configuration to a series of migration scripts."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:6 of
+msgid ""
+"Many methods on :class:`.EnvironmentContext` require that this method has"
+" been called in order to function, as they ultimately need to have "
+"database access or at least access to the dialect in use.  Those which do"
+" are documented as such."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:11 of
+msgid ""
+"The important thing needed by :meth:`.configure` is a means to determine "
+"what kind of database dialect is in use. An actual connection to that "
+"database is needed only if the :class:`.MigrationContext` is to be used "
+"in \"online\" mode."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:17 of
+msgid ""
+"If the :meth:`.is_offline_mode` function returns ``True``, then no "
+"connection is needed here.  Otherwise, the ``connection`` parameter "
+"should be present as an instance of "
+":class:`sqlalchemy.engine.Connection`."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:22 of
+msgid ""
+"This function is typically called from the ``env.py`` script within a "
+"migration environment.  It can be called multiple times for an "
+"invocation.  The most recent :class:`~sqlalchemy.engine.Connection` for "
+"which it was called is the one that will be operated upon by the next "
+"call to :meth:`.run_migrations`."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:29 of
+msgid "General parameters:"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:31
+#: alembic.runtime.migration.MigrationContext.configure:6 of
+msgid ""
+"a :class:`~sqlalchemy.engine.Connection` to use for SQL execution in "
+"\"online\" mode.  When present, is also used to determine the type of "
+"dialect in use."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:35
+#: alembic.runtime.migration.MigrationContext.configure:9 of
+msgid ""
+"a string database url, or a :class:`sqlalchemy.engine.url.URL` object. "
+"The type of dialect to be used will be derived from this if "
+"``connection`` is not passed."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:39 of
+msgid ""
+"string name of a dialect, such as \"postgresql\", \"mssql\", etc. The "
+"type of dialect to be used will be derived from this if ``connection`` "
+"and ``url`` are not passed."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:43 of
+msgid ""
+"Force the usage of \"transactional\" DDL on or off; this otherwise "
+"defaults to whether or not the dialect in use supports it."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:47 of
+msgid ""
+"if True, nest each migration script in a transaction rather than the full"
+" series of migrations to run.  .. versionadded:: 0.6.5"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:47 of
+msgid ""
+"if True, nest each migration script in a transaction rather than the full"
+" series of migrations to run."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:53 of
+msgid ""
+"a file-like object that will be used for textual output when the "
+"``--sql`` option is used to generate SQL scripts. Defaults to "
+"``sys.stdout`` if not passed here and also not present on the "
+":class:`.Config` object.  The value here overrides that of the "
+":class:`.Config` object."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:61 of
+msgid ""
+"when using ``--sql`` to generate SQL scripts, apply this encoding to the "
+"string output."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:63 of
+msgid ""
+"when using ``--sql`` to generate SQL scripts, pass through the "
+"``literal_binds`` flag to the compiler so that any literal values that "
+"would ordinarily be bound parameters are converted to plain strings.  .. "
+"warning:: Dialects can typically only handle simple datatypes    like "
+"strings and numbers for auto-literal generation.  Datatypes    like "
+"dates, intervals, and others may still require manual    formatting, "
+"typically using :meth:`.Operations.inline_literal`.  .. note:: the "
+"``literal_binds`` flag is ignored on SQLAlchemy    versions prior to 0.8 "
+"where this feature is not supported.  .. versionadded:: 0.7.6  .. "
+"seealso::     :meth:`.Operations.inline_literal`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:63 of
+msgid ""
+"when using ``--sql`` to generate SQL scripts, pass through the "
+"``literal_binds`` flag to the compiler so that any literal values that "
+"would ordinarily be bound parameters are converted to plain strings."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:68 of
+msgid ""
+"Dialects can typically only handle simple datatypes like strings and "
+"numbers for auto-literal generation.  Datatypes like dates, intervals, "
+"and others may still require manual formatting, typically using "
+":meth:`.Operations.inline_literal`."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:73 of
+msgid ""
+"the ``literal_binds`` flag is ignored on SQLAlchemy versions prior to 0.8"
+" where this feature is not supported."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:80 of
+msgid ":meth:`.Operations.inline_literal`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:82 of
+msgid "Override the \"starting revision\" argument when using ``--sql`` mode."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:84 of
+msgid ""
+"a string tag for usage by custom ``env.py`` scripts. Set via the "
+"``--tag`` option, can be overridden here."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:86 of
+msgid ""
+"dictionary of template arguments which will be added to the template "
+"argument environment when running the \"revision\" command.   Note that "
+"the script environment is only run within the \"revision\" command if the"
+" --autogenerate option is used, or if the option "
+"\"revision_environment=true\" is present in the alembic.ini file."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:93 of
+msgid ""
+"The name of the Alembic version table. The default is "
+"``'alembic_version'``."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:95 of
+msgid "Optional schema to place version table within."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:97 of
+msgid ""
+"boolean, whether the Alembic version table should use a primary key "
+"constraint for the \"value\" column; this only takes effect when the "
+"table is first created. Defaults to True; setting to False should not be "
+"necessary and is here for backwards compatibility reasons.  .. "
+"versionadded:: 0.8.10  Added the    "
+":paramref:`.EnvironmentContext.configure.version_table_pk`    flag and "
+"additionally established that the Alembic version table    has a primary "
+"key constraint by default."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:97 of
+msgid ""
+"boolean, whether the Alembic version table should use a primary key "
+"constraint for the \"value\" column; this only takes effect when the "
+"table is first created. Defaults to True; setting to False should not be "
+"necessary and is here for backwards compatibility reasons."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:103 of
+msgid ""
+"Added the :paramref:`.EnvironmentContext.configure.version_table_pk` flag"
+" and additionally established that the Alembic version table has a "
+"primary key constraint by default."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:108 of
+msgid ""
+"a callable or collection of callables to be run for each migration step. "
+"The callables will be run in the order they are given, once for each "
+"migration step, after the respective operation has been applied but "
+"before its transaction is finalized. Each callable accepts no positional "
+"arguments and the following keyword arguments:  * ``ctx``: the "
+":class:`.MigrationContext` running the migration, * ``step``: a "
+":class:`.MigrationInfo` representing the   step currently being applied, "
+"* ``heads``: a collection of version strings representing the   current "
+"heads, * ``run_args``: the ``**kwargs`` passed to "
+":meth:`.run_migrations`.  .. versionadded:: 0.9.3"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:108 of
+msgid ""
+"a callable or collection of callables to be run for each migration step. "
+"The callables will be run in the order they are given, once for each "
+"migration step, after the respective operation has been applied but "
+"before its transaction is finalized. Each callable accepts no positional "
+"arguments and the following keyword arguments:"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:116 of
+msgid "``ctx``: the :class:`.MigrationContext` running the migration,"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:117 of
+msgid ""
+"``step``: a :class:`.MigrationInfo` representing the step currently being"
+" applied,"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:119 of
+msgid "``heads``: a collection of version strings representing the current heads,"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:121 of
+msgid "``run_args``: the ``**kwargs`` passed to :meth:`.run_migrations`."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:126 of
+msgid ""
+"Parameters specific to the autogenerate feature, when ``alembic "
+"revision`` is run with the ``--autogenerate`` feature:"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:129 of
+msgid ""
+"a :class:`sqlalchemy.schema.MetaData` object, or a sequence of "
+":class:`~sqlalchemy.schema.MetaData` objects, that will be consulted "
+"during autogeneration. The tables present in each "
+":class:`~sqlalchemy.schema.MetaData` will be compared against what is "
+"locally available on the target :class:`~sqlalchemy.engine.Connection` to"
+" produce candidate upgrade/downgrade operations.  .. versionchanged:: "
+"0.9.0 the    :paramref:`.EnvironmentContext.configure.target_metadata`"
+"    parameter may now be passed a sequence of    "
+":class:`~sqlalchemy.schema.MetaData` objects to support    autogeneration"
+" of multiple :class:`~sqlalchemy.schema.MetaData`    collections."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:129 of
+msgid ""
+"a :class:`sqlalchemy.schema.MetaData` object, or a sequence of "
+":class:`~sqlalchemy.schema.MetaData` objects, that will be consulted "
+"during autogeneration. The tables present in each "
+":class:`~sqlalchemy.schema.MetaData` will be compared against what is "
+"locally available on the target :class:`~sqlalchemy.engine.Connection` to"
+" produce candidate upgrade/downgrade operations."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:138 of
+msgid ""
+"the :paramref:`.EnvironmentContext.configure.target_metadata` parameter "
+"may now be passed a sequence of :class:`~sqlalchemy.schema.MetaData` "
+"objects to support autogeneration of multiple "
+":class:`~sqlalchemy.schema.MetaData` collections."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:145 of
+msgid ""
+"Indicates type comparison behavior during an autogenerate operation.  "
+"Defaults to ``False`` which disables type comparison.  Set to ``True`` to"
+" turn on default type comparison, which has varied accuracy depending on "
+"backend.   See :ref:`compare_types` for an example as well as information"
+" on other type comparison options.  .. seealso::     :ref:`compare_types`"
+"     :paramref:`.EnvironmentContext.configure.compare_server_default`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:145 of
+msgid ""
+"Indicates type comparison behavior during an autogenerate operation.  "
+"Defaults to ``False`` which disables type comparison.  Set to ``True`` to"
+" turn on default type comparison, which has varied accuracy depending on "
+"backend.   See :ref:`compare_types` for an example as well as information"
+" on other type comparison options."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:156 of
+msgid ":ref:`compare_types`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:158 of
+msgid ":paramref:`.EnvironmentContext.configure.compare_server_default`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:160 of
+msgid ""
+"Indicates server default comparison behavior during an autogenerate "
+"operation.  Defaults to ``False`` which disables server default "
+"comparison.  Set to  ``True`` to turn on server default comparison, which"
+" has varied accuracy depending on backend.  To customize server default "
+"comparison behavior, a callable may be specified which can filter server "
+"default comparisons during an autogenerate operation. defaults during an "
+"autogenerate operation.   The format of this callable is::     def "
+"my_compare_server_default(context, inspected_column,                "
+"metadata_column, inspected_default, metadata_default,                "
+"rendered_metadata_default):        # return True if the defaults are "
+"different,        # False if not, or None to allow the default "
+"implementation        # to compare these defaults        return None     "
+"context.configure(        # ...        compare_server_default = "
+"my_compare_server_default    )  ``inspected_column`` is a dictionary "
+"structure as returned by "
+":meth:`sqlalchemy.engine.reflection.Inspector.get_columns`, whereas "
+"``metadata_column`` is a :class:`sqlalchemy.schema.Column` from the local"
+" model environment.  A return value of ``None`` indicates to allow "
+"default server default comparison to proceed.  Note that some backends "
+"such as Postgresql actually execute the two defaults on the database side"
+" to compare for equivalence.  .. seealso::     "
+":paramref:`.EnvironmentContext.configure.compare_type`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:160 of
+msgid ""
+"Indicates server default comparison behavior during an autogenerate "
+"operation.  Defaults to ``False`` which disables server default "
+"comparison.  Set to  ``True`` to turn on server default comparison, which"
+" has varied accuracy depending on backend."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:168 of
+msgid ""
+"To customize server default comparison behavior, a callable may be "
+"specified which can filter server default comparisons during an "
+"autogenerate operation. defaults during an autogenerate operation.   The "
+"format of this callable is::"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:188 of
+msgid ""
+"``inspected_column`` is a dictionary structure as returned by "
+":meth:`sqlalchemy.engine.reflection.Inspector.get_columns`, whereas "
+"``metadata_column`` is a :class:`sqlalchemy.schema.Column` from the local"
+" model environment."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:193 of
+msgid ""
+"A return value of ``None`` indicates to allow default server default "
+"comparison to proceed.  Note that some backends such as Postgresql "
+"actually execute the two defaults on the database side to compare for "
+"equivalence."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:201 of
+msgid ":paramref:`.EnvironmentContext.configure.compare_type`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:203 of
+msgid ""
+"A callable function which is given the chance to return ``True`` or "
+"``False`` for any object, indicating if the given object should be "
+"considered in the autogenerate sweep.  The function accepts the following"
+" positional arguments:  * ``object``: a "
+":class:`~sqlalchemy.schema.SchemaItem` object such   as a "
+":class:`~sqlalchemy.schema.Table`,   :class:`~sqlalchemy.schema.Column`,"
+"   :class:`~sqlalchemy.schema.Index`   "
+":class:`~sqlalchemy.schema.UniqueConstraint`,   or "
+":class:`~sqlalchemy.schema.ForeignKeyConstraint` object * ``name``: the "
+"name of the object. This is typically available   via ``object.name``. * "
+"``type``: a string describing the type of object; currently   "
+"``\"table\"``, ``\"column\"``, ``\"index\"``, ``\"unique_constraint\"``,"
+"   or ``\"foreign_key_constraint\"``    .. versionadded:: 0.7.0 Support "
+"for indexes and unique constraints      within the      "
+":paramref:`~.EnvironmentContext.configure.include_object` hook.    .. "
+"versionadded:: 0.7.1 Support for foreign keys within the      "
+":paramref:`~.EnvironmentContext.configure.include_object` hook.  * "
+"``reflected``: ``True`` if the given object was produced based on   table"
+" reflection, ``False`` if it's from a local :class:`.MetaData`   object. "
+"* ``compare_to``: the object being compared against, if available,   else"
+" ``None``.  E.g.::     def include_object(object, name, type_, reflected,"
+" compare_to):        if (type_ == \"column\" and            not reflected"
+" and            object.info.get(\"skip_autogenerate\", False)):"
+"            return False        else:            return True     "
+"context.configure(        # ...        include_object = include_object"
+"    )  :paramref:`.EnvironmentContext.configure.include_object` can also "
+"be used to filter on specific schemas to include or omit, when the "
+":paramref:`.EnvironmentContext.configure.include_schemas` flag is set to "
+"``True``.   The :attr:`.Table.schema` attribute on each :class:`.Table` "
+"object reflected will indicate the name of the schema from which the "
+":class:`.Table` originates.  .. versionadded:: 0.6.0  .. seealso::     "
+":paramref:`.EnvironmentContext.configure.include_schemas`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:203 of
+msgid ""
+"A callable function which is given the chance to return ``True`` or "
+"``False`` for any object, indicating if the given object should be "
+"considered in the autogenerate sweep."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:208 of
+msgid "The function accepts the following positional arguments:"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:210 of
+msgid ""
+"``object``: a :class:`~sqlalchemy.schema.SchemaItem` object such as a "
+":class:`~sqlalchemy.schema.Table`, :class:`~sqlalchemy.schema.Column`, "
+":class:`~sqlalchemy.schema.Index` "
+":class:`~sqlalchemy.schema.UniqueConstraint`, or "
+":class:`~sqlalchemy.schema.ForeignKeyConstraint` object"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:216 of
+msgid ""
+"``name``: the name of the object. This is typically available via "
+"``object.name``."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:218 of
+msgid ""
+"``type``: a string describing the type of object; currently "
+"``\"table\"``, ``\"column\"``, ``\"index\"``, ``\"unique_constraint\"``, "
+"or ``\"foreign_key_constraint\"``"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:222 of
+msgid ""
+"Support for indexes and unique constraints within the "
+":paramref:`~.EnvironmentContext.configure.include_object` hook."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:226 of
+msgid ""
+"Support for foreign keys within the "
+":paramref:`~.EnvironmentContext.configure.include_object` hook."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:229 of
+msgid ""
+"``reflected``: ``True`` if the given object was produced based on table "
+"reflection, ``False`` if it's from a local :class:`.MetaData` object."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:232 of
+msgid ""
+"``compare_to``: the object being compared against, if available, else "
+"``None``."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:235
+#: alembic.runtime.environment.EnvironmentContext.configure:274 of
+msgid "E.g.::"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:250 of
+msgid ""
+":paramref:`.EnvironmentContext.configure.include_object` can also be used"
+" to filter on specific schemas to include or omit, when the "
+":paramref:`.EnvironmentContext.configure.include_schemas` flag is set to "
+"``True``.   The :attr:`.Table.schema` attribute on each :class:`.Table` "
+"object reflected will indicate the name of the schema from which the "
+":class:`.Table` originates."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:261
+#: alembic.runtime.environment.EnvironmentContext.configure:286 of
+msgid ":paramref:`.EnvironmentContext.configure.include_schemas`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:263 of
+msgid ""
+"A callable function which, given a table name and schema name (may be "
+"``None``), returns ``True`` or ``False``, indicating if the given table "
+"should be considered in the autogenerate sweep.  .. deprecated:: 0.6.0"
+"    :paramref:`.EnvironmentContext.configure.include_symbol`    is "
+"superceded by the more generic    "
+":paramref:`.EnvironmentContext.configure.include_object`    parameter.  "
+"E.g.::     def include_symbol(tablename, schema):        return tablename"
+" not in (\"skip_table_one\", \"skip_table_two\")     context.configure("
+"        # ...        include_symbol = include_symbol    )  .. seealso::"
+"     :paramref:`.EnvironmentContext.configure.include_schemas`     "
+":paramref:`.EnvironmentContext.configure.include_object`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:263 of
+msgid ""
+"A callable function which, given a table name and schema name (may be "
+"``None``), returns ``True`` or ``False``, indicating if the given table "
+"should be considered in the autogenerate sweep."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:268 of
+msgid ""
+":paramref:`.EnvironmentContext.configure.include_symbol` is superceded by"
+" the more generic "
+":paramref:`.EnvironmentContext.configure.include_object` parameter."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:288
+#: alembic.runtime.environment.EnvironmentContext.configure:311 of
+msgid ":paramref:`.EnvironmentContext.configure.include_object`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:290 of
+msgid ""
+"if True, commands which alter elements within a table will be placed "
+"under a ``with batch_alter_table():`` directive, so that batch migrations"
+" will take place.  .. versionadded:: 0.7.0  .. seealso::     "
+":ref:`batch_migrations`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:290 of
+msgid ""
+"if True, commands which alter elements within a table will be placed "
+"under a ``with batch_alter_table():`` directive, so that batch migrations"
+" will take place."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:298 of
+msgid ":ref:`batch_migrations`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:300 of
+msgid ""
+"If True, autogenerate will scan across all schemas located by the "
+"SQLAlchemy "
+":meth:`~sqlalchemy.engine.reflection.Inspector.get_schema_names` method, "
+"and include all differences in tables found across all those schemas.  "
+"When using this option, you may want to also use the "
+":paramref:`.EnvironmentContext.configure.include_object` option to "
+"specify a callable which can filter the tables/schemas that get included."
+"  .. seealso::     "
+":paramref:`.EnvironmentContext.configure.include_object`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:300 of
+msgid ""
+"If True, autogenerate will scan across all schemas located by the "
+"SQLAlchemy "
+":meth:`~sqlalchemy.engine.reflection.Inspector.get_schema_names` method, "
+"and include all differences in tables found across all those schemas.  "
+"When using this option, you may want to also use the "
+":paramref:`.EnvironmentContext.configure.include_object` option to "
+"specify a callable which can filter the tables/schemas that get included."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:313 of
+msgid ""
+"Callable that can be used to override how any schema item, i.e. column, "
+"constraint, type, etc., is rendered for autogenerate.  The callable "
+"receives a string describing the type of object, the object, and the "
+"autogen context.  If it returns False, the default rendering method will "
+"be used.  If it returns None, the item will not be rendered in the "
+"context of a Table construct, that is, can be used to skip columns or "
+"constraints within op.create_table()::     def my_render_column(type_, "
+"col, autogen_context):        if type_ == \"column\" and isinstance(col, "
+"MySpecialCol):            return repr(col)        else:            return"
+" False     context.configure(        # ...        render_item = "
+"my_render_column    )  Available values for the type string include: "
+"``\"column\"``, ``\"primary_key\"``, ``\"foreign_key\"``, ``\"unique\"``,"
+" ``\"check\"``, ``\"type\"``, ``\"server_default\"``.  .. seealso::     "
+":ref:`autogen_render_types`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:313 of
+msgid ""
+"Callable that can be used to override how any schema item, i.e. column, "
+"constraint, type, etc., is rendered for autogenerate.  The callable "
+"receives a string describing the type of object, the object, and the "
+"autogen context.  If it returns False, the default rendering method will "
+"be used.  If it returns None, the item will not be rendered in the "
+"context of a Table construct, that is, can be used to skip columns or "
+"constraints within op.create_table()::"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:334 of
+msgid ""
+"Available values for the type string include: ``\"column\"``, "
+"``\"primary_key\"``, ``\"foreign_key\"``, ``\"unique\"``, ``\"check\"``, "
+"``\"type\"``, ``\"server_default\"``."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:342 of
+msgid ""
+"When autogenerate completes, the text of the candidate upgrade operations"
+" will be present in this template variable when ``script.py.mako`` is "
+"rendered.  Defaults to ``upgrades``."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:346 of
+msgid ""
+"When autogenerate completes, the text of the candidate downgrade "
+"operations will be present in this template variable when "
+"``script.py.mako`` is rendered.  Defaults to ``downgrades``."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:351 of
+msgid ""
+"When autogenerate refers to Alembic :mod:`alembic.operations` constructs,"
+" this prefix will be used (i.e. ``op.create_table``)  Defaults to "
+"\"``op.``\". Can be ``None`` to indicate no prefix."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:356 of
+msgid ""
+"When autogenerate refers to SQLAlchemy :class:`~sqlalchemy.schema.Column`"
+" or type classes, this prefix will be used (i.e. "
+"``sa.Column(\"somename\", sa.Integer)``)  Defaults to \"``sa.``\". Can be"
+" ``None`` to indicate no prefix. Note that when dialect-specific types "
+"are rendered, autogenerate will render them using the dialect module "
+"name, i.e. ``mssql.BIT()``, ``postgresql.UUID()``."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:366 of
+msgid ""
+"When autogenerate refers to a SQLAlchemy type (e.g. :class:`.TypeEngine`)"
+" where the module name is not under the ``sqlalchemy`` namespace, this "
+"prefix will be used within autogenerate.  If left at its default of "
+"``None``, the ``__module__`` attribute of the type is used to render the "
+"import module.   It's a good practice to set this and to have all custom "
+"types be available from a fixed module space, in order to future-proof "
+"migration files against reorganizations in modules.  .. versionchanged:: "
+"0.7.0    :paramref:`.EnvironmentContext.configure.user_module_prefix`    "
+"no longer defaults to the value of    "
+":paramref:`.EnvironmentContext.configure.sqlalchemy_module_prefix`    "
+"when left at ``None``; the ``__module__`` attribute is now used.  .. "
+"versionadded:: 0.6.3 added    "
+":paramref:`.EnvironmentContext.configure.user_module_prefix`  .. "
+"seealso::     :ref:`autogen_module_prefix`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:366 of
+msgid ""
+"When autogenerate refers to a SQLAlchemy type (e.g. :class:`.TypeEngine`)"
+" where the module name is not under the ``sqlalchemy`` namespace, this "
+"prefix will be used within autogenerate.  If left at its default of "
+"``None``, the ``__module__`` attribute of the type is used to render the "
+"import module.   It's a good practice to set this and to have all custom "
+"types be available from a fixed module space, in order to future-proof "
+"migration files against reorganizations in modules."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:376 of
+msgid ""
+":paramref:`.EnvironmentContext.configure.user_module_prefix` no longer "
+"defaults to the value of "
+":paramref:`.EnvironmentContext.configure.sqlalchemy_module_prefix` when "
+"left at ``None``; the ``__module__`` attribute is now used."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:382 of
+msgid "added :paramref:`.EnvironmentContext.configure.user_module_prefix`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:387 of
+msgid ":ref:`autogen_module_prefix`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:389 of
+msgid ""
+"a callable function that will be passed a structure representing the end "
+"result of an autogenerate or plain \"revision\" operation, which can be "
+"manipulated to affect how the ``alembic revision`` command ultimately "
+"outputs new revision scripts.   The structure of the callable is::     "
+"def process_revision_directives(context, revision, directives):        "
+"pass  The ``directives`` parameter is a Python list containing a single "
+":class:`.MigrationScript` directive, which represents the revision file "
+"to be generated.    This list as well as its contents may be freely "
+"modified to produce any set of commands. The section "
+":ref:`customizing_revision` shows an example of doing this.  The "
+"``context`` parameter is the :class:`.MigrationContext` in use, and "
+"``revision`` is a tuple of revision identifiers representing the current "
+"revision of the database.  The callable is invoked at all times when the "
+"``--autogenerate`` option is passed to ``alembic revision``.  If "
+"``--autogenerate`` is not passed, the callable is invoked only if the "
+"``revision_environment`` variable is set to True in the Alembic "
+"configuration, in which case the given ``directives`` collection will "
+"contain empty :class:`.UpgradeOps` and :class:`.DowngradeOps` collections"
+" for ``.upgrade_ops`` and ``.downgrade_ops``.  The ``--autogenerate`` "
+"option itself can be inferred by inspecting "
+"``context.config.cmd_opts.autogenerate``.  The callable function may "
+"optionally be an instance of a :class:`.Rewriter` object.  This is a "
+"helper object that assists in the production of autogenerate-stream "
+"rewriter functions.   .. versionadded:: 0.8.0  .. versionchanged:: 0.8.1 "
+"- The    "
+":paramref:`.EnvironmentContext.configure.process_revision_directives`    "
+"hook can append op directives into :class:`.UpgradeOps` and    "
+":class:`.DowngradeOps` which will be rendered in Python regardless    of "
+"whether the ``--autogenerate`` option is in use or not;    the "
+"``revision_environment`` configuration variable should be    set to "
+"\"true\" in the config to enable this.   .. seealso::      "
+":ref:`customizing_revision`      :ref:`autogen_rewriter`      "
+":paramref:`.command.revision.process_revision_directives`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:389 of
+msgid ""
+"a callable function that will be passed a structure representing the end "
+"result of an autogenerate or plain \"revision\" operation, which can be "
+"manipulated to affect how the ``alembic revision`` command ultimately "
+"outputs new revision scripts.   The structure of the callable is::"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:398 of
+msgid ""
+"The ``directives`` parameter is a Python list containing a single "
+":class:`.MigrationScript` directive, which represents the revision file "
+"to be generated.    This list as well as its contents may be freely "
+"modified to produce any set of commands. The section "
+":ref:`customizing_revision` shows an example of doing this.  The "
+"``context`` parameter is the :class:`.MigrationContext` in use, and "
+"``revision`` is a tuple of revision identifiers representing the current "
+"revision of the database."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:408 of
+msgid ""
+"The callable is invoked at all times when the ``--autogenerate`` option "
+"is passed to ``alembic revision``.  If ``--autogenerate`` is not passed, "
+"the callable is invoked only if the ``revision_environment`` variable is "
+"set to True in the Alembic configuration, in which case the given "
+"``directives`` collection will contain empty :class:`.UpgradeOps` and "
+":class:`.DowngradeOps` collections for ``.upgrade_ops`` and "
+"``.downgrade_ops``.  The ``--autogenerate`` option itself can be inferred"
+" by inspecting ``context.config.cmd_opts.autogenerate``."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:418 of
+msgid ""
+"The callable function may optionally be an instance of a "
+":class:`.Rewriter` object.  This is a helper object that assists in the "
+"production of autogenerate-stream rewriter functions."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:425 of
+msgid ""
+"- The "
+":paramref:`.EnvironmentContext.configure.process_revision_directives` "
+"hook can append op directives into :class:`.UpgradeOps` and "
+":class:`.DowngradeOps` which will be rendered in Python regardless of "
+"whether the ``--autogenerate`` option is in use or not; the "
+"``revision_environment`` configuration variable should be set to \"true\""
+" in the config to enable this."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:438 of
+msgid ":ref:`autogen_rewriter`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:440 of
+msgid ":paramref:`.command.revision.process_revision_directives`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:442 of
+msgid "Parameters specific to individual backends:"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:444 of
+msgid ""
+"The \"batch separator\" which will be placed between each statement when "
+"generating offline SQL Server migrations.  Defaults to ``GO``.  Note this"
+" is in addition to the customary semicolon ``;`` at the end of each "
+"statement; SQL Server considers the \"batch separator\" to denote the end"
+" of an individual statement execution, and cannot group certain dependent"
+" operations in one step."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.configure:451 of
+msgid ""
+"The \"batch separator\" which will be placed between each statement when "
+"generating offline Oracle migrations.  Defaults to ``/``.  Oracle doesn't"
+" add a semicolon between statements like most other backends."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.execute:1 of
+msgid "Execute the given SQL using the current change context."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.execute:3 of
+msgid ""
+"The behavior of :meth:`.execute` is the same as that of "
+":meth:`.Operations.execute`.  Please see that function's documentation "
+"for full detail including caveats and limitations."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.execute:8
+#: alembic.runtime.environment.EnvironmentContext.get_bind:7
+#: alembic.runtime.environment.EnvironmentContext.is_transactional_ddl:8
+#: alembic.runtime.environment.EnvironmentContext.run_migrations:16 of
+msgid ""
+"This function requires that a :class:`.MigrationContext` has first been "
+"made available via :meth:`.configure`."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_bind:1 of
+msgid "Return the current 'bind'."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_bind:3 of
+msgid ""
+"In \"online\" mode, this is the :class:`sqlalchemy.engine.Connection` "
+"currently being used to emit SQL to the database."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_context:1 of
+msgid "Return the current :class:`.MigrationContext` object."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_context:3 of
+msgid ""
+"If :meth:`.EnvironmentContext.configure` has not been called yet, raises "
+"an exception."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_head_revision:1 of
+msgid "Return the hex identifier of the 'head' script revision."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_head_revision:3 of
+msgid ""
+"If the script directory has multiple heads, this method raises a "
+":class:`.CommandError`; :meth:`.EnvironmentContext.get_head_revisions` "
+"should be preferred."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_head_revision:7
+#: alembic.runtime.environment.EnvironmentContext.get_head_revisions:6
+#: alembic.runtime.environment.EnvironmentContext.get_revision_argument:10
+#: alembic.runtime.environment.EnvironmentContext.get_starting_revision_argument:8
+#: alembic.runtime.environment.EnvironmentContext.get_tag_argument:8
+#: alembic.runtime.environment.EnvironmentContext.get_x_argument:29
+#: alembic.runtime.environment.EnvironmentContext.is_offline_mode:7 of
+msgid ""
+"This function does not require that the :class:`.MigrationContext` has "
+"been configured."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_head_revision:10 of
+msgid ":meth:`.EnvironmentContext.get_head_revisions`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_head_revisions:1 of
+msgid "Return the hex identifier of the 'heads' script revision(s)."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_head_revisions:3 of
+msgid ""
+"This returns a tuple containing the version number of all heads in the "
+"script directory."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_revision_argument:1 of
+msgid "Get the 'destination' revision argument."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_revision_argument:3 of
+msgid ""
+"This is typically the argument passed to the ``upgrade`` or ``downgrade``"
+" command."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_revision_argument:6 of
+msgid ""
+"If it was specified as ``head``, the actual version number is returned; "
+"if specified as ``base``, ``None`` is returned."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_starting_revision_argument:1
+#: of
+msgid ""
+"Return the 'starting revision' argument, if the revision was passed using"
+" ``start:end``."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_starting_revision_argument:4
+#: of
+msgid ""
+"This is only meaningful in \"offline\" mode. Returns ``None`` if no value"
+" is available or was configured."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_tag_argument:1 of
+msgid "Return the value passed for the ``--tag`` argument, if any."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_tag_argument:3 of
+msgid ""
+"The ``--tag`` argument is not used directly by Alembic, but is available "
+"for custom ``env.py`` configurations that wish to use it; particularly "
+"for offline generation scripts that wish to generate tagged filenames."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_tag_argument:13 of
+msgid ""
+":meth:`.EnvironmentContext.get_x_argument` - a newer and more open ended "
+"system of extending ``env.py`` scripts via the command line."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_x_argument:1 of
+msgid "Return the value(s) passed for the ``-x`` argument, if any."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_x_argument:3 of
+msgid ""
+"The ``-x`` argument is an open ended flag that allows any user-defined "
+"value or values to be passed on the command line, then available here for"
+" consumption by a custom ``env.py`` script."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_x_argument:7 of
+msgid ""
+"The return value is a list, returned directly from the ``argparse`` "
+"structure.  If ``as_dictionary=True`` is passed, the ``x`` arguments are "
+"parsed using ``key=value`` format into a dictionary that is then "
+"returned."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_x_argument:12 of
+msgid ""
+"For example, to support passing a database URL on the command line, the "
+"standard ``env.py`` script can be modified like this::"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_x_argument:25 of
+msgid "This then takes effect by running the ``alembic`` script as::"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_x_argument:36 of
+msgid ":meth:`.EnvironmentContext.get_tag_argument`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.get_x_argument:38 of
+msgid ":attr:`.Config.cmd_opts`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.is_offline_mode:1 of
+msgid ""
+"Return True if the current migrations environment is running in \"offline"
+" mode\"."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.is_offline_mode:4 of
+msgid "This is ``True`` or ``False`` depending on the the ``--sql`` flag passed."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.is_transactional_ddl:1 of
+msgid ""
+"Return True if the context is configured to expect a transactional DDL "
+"capable backend."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.is_transactional_ddl:4 of
+msgid ""
+"This defaults to the type of database in use, and can be overridden by "
+"the ``transactional_ddl`` argument to :meth:`.configure`"
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.run_migrations:1 of
+msgid ""
+"Run migrations as determined by the current command line configuration as"
+" well as versioning information present (or not) in the current database "
+"connection (if one is present)."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.run_migrations:6 of
+msgid ""
+"The function accepts optional ``**kw`` arguments.   If these are passed, "
+"they are sent directly to the ``upgrade()`` and ``downgrade()`` functions"
+" within each target revision file.   By modifying the ``script.py.mako`` "
+"file so that the ``upgrade()`` and ``downgrade()`` functions accept "
+"arguments, parameters can be passed here so that contextual information, "
+"usually information to identify a particular database in use, can be "
+"passed from a custom ``env.py`` script to the migration functions."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.script:1 of
+msgid ""
+"An instance of :class:`.ScriptDirectory` which provides programmatic "
+"access to version files within the ``versions/`` directory."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.static_output:1 of
+msgid "Emit text directly to the \"offline\" SQL stream."
+msgstr ""
+
+#: alembic.runtime.environment.EnvironmentContext.static_output:3 of
+msgid ""
+"Typically this is for emitting comments that start with --.  The "
+"statement is not treated as a SQL execution, no ; or batch separator is "
+"added, etc."
+msgstr ""
+
+#: ../api/runtime.rst:32
+msgid "The Migration Context"
+msgstr ""
+
+#: ../api/runtime.rst:34
+msgid ""
+"The :class:`.MigrationContext` handles the actual work to be performed "
+"against a database backend as migration operations proceed.  It is "
+"generally not exposed to the end-user, except when the "
+":paramref:`~.EnvironmentContext.configure.on_version_apply` callback hook"
+" is used."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext:1 of
+msgid "Represent the database state made available to a migration script."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext:4 of
+msgid ""
+":class:`.MigrationContext` is the front end to an actual database "
+"connection, or alternatively a string output stream given a particular "
+"database dialect, from an Alembic perspective."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext:9 of
+msgid ""
+"When inside the ``env.py`` script, the :class:`.MigrationContext` is "
+"available via the :meth:`.EnvironmentContext.get_context` method, which "
+"is available at ``alembic.context``::"
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext:18 of
+msgid ""
+"For usage outside of an ``env.py`` script, such as for utility routines "
+"that want to check the current version in the database, the "
+":meth:`.MigrationContext.configure` method to create new "
+":class:`.MigrationContext` objects. For example, to get at the current "
+"revision in the database using "
+":meth:`.MigrationContext.get_current_revision`::"
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext:35 of
+msgid ""
+"The above context can also be used to produce Alembic migration "
+"operations with an :class:`.Operations` instance::"
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.bind:1 of
+msgid "Return the current \"bind\"."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.bind:3 of
+msgid ""
+"In online mode, this is an instance of "
+":class:`sqlalchemy.engine.Connection`, and is suitable for ad-hoc "
+"execution of any kind of usage described in :ref:`sqlexpression_toplevel`"
+" as well as for usage with the :meth:`sqlalchemy.schema.Table.create` and"
+" :meth:`sqlalchemy.schema.MetaData.create_all` methods of "
+":class:`~sqlalchemy.schema.Table`, :class:`~sqlalchemy.schema.MetaData`."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.bind:12 of
+msgid ""
+"Note that when \"standard output\" mode is enabled, this bind will be a "
+"\"mock\" connection handler that cannot return results and is only "
+"appropriate for a very limited subset of commands."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.config:1 of
+msgid "Return the :class:`.Config` used by the current environment, if any."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.configure:1 of
+msgid "Create a new :class:`.MigrationContext`."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.configure:3 of
+msgid ""
+"This is a factory method usually called by "
+":meth:`.EnvironmentContext.configure`."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.configure:13 of
+msgid ""
+"string name of a dialect, such as \"postgresql\", \"mssql\", etc.  The "
+"type of dialect to be used will be derived from this if ``connection`` "
+"and ``url`` are not passed."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.configure:16 of
+msgid ""
+"dictionary of options.  Most other options accepted by "
+":meth:`.EnvironmentContext.configure` are passed via this dictionary."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.execute:1 of
+msgid "Execute a SQL construct or string statement."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.execute:3 of
+msgid ""
+"The underlying execution mechanics are used, that is if this is \"offline"
+" mode\" the SQL is written to the output buffer, otherwise the SQL is "
+"emitted on the current SQLAlchemy connection."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.get_current_heads:1 of
+msgid ""
+"Return a tuple of the current 'head versions' that are represented in the"
+" target database."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.get_current_heads:4 of
+msgid ""
+"For a migration stream without branches, this will be a single value, "
+"synonymous with that of :meth:`.MigrationContext.get_current_revision`."
+"   However when multiple unmerged branches exist within the target "
+"database, the returned tuple will contain a value for each head."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.get_current_heads:10 of
+msgid ""
+"If this :class:`.MigrationContext` was configured in \"offline\" mode, "
+"that is with ``as_sql=True``, the ``starting_rev`` parameter is returned "
+"in a one-length tuple."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.get_current_heads:14 of
+msgid ""
+"If no version table is present, or if there are no revisions present, an "
+"empty tuple is returned."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.get_current_revision:1 of
+msgid ""
+"Return the current revision, usually that which is present in the "
+"``alembic_version`` table in the database."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.get_current_revision:4 of
+msgid ""
+"This method intends to be used only for a migration stream that does not "
+"contain unmerged branches in the target database; if there are multiple "
+"branches present, an exception is raised. The "
+":meth:`.MigrationContext.get_current_heads` should be preferred over this"
+" method going forward in order to be compatible with branch migration "
+"support."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.get_current_revision:11 of
+msgid ""
+"If this :class:`.MigrationContext` was configured in \"offline\" mode, "
+"that is with ``as_sql=True``, the ``starting_rev`` parameter is returned "
+"instead, if any."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.run_migrations:1 of
+msgid ""
+"Run the migration scripts established for this "
+":class:`.MigrationContext`, if any."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.run_migrations:4 of
+msgid ""
+"The commands in :mod:`alembic.command` will set up a function that is "
+"ultimately passed to the :class:`.MigrationContext` as the ``fn`` "
+"argument.  This function represents the \"work\" that will be done when "
+":meth:`.MigrationContext.run_migrations` is called, typically from within"
+" the ``env.py`` script of the migration environment.  The \"work "
+"function\" then provides an iterable of version callables and other "
+"version information which in the case of the ``upgrade`` or ``downgrade``"
+" commands are the list of version scripts to invoke.  Other commands "
+"yield nothing, in the case that a command wants to run some other "
+"operation against the database such as the ``current`` or ``stamp`` "
+"commands."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.run_migrations:16 of
+msgid ""
+"keyword arguments here will be passed to each migration callable, that is"
+" the ``upgrade()`` or ``downgrade()`` method within revision scripts."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.stamp:1 of
+msgid "Stamp the version table with a specific revision."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationContext.stamp:3 of
+msgid ""
+"This method calculates those branches to which the given revision can "
+"apply, and updates those branches as though they were migrated towards "
+"that revision (either up or down).  If no current branches include the "
+"revision, it is added as a new branch head."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo:1 of
+msgid "Exposes information about a migration step to a callback listener."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo:3 of
+msgid ""
+"The :class:`.MigrationInfo` object is available exclusively for the "
+"benefit of the :paramref:`.EnvironmentContext.on_version_apply` callback "
+"hook."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.destination_revision_ids:1 of
+msgid "Active revisions after this migration step is applied."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.destination_revisions:1 of
+msgid ""
+"Get :attr:`~MigrationInfo.destination_revision_ids` as a tuple of "
+":class:`Revisions <.Revision>`."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.down_revision_ids:1 of
+msgid "Tuple of strings representing the base revisions of this migration step."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.down_revision_ids:3 of
+msgid ""
+"If empty, this represents a root revision; otherwise, the first item "
+"corresponds to :attr:`.Revision.down_revision`, and the rest are inferred"
+" from dependencies."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.down_revisions:1 of
+msgid ""
+"Get :attr:`~.MigrationInfo.down_revision_ids` as a tuple of "
+":class:`Revisions <.Revision>`."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.is_migration:1 of
+msgid "True/False: indicates whether this operation is a migration."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.is_migration:3 of
+msgid ""
+"At present this is true if and only the migration is not a stamp. If "
+"other operation types are added in the future, both this attribute and "
+":attr:`~.MigrationInfo.is_stamp` will be false."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.is_stamp:1 of
+msgid ""
+"True/False: indicates whether this operation is a stamp (i.e. whether it "
+"results in any actual database operations)."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.is_upgrade:1 of
+msgid ""
+"True/False: indicates whether this operation ascends or descends the "
+"version tree."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.revision_map:1 of
+msgid "The revision map inside of which this operation occurs."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.source_revision_ids:1 of
+msgid "Active revisions before this migration step is applied."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.source_revisions:1 of
+msgid ""
+"Get :attr:`~MigrationInfo.source_revision_ids` as a tuple of "
+":class:`Revisions <.Revision>`."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.up_revision:1 of
+msgid "Get :attr:`~.MigrationInfo.up_revision_id` as a :class:`.Revision`."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.up_revision_id:1 of
+msgid "Version string corresponding to :attr:`.Revision.revision`."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.up_revision_id:3 of
+msgid ""
+"In the case of a stamp operation, it is advised to use the "
+":attr:`.MigrationInfo.up_revision_ids` tuple as a stamp operation can "
+"make a single movement from one or more branches down to a single "
+"branchpoint, in which case there will be multiple \"up\" revisions."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.up_revision_id:10 of
+msgid ":attr:`.MigrationInfo.up_revision_ids`"
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.up_revision_ids:1 of
+msgid "Tuple of version strings corresponding to :attr:`.Revision.revision`."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.up_revision_ids:3 of
+msgid ""
+"In the majority of cases, this tuple will be a single value, synonomous "
+"with the scalar value of :attr:`.MigrationInfo.up_revision_id`. It can be"
+" multiple revision identifiers only in the case of an ``alembic stamp`` "
+"operation which is moving downwards from multiple branches down to their "
+"common branch point."
+msgstr ""
+
+#: alembic.runtime.migration.MigrationInfo.up_revisions:1 of
+msgid "Get :attr:`~.MigrationInfo.up_revision_ids` as a :class:`.Revision`."
+msgstr ""
+
+#: ../api/script.rst:5
+msgid "Script Directory"
+msgstr ""
+
+#: ../api/script.rst:7
+msgid ""
+"The :class:`.ScriptDirectory` object provides programmatic access to the "
+"Alembic version files present in the filesystem."
+msgstr ""
+
+#: alembic.script.ScriptDirectory:1 of
+msgid "Provides operations upon an Alembic script directory."
+msgstr ""
+
+#: alembic.script.ScriptDirectory:3 of
+msgid ""
+"This object is useful to get information as to current revisions, most "
+"notably being able to get at the \"head\" revision, for schemes that want"
+" to test if the current revision in the database is the most recent::"
+msgstr ""
+
+#: alembic.script.ScriptDirectory.as_revision_number:1 of
+msgid ""
+"Convert a symbolic revision, i.e. 'head' or 'base', into an actual "
+"revision number."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.from_config:1 of
+msgid "Produce a new :class:`.ScriptDirectory` given a :class:`.Config` instance."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.from_config:4 of
+msgid "The :class:`.Config` need only have the ``script_location`` key present."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:1 of
+msgid "Generate a new revision file."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:3 of
+msgid ""
+"This runs the ``script.py.mako`` template, given template arguments, and "
+"creates a new file."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:6 of
+msgid "String revision id.  Typically this comes from ``alembic.util.rev_id()``."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:8 of
+msgid ""
+"the revision message, the one passed by the -m argument to the "
+"``revision`` command."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:10 of
+msgid ""
+"the head revision to generate against.  Defaults to the current \"head\" "
+"if no branches are present, else raises an exception.  .. versionadded:: "
+"0.7.0"
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:10 of
+msgid ""
+"the head revision to generate against.  Defaults to the current \"head\" "
+"if no branches are present, else raises an exception."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:16 of
+msgid ""
+"if True, allow the \"head\" version to not be an actual head; otherwise, "
+"the selected head must be a head (e.g. endpoint) revision."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.generate_revision:19 of
+msgid "deprecated."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_base:1 of
+msgid "Return the \"base\" revision as a string."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_base:3 of
+msgid ""
+"This is the revision number of the script that has a ``down_revision`` of"
+" None."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_base:6 of
+msgid ""
+"If the script directory has multiple bases, an error is raised; "
+":meth:`.ScriptDirectory.get_bases` should be preferred."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_bases:1 of
+msgid "return all \"base\" revisions as strings."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_bases:3 of
+msgid ""
+"This is the revision number of all scripts that have a ``down_revision`` "
+"of None."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_current_head:1
+#: alembic.script.revision.RevisionMap.get_current_head:1 of
+msgid "Return the current head revision."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_current_head:3
+#: alembic.script.revision.RevisionMap.get_current_head:3 of
+msgid ""
+"If the script directory has multiple heads due to branching, an error is "
+"raised; :meth:`.ScriptDirectory.get_heads` should be preferred."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_current_head:8
+#: alembic.script.revision.RevisionMap.get_current_head:11 of
+msgid "a string revision number."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_current_head:12
+#: alembic.script.revision.RevisionMap.get_current_head:15 of
+msgid ":meth:`.ScriptDirectory.get_heads`"
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_heads:1 of
+msgid "Return all \"versioned head\" revisions as strings."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_heads:3 of
+msgid ""
+"This is normally a list of length one, unless branches are present.  The "
+":meth:`.ScriptDirectory.get_current_head()` method can be used normally "
+"when a script directory has only one head."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_heads:9
+#: alembic.script.revision.RevisionMap.bases:6
+#: alembic.script.revision.RevisionMap.heads:6 of
+msgid "a tuple of string revision numbers."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_revision:1 of
+msgid "Return the :class:`.Script` instance with the given rev id."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_revision:5 of
+msgid ":meth:`.ScriptDirectory.get_revisions`"
+msgstr ""
+
+#: alembic.script.ScriptDirectory.get_revisions:1 of
+msgid ""
+"Return the :class:`.Script` instance with the given rev identifier, "
+"symbolic name, or sequence of identifiers."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.iterate_revisions:1
+#: alembic.script.revision.RevisionMap.iterate_revisions:1 of
+msgid ""
+"Iterate through script revisions, starting at the given upper revision "
+"identifier and ending at the lower."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.iterate_revisions:4
+#: alembic.script.revision.RevisionMap.iterate_revisions:4 of
+msgid ""
+"The traversal uses strictly the `down_revision` marker inside each "
+"migration script, so it is a requirement that upper >= lower, else you'll"
+" get nothing back."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.iterate_revisions:9 of
+msgid "The iterator yields :class:`.Script` objects."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.iterate_revisions:13 of
+msgid ":meth:`.RevisionMap.iterate_revisions`"
+msgstr ""
+
+#: alembic.script.ScriptDirectory.run_env:1 of
+msgid "Run the script environment."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.run_env:3 of
+msgid ""
+"This basically runs the ``env.py`` script present in the migration "
+"environment.   It is called exclusively by the command functions in "
+":mod:`alembic.command`."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.walk_revisions:1 of
+msgid "Iterate through all revisions."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.walk_revisions:3 of
+msgid "the base revision, or \"base\" to start from the empty revision."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.walk_revisions:6 of
+msgid ""
+"the head revision; defaults to \"heads\" to indicate all head revisions."
+"  May also be \"head\" to indicate a single head revision.  .. "
+"versionchanged:: 0.7.0 the \"head\" identifier now refers to    the head "
+"of a non-branched repository only; use \"heads\" to    refer to the set "
+"of all head branches simultaneously."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.walk_revisions:6 of
+msgid ""
+"the head revision; defaults to \"heads\" to indicate all head revisions."
+"  May also be \"head\" to indicate a single head revision."
+msgstr ""
+
+#: alembic.script.ScriptDirectory.walk_revisions:10 of
+msgid ""
+"the \"head\" identifier now refers to the head of a non-branched "
+"repository only; use \"heads\" to refer to the set of all head branches "
+"simultaneously."
+msgstr ""
+
+#: alembic.script.Script:1 of
+msgid "Represent a single revision file in a ``versions/`` directory."
+msgstr ""
+
+#: alembic.script.Script:3 of
+msgid ""
+"The :class:`.Script` instance is returned by methods such as "
+":meth:`.ScriptDirectory.iterate_revisions`."
+msgstr ""
+
+#: alembic.script.Script.doc:1 alembic.script.Script.longdoc:1 of
+msgid "Return the docstring given in the script."
+msgstr ""
+
+#: alembic.script.Script.module:1 of
+msgid "The Python module representing the actual script itself."
+msgstr ""
+
+#: alembic.script.Script.path:1 of
+msgid "Filesystem path of the script."
+msgstr ""
+
+#: ../api/script.rst:14
+msgid "Revision"
+msgstr ""
+
+#: ../api/script.rst:16
+msgid ""
+"The :class:`.RevisionMap` object serves as the basis for revision "
+"management, used exclusively by :class:`.ScriptDirectory`."
+msgstr ""
+
+#: alembic.script.revision.Revision:1 of
+msgid "Base class for revisioned objects."
+msgstr ""
+
+#: alembic.script.revision.Revision:3 of
+msgid ""
+"The :class:`.Revision` class is the base of the more public-facing "
+":class:`.Script` object, which represents a migration script. The "
+"mechanics of revision management and traversal are encapsulated within "
+":class:`.Revision`, while :class:`.Script` applies this logic to Python "
+"files in a version directory."
+msgstr ""
+
+#: alembic.script.revision.Revision.branch_labels:1 of
+msgid "Optional string/tuple of symbolic names to apply to this revision's branch"
+msgstr ""
+
+#: alembic.script.revision.Revision.dependencies:1 of
+msgid "Additional revisions which this revision is dependent on."
+msgstr ""
+
+#: alembic.script.revision.Revision.dependencies:3 of
+msgid ""
+"From a migration standpoint, these dependencies are added to the "
+"down_revision to form the full iteration.  However, the separation of "
+"down_revision from \"dependencies\" is to assist in navigating a history "
+"that contains many branches, typically a multi-root scenario."
+msgstr ""
+
+#: alembic.script.revision.Revision.down_revision:1 of
+msgid "The ``down_revision`` identifier(s) within the migration script."
+msgstr ""
+
+#: alembic.script.revision.Revision.down_revision:3 of
+msgid ""
+"Note that the total set of \"down\" revisions is down_revision + "
+"dependencies."
+msgstr ""
+
+#: alembic.script.revision.Revision.is_base:1 of
+msgid "Return True if this :class:`.Revision` is a 'base' revision."
+msgstr ""
+
+#: alembic.script.revision.Revision.is_branch_point:1 of
+msgid "Return True if this :class:`.Script` is a branch point."
+msgstr ""
+
+#: alembic.script.revision.Revision.is_branch_point:3 of
+msgid ""
+"A branchpoint is defined as a :class:`.Script` which is referred to by "
+"more than one succeeding :class:`.Script`, that is more than one "
+":class:`.Script` has a `down_revision` identifier pointing here."
+msgstr ""
+
+#: alembic.script.revision.Revision.is_head:1 of
+msgid "Return True if this :class:`.Revision` is a 'head' revision."
+msgstr ""
+
+#: alembic.script.revision.Revision.is_head:3 of
+msgid ""
+"This is determined based on whether any other :class:`.Script` within the"
+" :class:`.ScriptDirectory` refers to this :class:`.Script`.   Multiple "
+"heads can be present."
+msgstr ""
+
+#: alembic.script.revision.Revision.is_merge_point:1 of
+msgid "Return True if this :class:`.Script` is a merge point."
+msgstr ""
+
+#: alembic.script.revision.Revision.nextrev:1 of
+msgid "following revisions, based on down_revision only."
+msgstr ""
+
+#: alembic.script.revision.Revision.revision:1 of
+msgid "The string revision number."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap:1 of
+msgid "Maintains a map of :class:`.Revision` objects."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap:3 of
+msgid ""
+":class:`.RevisionMap` is used by :class:`.ScriptDirectory` to maintain "
+"and traverse the collection of :class:`.Script` objects, which are "
+"themselves instances of :class:`.Revision`."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap:8 of
+msgid "Construct a new :class:`.RevisionMap`."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap:10 of
+msgid ""
+"a zero-arg callable that will generate an iterable of :class:`.Revision` "
+"instances to be used.   These are typically :class:`.Script` subclasses "
+"within regular Alembic use."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.add_revision:1 of
+msgid "add a single revision to an existing map."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.add_revision:3 of
+msgid ""
+"This method is for single-revision use cases, it's not appropriate for "
+"fully populating an entire revision map."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.bases:1 of
+msgid "All \"base\" revisions as strings."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.bases:3 of
+msgid "These are revisions that have a ``down_revision`` of None, or empty tuple."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.get_current_head:8 of
+msgid ""
+"optional branch name which will limit the heads considered to those which"
+" include that branch_label."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.get_revision:1 of
+msgid "Return the :class:`.Revision` instance with the given rev id."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.get_revision:3 of
+msgid ""
+"If a symbolic name such as \"head\" or \"base\" is given, resolves the "
+"identifier into the current head or base revision.  If the symbolic name "
+"refers to multiples, :class:`.MultipleHeads` is raised."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.get_revision:7
+#: alembic.script.revision.RevisionMap.get_revisions:11 of
+msgid ""
+"Supports partial identifiers, where the given identifier is matched "
+"against all identifiers that start with the given characters; if there is"
+" exactly one match, that determines the full revision."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.get_revisions:1 of
+msgid ""
+"Return the :class:`.Revision` instances with the given rev id or "
+"identifiers."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.get_revisions:4 of
+msgid ""
+"May be given a single identifier, a sequence of identifiers, or the "
+"special symbols \"head\" or \"base\".  The result is a tuple of one or "
+"more identifiers, or an empty tuple in the case of \"base\"."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.get_revisions:8 of
+msgid ""
+"In the cases where 'head', 'heads' is requested and the revision map is "
+"empty, returns an empty tuple."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.heads:1 of
+msgid "All \"head\" revisions as strings."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.heads:3 of
+msgid ""
+"This is normally a tuple of length one, unless unmerged branches are "
+"present."
+msgstr ""
+
+#: alembic.script.revision.RevisionMap.iterate_revisions:9 of
+msgid "The iterator yields :class:`.Revision` objects."
+msgstr ""
+

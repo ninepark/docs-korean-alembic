@@ -1,0 +1,44 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010-2019, Mike Bayer
+# This file is distributed under the same license as the Alembic package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Alembic 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-04 13:30+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../api/index.rst:5
+msgid "API Details"
+msgstr ""
+
+#: ../api/index.rst:7
+msgid ""
+"Alembic's internal API has many public integration points that can be "
+"used to extend Alembic's functionality as well as to re-use its "
+"functionality in new ways.   As the project has grown, more APIs are "
+"created and exposed for this purpose."
+msgstr ""
+
+#: ../api/index.rst:12
+msgid ""
+"Direct use of the vast majority of API details discussed here is not "
+"needed for rudimentary use of Alembic; the only API that is used normally"
+" by end users is the methods provided by the :class:`.Operations` class, "
+"which is discussed outside of this subsection, and the parameters that "
+"can be passed to the :meth:`.EnvironmentContext.configure` method, used "
+"when configuring one's ``env.py`` environment.  However, real-world "
+"applications will usually end up using more of the internal API, in "
+"particular being able to run commands programmatically, as discussed in "
+"the section :doc:`/api/commands`."
+msgstr ""
+

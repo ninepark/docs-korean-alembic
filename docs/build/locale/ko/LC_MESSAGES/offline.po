@@ -1,0 +1,114 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010-2019, Mike Bayer
+# This file is distributed under the same license as the Alembic package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Alembic 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-04 13:27+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../offline.rst:2
+msgid "Generating SQL Scripts (a.k.a. \"Offline Mode\")"
+msgstr ""
+
+#: ../offline.rst:4
+msgid ""
+"A major capability of Alembic is to generate migrations as SQL scripts, "
+"instead of running them against the database - this is also referred to "
+"as *offline mode*. This is a critical feature when working in large "
+"organizations where access to DDL is restricted, and SQL scripts must be "
+"handed off to DBAs.   Alembic makes this easy via the ``--sql`` option "
+"passed to any ``upgrade`` or ``downgrade`` command.   We can, for "
+"example, generate a script that revises up to rev ``ae1027a6acf``::"
+msgstr ""
+
+#: ../offline.rst:36
+msgid ""
+"While the logging configuration dumped to standard error, the actual "
+"script was dumped to standard output - so in the absence of further "
+"configuration (described later in this section), we'd at first be using "
+"output redirection to generate a script::"
+msgstr ""
+
+#: ../offline.rst:43
+msgid "Getting the Start Version"
+msgstr ""
+
+#: ../offline.rst:45
+msgid ""
+"Notice that our migration script started at the base - this is the "
+"default when using offline mode, as no database connection is present and"
+" there's no ``alembic_version`` table to read from."
+msgstr ""
+
+#: ../offline.rst:48
+msgid ""
+"One way to provide a starting version in offline mode is to provide a "
+"range to the command line. This is accomplished by providing the "
+"\"version\" in ``start:end`` syntax::"
+msgstr ""
+
+#: ../offline.rst:53
+msgid ""
+"The ``start:end`` syntax is only allowed in offline mode; in \"online\" "
+"mode, the ``alembic_version`` table is always used to get at the current "
+"version."
+msgstr ""
+
+#: ../offline.rst:56
+msgid ""
+"It's also possible to have the ``env.py`` script retrieve the \"last\" "
+"version from the local environment, such as from a local file.   A scheme"
+" like this would basically treat a local file in the same way "
+"``alembic_version`` works::"
+msgstr ""
+
+#: ../offline.rst:73
+msgid "Writing Migration Scripts to Support Script Generation"
+msgstr ""
+
+#: ../offline.rst:75
+msgid ""
+"The challenge of SQL script generation is that the scripts we generate "
+"can't rely upon any client/server database access.  This means a "
+"migration script that pulls some rows into memory via a ``SELECT`` "
+"statement will not work in ``--sql`` mode.   It's also important that the"
+" Alembic directives, all of which are designed specifically to work in "
+"both \"live execution\" as well as \"offline SQL generation\" mode, are "
+"used."
+msgstr ""
+
+#: ../offline.rst:82
+msgid "Customizing the Environment"
+msgstr ""
+
+#: ../offline.rst:84
+msgid ""
+"Users of the ``--sql`` option are encouraged to hack their ``env.py`` "
+"files to suit their needs.  The ``env.py`` script as provided is broken "
+"into two sections: ``run_migrations_online()`` and "
+"``run_migrations_offline()``.  Which function is run is determined at the"
+" bottom of the script by reading "
+":meth:`.EnvironmentContext.is_offline_mode`, which basically determines "
+"if the ``--sql`` flag was enabled."
+msgstr ""
+
+#: ../offline.rst:90
+msgid ""
+"For example, a multiple database configuration may want to run through "
+"each database and set the output of the migrations to different named "
+"files - the :meth:`.EnvironmentContext.configure` function accepts a "
+"parameter ``output_buffer`` for this purpose.  Below we illustrate this "
+"within the ``run_migrations_offline()`` function::"
+msgstr ""
+
